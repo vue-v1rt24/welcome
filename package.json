@@ -1,0 +1,23 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/image": "^1.9.0",
+    "@prisma/nuxt": "^0.3.0",
+    "@types/xml2js": "^0.4.14",
+    "nuxt": "^3.15.4",
+    "nuxt-scheduler": "^0.1.9",
+    "nuxt-viewport": "^2.2.0",
+    "vue": "latest",
+    "vue-router": "latest",
+    "xml2js": "^0.6.2"
+  }
+}

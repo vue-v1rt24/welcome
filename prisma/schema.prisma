@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//
+model Realty {
+  id          String  @id @default(cuid())
+  area        Float?
+  balcony     String?
+  category    String?
+  description String?
+  image       Json?
+  internet    Int?    @default(0)
+  lift        Int?    @default(0)
+  livingSpace Float?
+  location    Json?
+  phone       Int?    @default(0)
+  price       Float?
+  type        String?
+  url         String?
+  videoReview String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category, balcony, type])
+}
+
+model RealtyTwo {
+  id          String  @id @default(cuid())
+  area        Float?
+  balcony     String?
+  category    String?
+  description String?
+  image       Json?
+  internet    Int?    @default(0)
+  lift        Int?    @default(0)
+  livingSpace Float?
+  location    Json?
+  phone       Int?    @default(0)
+  price       Float?
+  type        String?
+  url         String?
+  videoReview String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category, balcony, type])
+}
