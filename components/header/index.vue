@@ -28,7 +28,24 @@ const isHome = computed(() => route.path === '/');
         </UiBtnPrimary>
       </li>
       <li>
-        <UiSelect title="Услуги" />
+        <UiSelect title="Услуги" bg-dark-active>
+          <div class="header__link">
+            <UiLink link="/legal-services" title="Юридические услуги" />
+            <UiLink link="/mortgage-services" title="Ипотечные услуги" />
+          </div>
+        </UiSelect>
+      </li>
+      <li>
+        <UiSelect title="Об агентстве" bg-dark-active>
+          <div class="header__link">
+            <UiLink link="/" title="Об агентстве" />
+            <UiLink link="/" title="Карьера" />
+            <UiLink link="/" title="Наши специалисты" />
+            <UiLink link="/" title="Лучшие проекты" />
+            <UiLink link="/" title="Сертификаты и награды" />
+            <UiLink link="/" title="Отзывы" />
+          </div>
+        </UiSelect>
       </li>
     </ul>
   </header>
@@ -54,5 +71,14 @@ const isHome = computed(() => route.path === '/');
   height: 46px;
   border-radius: 10px;
   padding: 12px 16px;
+}
+
+/*  */
+
+.header__link {
+  width: 211px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
 }
 </style>

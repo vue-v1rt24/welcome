@@ -15,7 +15,7 @@ const isOpen = ref(false);
       <ImagesArrowDown class="select__arrow" />
     </div>
 
-    <div class="select__content">
+    <div v-if="isOpen" class="select__content">
       <slot />
     </div>
   </div>
@@ -66,5 +66,16 @@ const isOpen = ref(false);
     color: var(--primary);
     transform: rotate(180deg);
   }
+}
+
+/*  */
+
+.select__content {
+  width: fit-content;
+  background-color: var(--white);
+  transform: translateY(12px);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+  padding: 16px;
 }
 </style>
