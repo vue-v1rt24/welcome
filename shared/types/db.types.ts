@@ -3,7 +3,6 @@ type TypeBooleanYesNo = 'да' | 'нет';
 
 //
 export type TypeDB = {
-  id?: string;
   area?: { unit: string; value: string }; // value число
   buildingType?: string; // Тип здания
   category?: string; // категория
