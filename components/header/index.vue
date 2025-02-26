@@ -14,18 +14,21 @@ const isHome = computed(() => route.path === '/');
   <header :class="['header', { whiteBg }]">
     <div class="logo">
       <NuxtLink v-if="!isHome" to="/">
-        <img src="/img/logo.svg" alt="" />
+        <img src="/images/logo.svg" alt="" />
       </NuxtLink>
 
-      <img v-else src="/img/logo.svg" alt="" />
+      <img v-else src="/images/logo.svg" alt="" />
     </div>
 
     <!--  -->
     <ul>
       <li>
-        <UiBtnPrimary class="" name="Недвижимость" @btn-click="">
-          <img src="/img/nav-nedvizh.svg" alt="" />
+        <UiBtnPrimary class="" title="Недвижимость" @btn-click="">
+          <img src="/images/nav-nedvizh.svg" alt="" />
         </UiBtnPrimary>
+      </li>
+      <li>
+        <UiSelect title="Услуги" />
       </li>
     </ul>
   </header>

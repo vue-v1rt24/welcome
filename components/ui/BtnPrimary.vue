@@ -1,6 +1,19 @@
 <script setup lang="ts">
-defineProps<{
-  name: string;
+const {
+  color = 'white',
+  colorHover = 'white',
+  colorActive = 'white',
+  bg = 'var(--primary)',
+  bgHover = '#2aaa3d',
+  bgActive = 'var(--secondary)',
+} = defineProps<{
+  title?: string;
+  color?: string;
+  colorHover?: string;
+  colorActive?: string;
+  bg?: string;
+  bgHover?: string;
+  bgActive?: string;
 }>();
 
 const emit = defineEmits<{
@@ -11,7 +24,7 @@ const emit = defineEmits<{
 <template>
   <button class="bt_nedvizh" type="button" @click="emit('btnClick')">
     <slot />
-    <span>{{ name }}</span>
+    <span v-if="title">{{ title }}</span>
   </button>
 </template>
 
@@ -19,11 +32,12 @@ const emit = defineEmits<{
 .bt_nedvizh {
   font-family: var(--font-family);
   font-size: 16px;
-  color: white;
-  background-color: var(--primary);
+  color: v-bind(color);
+  background-color: v-bind(bg);
   border: none;
 
   display: flex;
+  justify-content: center;
   align-items: center;
   column-gap: 10px;
 
@@ -31,11 +45,13 @@ const emit = defineEmits<{
 
   /*  */
   &:hover {
-    background-color: #2aaa3d;
+    color: v-bind(colorHover);
+    background-color: v-bind(bgHover);
   }
 
   &:is(:active, .active) {
-    background-color: var(--secondary);
+    color: v-bind(colorActive);
+    background-color: v-bind(bgActive);
   }
 }
 </style>
