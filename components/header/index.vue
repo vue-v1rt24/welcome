@@ -31,15 +31,15 @@ const isHome = computed(() => route.path === '/');
         </UiButton>
       </li>
       <li>
-        <UiSelect title="Услуги" :bg-dark-active="theme">
+        <UiSelectMenu title="Услуги" :bg-dark-active="theme">
           <div class="header__select">
             <UiLink link="/legal-services" title="Юридические услуги" />
             <UiLink link="/mortgage-services" title="Ипотечные услуги" />
           </div>
-        </UiSelect>
+        </UiSelectMenu>
       </li>
       <li>
-        <UiSelect title="Об агентстве" :bg-dark-active="theme">
+        <UiSelectMenu title="Об агентстве" :bg-dark-active="theme">
           <div class="header__select">
             <UiLink link="/agency" title="Об агентстве" />
             <UiLink link="/career" title="Карьера" />
@@ -48,7 +48,7 @@ const isHome = computed(() => route.path === '/');
             <UiLink link="/certificates" title="Сертификаты и награды" />
             <UiLink link="/reviews" title="Отзывы" />
           </div>
-        </UiSelect>
+        </UiSelectMenu>
       </li>
       <li>
         <NuxtLink class="header__link" to="/blog">Блог</NuxtLink>
@@ -76,11 +76,15 @@ const isHome = computed(() => route.path === '/');
         </UiButton>
       </li>
     </ul>
+
+    <!--  -->
+    <HeaderNedvizhimostModal />
   </header>
 </template>
 
 <style lang="css" scoped>
 .header {
+  position: relative;
   max-width: 1664px;
   background-color: var(--cloud-light);
 
