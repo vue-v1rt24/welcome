@@ -2,16 +2,19 @@
 const route = useRoute();
 
 //
-const { whiteBg = true } = defineProps<{
-  whiteBg?: boolean;
-}>();
+const theme = useTheme();
+
+//
+const isActiveBtnSearch = ref(false);
+const colorSearch = computed(() => (isActiveBtnSearch.value ? 'var(--white)' : 'var(--primary)'));
+const bgSearch = computed(() => (theme.value ? 'var(--cloud-light)' : 'var(--white)'));
 
 //
 const isHome = computed(() => route.path === '/');
 </script>
 
 <template>
-  <header :class="['header', { whiteBg }]">
+  <header :class="['header', { whiteBg: theme }]">
     <div class="logo">
       <NuxtLink v-if="!isHome" to="/">
         <img src="/images/logo.svg" alt="" />
@@ -21,31 +24,56 @@ const isHome = computed(() => route.path === '/');
     </div>
 
     <!--  -->
-    <ul>
+    <ul class="header_list_nedvizh">
       <li>
-        <UiBtnPrimary class="" title="Недвижимость" @btn-click="">
+        <UiButton class="header_btn_nedvizh" title="Недвижимость" @btn-click="">
           <img src="/images/nav-nedvizh.svg" alt="" />
-        </UiBtnPrimary>
+        </UiButton>
       </li>
       <li>
-        <UiSelect title="Услуги" bg-dark-active>
-          <div class="header__link">
+        <UiSelect title="Услуги" :bg-dark-active="theme">
+          <div class="header__select">
             <UiLink link="/legal-services" title="Юридические услуги" />
             <UiLink link="/mortgage-services" title="Ипотечные услуги" />
           </div>
         </UiSelect>
       </li>
       <li>
-        <UiSelect title="Об агентстве" bg-dark-active>
-          <div class="header__link">
-            <UiLink link="/" title="Об агентстве" />
-            <UiLink link="/" title="Карьера" />
-            <UiLink link="/" title="Наши специалисты" />
-            <UiLink link="/" title="Лучшие проекты" />
-            <UiLink link="/" title="Сертификаты и награды" />
-            <UiLink link="/" title="Отзывы" />
+        <UiSelect title="Об агентстве" :bg-dark-active="theme">
+          <div class="header__select">
+            <UiLink link="/agency" title="Об агентстве" />
+            <UiLink link="/career" title="Карьера" />
+            <UiLink link="/experts" title="Наши специалисты" />
+            <UiLink link="/projects" title="Лучшие проекты" />
+            <UiLink link="/certificates" title="Сертификаты и награды" />
+            <UiLink link="/reviews" title="Отзывы" />
           </div>
         </UiSelect>
+      </li>
+      <li>
+        <NuxtLink class="header__link" to="/blog">Блог</NuxtLink>
+      </li>
+      <li>
+        <NuxtLink class="header__link" to="/contacts">Контакты</NuxtLink>
+      </li>
+    </ul>
+
+    <!--  -->
+    <ul class="header_list_search">
+      <li>
+        <a class="header_link_tel" href="tel:+7 962 400 20 30">+7 962 400 20 30</a>
+      </li>
+      <li>
+        <UiButton
+          title="Найти"
+          color="var(--black)"
+          :bg="bgSearch"
+          :active="isActiveBtnSearch"
+          @btn-click="isActiveBtnSearch = !isActiveBtnSearch"
+          class="header_btn_search"
+        >
+          <ImagesSearch class="header_btn_search__svg" />
+        </UiButton>
       </li>
     </ul>
   </header>
@@ -54,31 +82,90 @@ const isHome = computed(() => route.path === '/');
 <style lang="css" scoped>
 .header {
   max-width: 1664px;
+  background-color: var(--cloud-light);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
   border-radius: 0 0 32px 32px;
   padding: 20px 30px 30px 30px;
   margin: 0 auto;
 
   /*  */
   &.whiteBg {
-    background-color: var(--cloud-light);
+    background-color: white;
   }
 }
 
 /*  */
 
-:deep(.bt_nedvizh) {
+.header_list_nedvizh {
+  display: flex;
+  align-items: center;
+  column-gap: 18px;
+}
+
+/*  */
+
+.header_btn_nedvizh {
   width: 181px;
-  height: 46px;
   border-radius: 10px;
   padding: 12px 16px;
 }
 
 /*  */
 
-.header__link {
+.header__select {
   width: 211px;
   display: flex;
   flex-direction: column;
   row-gap: 6px;
+}
+
+/*  */
+
+.header__link {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--black);
+  background-color: var(--white);
+  border: 2px solid #e6f0f2;
+  border-radius: 10px;
+  padding: 10px 16px;
+}
+
+/*  */
+
+.header_list_search {
+  display: flex;
+  align-items: center;
+  column-gap: 103px;
+}
+
+/*  */
+.header_link_tel {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--black);
+}
+
+/*  */
+
+.header_btn_search {
+  width: 116px;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+/*  */
+.header_btn_search__svg {
+  color: v-bind(colorSearch);
+
+  /*  */
+  .header_btn_search:hover & {
+    color: var(--white);
+  }
 }
 </style>

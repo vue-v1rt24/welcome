@@ -14,6 +14,7 @@ const {
   bg?: string;
   bgHover?: string;
   bgActive?: string;
+  active?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -22,7 +23,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <button class="bt_nedvizh" type="button" @click="emit('btnClick')">
+  <button :class="['bt_nedvizh', { active }]" type="button" @click="emit('btnClick')">
     <slot />
     <span v-if="title">{{ title }}</span>
   </button>

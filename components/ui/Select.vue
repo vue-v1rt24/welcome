@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const route = useRoute();
+
+//
 const { bgDarkActive = false } = defineProps<{
   title: string;
   bgDarkActive?: boolean;
@@ -6,6 +9,16 @@ const { bgDarkActive = false } = defineProps<{
 
 //
 const isOpen = ref(false);
+
+//
+watch(
+  () => route.path,
+  () => {
+    if (isOpen.value) {
+      isOpen.value = false;
+    }
+  },
+);
 </script>
 
 <template>
@@ -23,6 +36,7 @@ const isOpen = ref(false);
 
 <style lang="css" scoped>
 .select {
+  position: relative;
   cursor: pointer;
   user-select: none;
 }
@@ -71,9 +85,11 @@ const isOpen = ref(false);
 /*  */
 
 .select__content {
+  position: absolute;
+  top: 60px;
+  left: 0;
   width: fit-content;
   background-color: var(--white);
-  transform: translateY(12px);
   border-radius: 12px;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
   padding: 16px;
