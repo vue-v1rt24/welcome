@@ -1,7 +1,54 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { categoryMenu } from '~/public/data/categoryMenu';
+</script>
 
 <template>
-  <HeaderNedvizhimostModalPC />
+  <ul class="pc">
+    <Category v-for="category in categoryMenu" :key="category.title" :category />
+  </ul>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.pc {
+  position: absolute;
+  top: 154px;
+  left: 0;
+  width: 100%;
+
+  background-color: white;
+  border-radius: 32px;
+  padding: 32px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+
+  overflow-y: auto;
+  z-index: 101;
+
+  /*  */
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  /* &::-webkit-scrollbar-track-piece {
+    background-color: antiquewhite;
+    border-radius: 32px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: red;
+    border-radius: 32px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: blue;
+    border-radius: 32px;
+  } */
+
+  /*  */
+  @media (max-height: 900px) {
+    height: 500px;
+  }
+}
+</style>

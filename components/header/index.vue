@@ -3,14 +3,25 @@ const route = useRoute();
 
 //
 const theme = useTheme();
+const bgModal = useBgModal();
 
 //
 const isActiveBtnSearch = ref(false);
-const colorSearch = computed(() => (isActiveBtnSearch.value ? 'var(--white)' : 'var(--primary)'));
-const bgSearch = computed(() => (theme.value ? 'var(--cloud-light)' : 'var(--white)'));
 
 //
+const colorSearch = computed(() => (isActiveBtnSearch.value ? 'var(--white)' : 'var(--primary)'));
+const bgSearch = computed(() => (theme.value ? 'var(--cloud-light)' : 'var(--white)'));
 const isHome = computed(() => route.path === '/');
+
+//
+watch(
+  () => route.path,
+  (val) => {
+    if (val) {
+      bgModal.value = false;
+    }
+  },
+);
 </script>
 
 <template>
@@ -26,7 +37,11 @@ const isHome = computed(() => route.path === '/');
     <!--  -->
     <ul class="header_list_nedvizh">
       <li>
-        <UiButton class="header_btn_nedvizh" title="Недвижимость" @btn-click="">
+        <UiButton
+          :class="['header_btn_nedvizh', { active: bgModal }]"
+          title="Недвижимость"
+          @btn-click="bgModal = !bgModal"
+        >
           <img src="/images/nav-nedvizh.svg" alt="" />
         </UiButton>
       </li>
@@ -78,7 +93,7 @@ const isHome = computed(() => route.path === '/');
     </ul>
 
     <!--  -->
-    <HeaderNedvizhimostModal />
+    <LazyHeaderNedvizhimostModal v-if="bgModal" />
   </header>
 </template>
 
@@ -95,6 +110,7 @@ const isHome = computed(() => route.path === '/');
   border-radius: 0 0 32px 32px;
   padding: 20px 30px 30px 30px;
   margin: 0 auto;
+  z-index: 101;
 
   /*  */
   &.whiteBg {
@@ -108,6 +124,7 @@ const isHome = computed(() => route.path === '/');
   display: flex;
   align-items: center;
   column-gap: 18px;
+  z-index: 102;
 }
 
 /*  */

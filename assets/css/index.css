@@ -5,11 +5,17 @@
 /*  */
 body {
   min-width: 360px;
+  height: 300vh;
   font-family: var(--font-family);
   font-size: 18px;
   color: var(--black);
   background-color: var(--white);
   overflow-x: hidden;
+
+  /*  */
+  &.open {
+    overflow: hidden;
+  }
 }
 
 /*  */

@@ -34,12 +34,13 @@ const { bgDarkActive = false } = defineProps<{
   position: relative;
   width: fit-content;
   background-color: white;
+  border: 2px solid transparent;
   border-radius: 10px;
   padding: 12px 16px;
 
   /*  */
   .dark & {
-    border: 2px solid #e6f0f2;
+    border-color: #e6f0f2;
   }
 
   /*  */

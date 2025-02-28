@@ -11,7 +11,7 @@
       <div class="pc__item_links">
         <NuxtLink to="/kvartirs?type=odnokomnatnie">Однокомнатные</NuxtLink>
         <NuxtLink to="/kvartirs?type=dvuxkomnatnie">Двухкомнатные</NuxtLink>
-        <NuxtLink to="/kvartirs?type=trexkomnatnie">Трех и более</NuxtLink>
+        <NuxtLink to="/kvartirs?type=trexkomnatnie">Трёх и более</NuxtLink>
         <NuxtLink to="/kvartirs?type=studii">Квартиры-студии</NuxtLink>
         <NuxtLink to="/kvartirs?type=svobodnayaplanirovka">Свободная планировка</NuxtLink>
       </div>
