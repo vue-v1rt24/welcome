@@ -15,8 +15,20 @@ watch(
     Подвал
 
     <!--  -->
-    <LazyBgModal v-if="bgModal" @close="bgModal = !bgModal" />
+    <Transition name="bgModal">
+      <LazyBgModal v-if="bgModal" @close="bgModal = !bgModal" />
+    </Transition>
   </footer>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.bgModal-enter-active,
+.bgModal-leave-active {
+  transition: opacity var(--speed-animate) ease;
+}
+
+.bgModal-enter-from,
+.bgModal-leave-to {
+  opacity: 0;
+}
+</style>

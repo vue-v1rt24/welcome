@@ -3,6 +3,11 @@
 @import './variables.css';
 
 /*  */
+html {
+  scrollbar-gutter: stable;
+}
+
+/*  */
 body {
   min-width: 360px;
   height: 300vh;

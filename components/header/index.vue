@@ -75,8 +75,8 @@ watch(
 
     <!--  -->
     <ul class="header_list_search">
-      <li>
-        <a class="header_link_tel" href="tel:+7 962 400 20 30">+7 962 400 20 30</a>
+      <li class="header_link_tel">
+        <a href="tel:+7 962 400 20 30">+7 962 400 20 30</a>
       </li>
       <li>
         <UiButton
@@ -93,7 +93,9 @@ watch(
     </ul>
 
     <!--  -->
-    <LazyHeaderNedvizhimostModal v-if="bgModal" />
+    <Transition name="bgModal">
+      <LazyHeaderNedvizhimostModal v-if="bgModal" />
+    </Transition>
   </header>
 </template>
 
@@ -115,6 +117,14 @@ watch(
   /*  */
   &.whiteBg {
     background-color: white;
+  }
+}
+
+/*  */
+
+.logo {
+  @media (max-width: 1300px) {
+    width: 208px;
   }
 }
 
@@ -166,9 +176,16 @@ watch(
 
 /*  */
 .header_link_tel {
-  font-weight: 600;
-  font-size: 18px;
-  color: var(--black);
+  @media (max-width: 1600px) {
+    display: none;
+  }
+
+  /*  */
+  a {
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--black);
+  }
 }
 
 /*  */
@@ -188,5 +205,18 @@ watch(
   .header_btn_search:hover & {
     color: var(--white);
   }
+}
+
+/*  */
+
+.bgModal-enter-active,
+.bgModal-leave-active {
+  transition: opacity var(--speed-animate) ease, transform var(--speed-animate) ease;
+}
+
+.bgModal-enter-from,
+.bgModal-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
 }
 </style>

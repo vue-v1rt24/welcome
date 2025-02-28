@@ -50,5 +50,21 @@ import { categoryMenu } from '~/public/data/categoryMenu';
   @media (max-height: 900px) {
     height: 500px;
   }
+
+  @media (max-width: 1700px) {
+    width: 97%;
+    left: 50%;
+    translate: -50% 0;
+  }
+
+  @media (max-width: 1200px) {
+    top: 132px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 </style>

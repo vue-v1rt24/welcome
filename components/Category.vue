@@ -9,6 +9,9 @@ defineProps<{
     }[];
   };
 }>();
+
+//
+const viewport = useViewport();
 </script>
 
 <template>
@@ -19,7 +22,7 @@ defineProps<{
         <img src="/images/nedvizhimost/arrowNedvizh.svg" alt="" />
       </NuxtLink>
 
-      <div class="pc__item_links">
+      <div v-if="viewport.isGreaterOrEquals('screen1201')" class="pc__item_links">
         <NuxtLink v-for="item in category.items" :key="item.title" :to="item.link">
           {{ item.title }}
         </NuxtLink>
@@ -41,7 +44,19 @@ defineProps<{
 
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   column-gap: 64px;
+
+  /*  */
+  @media (max-width: 1400px) {
+    column-gap: 41px;
+    padding: 32px;
+  }
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    row-gap: 44px;
+  }
 }
 
 /*  */
@@ -52,12 +67,22 @@ defineProps<{
   font-size: 28px;
   color: var(--black);
   display: flex;
+  align-items: center;
   column-gap: 16px;
   transition: color var(--speed-animate);
 
   /*  */
   .pc__item:hover & {
     color: var(--primary);
+  }
+
+  /*  */
+  @media (max-width: 1300px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 22px;
   }
 }
 
@@ -67,6 +92,11 @@ defineProps<{
   flex-wrap: wrap;
   gap: 15px 30px;
   margin-top: 28px;
+
+  /*  */
+  @media (max-width: 1300px) {
+    margin-top: 20px;
+  }
 
   /*  */
   a {
@@ -83,6 +113,11 @@ defineProps<{
     }
 
     /*  */
+    @media (max-width: 1300px) {
+      font-size: 15px;
+    }
+
+    /*  */
     &::before {
       content: '';
       position: absolute;
@@ -93,11 +128,6 @@ defineProps<{
       background-color: var(--primary);
       border-radius: 50%;
     }
-
-    &:nth-child(3)::before,
-    &:last-child:before {
-      display: none;
-    }
   }
 }
 
@@ -107,6 +137,11 @@ defineProps<{
   position: relative;
   flex-shrink: 0;
   width: 220px;
+
+  /*  */
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
 
   /*  */
   &::before {
@@ -132,6 +167,11 @@ defineProps<{
   img {
     border-radius: 18px;
     isolation: isolate;
+
+    /*  */
+    @media (max-width: 1200px) {
+      width: 100%;
+    }
   }
 }
 </style>
