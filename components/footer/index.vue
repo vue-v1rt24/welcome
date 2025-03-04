@@ -5,7 +5,7 @@ const bgModal = useBgModal();
 watch(
   () => bgModal.value,
   (val) => {
-    document.body.classList.toggle('open', val);
+    document.body.classList.toggle('open_menu', val);
   },
 );
 </script>

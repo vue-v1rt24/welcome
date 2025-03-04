@@ -60,3 +60,6 @@ export const categoryMenu = [
     ],
   },
 ];
+
+//
+export type TypeCategoryMenu = typeof categoryMenu;

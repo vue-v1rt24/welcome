@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { type TypeMenu } from '~/public/data/menu';
+import { menu } from '~/public/data/menu';
 
 //
-defineProps<{
-  menu: TypeMenu;
-  theme: boolean;
-}>();
+const theme = useTheme();
 </script>
 
 <template>

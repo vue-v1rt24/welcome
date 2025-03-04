@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { menu } from '~/public/data/menu';
-
-//
 const route = useRoute();
 
 //
@@ -40,10 +37,10 @@ watch(
     </div>
 
     <!-- Меню для ПК -->
-    <HeaderMenuPC v-if="viewport.isGreaterThan('screen1200')" :menu :theme />
+    <HeaderMenuPC v-if="viewport.isGreaterThan('screen1200')" />
 
     <!-- Меню для моб. -->
-    <HeaderMenuMob v-else :menu :theme />
+    <HeaderMenuMob v-else />
 
     <!-- Фильтры -->
     <ul class="header_list_search">
@@ -85,6 +82,11 @@ watch(
   &.whiteBg {
     background-color: white;
   }
+
+  /*  */
+  @media (max-width: 1200px) {
+    column-gap: 18px;
+  }
 }
 
 /*  */
@@ -92,6 +94,10 @@ watch(
 .logo {
   @media (max-width: 1300px) {
     width: 208px;
+  }
+
+  @media (max-width: 1200px) {
+    margin-right: auto;
   }
 }
 

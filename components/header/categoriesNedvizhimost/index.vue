@@ -1,10 +1,22 @@
 <script setup lang="ts">
+import { categoryMenu } from '~/public/data/categoryMenu';
+
+//
 const bgModal = useBgModal();
-const isOpenMenuCategories = ref(false);
+const isOpenMenuCategories = useOpenClosedMenuCategories();
+const isOpenMenu = useOpenClosedMenu();
 
 //
 const openMenuCategories = () => {
-  bgModal.value = !bgModal.value;
+  // Закрытие модального окна меню
+  if (isOpenMenu.value) {
+    isOpenMenu.value = false;
+  } else {
+    // Открытие / Закрытие фона
+    bgModal.value = !bgModal.value;
+  }
+
+  // Открытие / Закрытие модального окна меню категорий
   isOpenMenuCategories.value = !isOpenMenuCategories.value;
 };
 
@@ -27,7 +39,10 @@ watch(bgModal, (val) => {
 
   <!--  -->
   <Transition name="bgModal">
-    <LazyHeaderCategoriesNedvizhimostModal v-if="isOpenMenuCategories" />
+    <LazyHeaderCategoriesNedvizhimostModal
+      v-if="isOpenMenuCategories"
+      :category-menu="categoryMenu"
+    />
   </Transition>
 </template>
 

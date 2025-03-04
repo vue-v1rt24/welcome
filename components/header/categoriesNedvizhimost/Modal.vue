@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { categoryMenu } from '~/public/data/categoryMenu';
+import { type TypeCategoryMenu } from '~/public/data/categoryMenu';
+
+defineProps<{
+  categoryMenu: TypeCategoryMenu;
+}>();
 </script>
 
 <template>
