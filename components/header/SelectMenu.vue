@@ -1,34 +1,18 @@
 <script setup lang="ts">
-const route = useRoute();
-
-//
 const { bgDarkActive = false } = defineProps<{
   title: string;
   bgDarkActive?: boolean;
 }>();
-
-//
-const isOpen = ref(false);
-
-//
-watch(
-  () => route.path,
-  () => {
-    if (isOpen.value) {
-      isOpen.value = false;
-    }
-  },
-);
 </script>
 
 <template>
-  <div :class="['select', { open: isOpen, dark: bgDarkActive }]" @click="isOpen = !isOpen">
+  <div :class="['select', { dark: bgDarkActive }]">
     <div class="select__top">
       <span class="select__title">{{ title }}</span>
       <ImagesArrowDown class="select__arrow" />
     </div>
 
-    <div v-if="isOpen" class="select__content">
+    <div class="select__content">
       <slot />
     </div>
   </div>
@@ -44,19 +28,32 @@ watch(
 /*  */
 
 .select__top {
+  position: relative;
   width: fit-content;
   background-color: white;
+  border: 2px solid transparent;
   border-radius: 10px;
   padding: 12px 16px;
 
   /*  */
   .dark & {
-    border: 2px solid #e6f0f2;
+    border-color: #e6f0f2;
   }
 
   /*  */
-  .open.dark & {
-    background-color: #e6f0f2;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    pointer-events: all;
   }
 }
 
@@ -70,15 +67,15 @@ watch(
 }
 
 /*  */
-
 .select__arrow {
   color: #abb2b3;
   transform: rotate(0deg);
+  transition: transform var(--speed-animate);
 
   /*  */
-  .open & {
+  .select:hover & {
     color: var(--primary);
-    transform: rotate(180deg);
+    transform: rotate(-180deg);
   }
 }
 
@@ -93,5 +90,19 @@ watch(
   border-radius: 12px;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
   padding: 16px;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: transform var(--speed-animate), opacity var(--speed-animate),
+    visibility var(--speed-animate);
+  z-index: 102;
+
+  /*  */
+  .select:hover & {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
 }
 </style>

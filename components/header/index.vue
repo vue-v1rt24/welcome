@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { menu } from '~/public/data/menu';
+
+//
 const route = useRoute();
 
 //
+const viewport = useViewport();
 const theme = useTheme();
 const bgModal = useBgModal();
 
@@ -13,7 +17,7 @@ const colorSearch = computed(() => (isActiveBtnSearch.value ? 'var(--white)' : '
 const bgSearch = computed(() => (theme.value ? 'var(--cloud-light)' : 'var(--white)'));
 const isHome = computed(() => route.path === '/');
 
-//
+// Закрытие фона при изменении маршрута
 watch(
   () => route.path,
   (val) => {
@@ -26,6 +30,7 @@ watch(
 
 <template>
   <header :class="['header', { whiteBg: theme }]">
+    <!-- Логотип -->
     <div class="logo">
       <NuxtLink v-if="!isHome" to="/">
         <img src="/images/logo.svg" alt="" />
@@ -34,46 +39,13 @@ watch(
       <img v-else src="/images/logo.svg" alt="" />
     </div>
 
-    <!--  -->
-    <ul class="header_list_nedvizh">
-      <li>
-        <UiButton
-          :class="['header_btn_nedvizh', { active: bgModal }]"
-          title="Недвижимость"
-          @btn-click="bgModal = !bgModal"
-        >
-          <img src="/images/nav-nedvizh.svg" alt="" />
-        </UiButton>
-      </li>
-      <li>
-        <UiSelectMenu title="Услуги" :bg-dark-active="theme">
-          <div class="header__select">
-            <UiLink link="/legal-services" title="Юридические услуги" />
-            <UiLink link="/mortgage-services" title="Ипотечные услуги" />
-          </div>
-        </UiSelectMenu>
-      </li>
-      <li>
-        <UiSelectMenu title="Об агентстве" :bg-dark-active="theme">
-          <div class="header__select">
-            <UiLink link="/agency" title="Об агентстве" />
-            <UiLink link="/career" title="Карьера" />
-            <UiLink link="/experts" title="Наши специалисты" />
-            <UiLink link="/projects" title="Лучшие проекты" />
-            <UiLink link="/certificates" title="Сертификаты и награды" />
-            <UiLink link="/reviews" title="Отзывы" />
-          </div>
-        </UiSelectMenu>
-      </li>
-      <li>
-        <NuxtLink class="header__link" to="/blog">Блог</NuxtLink>
-      </li>
-      <li>
-        <NuxtLink class="header__link" to="/contacts">Контакты</NuxtLink>
-      </li>
-    </ul>
+    <!-- Меню для ПК -->
+    <HeaderMenuPC v-if="viewport.isGreaterThan('screen1200')" :menu :theme />
 
-    <!--  -->
+    <!-- Меню для моб. -->
+    <HeaderMenuMob v-else :menu :theme />
+
+    <!-- Фильтры -->
     <ul class="header_list_search">
       <li class="header_link_tel">
         <a href="tel:+7 962 400 20 30">+7 962 400 20 30</a>
@@ -91,11 +63,6 @@ watch(
         </UiButton>
       </li>
     </ul>
-
-    <!--  -->
-    <Transition name="bgModal">
-      <LazyHeaderNedvizhimostModal v-if="bgModal" />
-    </Transition>
   </header>
 </template>
 
@@ -126,44 +93,6 @@ watch(
   @media (max-width: 1300px) {
     width: 208px;
   }
-}
-
-/*  */
-
-.header_list_nedvizh {
-  display: flex;
-  align-items: center;
-  column-gap: 18px;
-  z-index: 102;
-}
-
-/*  */
-
-.header_btn_nedvizh {
-  width: 181px;
-  border-radius: 10px;
-  padding: 12px 16px;
-}
-
-/*  */
-
-.header__select {
-  width: 211px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 6px;
-}
-
-/*  */
-
-.header__link {
-  font-weight: 600;
-  font-size: 16px;
-  color: var(--black);
-  background-color: var(--white);
-  border: 2px solid #e6f0f2;
-  border-radius: 10px;
-  padding: 10px 16px;
 }
 
 /*  */
@@ -205,18 +134,5 @@ watch(
   .header_btn_search:hover & {
     color: var(--white);
   }
-}
-
-/*  */
-
-.bgModal-enter-active,
-.bgModal-leave-active {
-  transition: opacity var(--speed-animate) ease, transform var(--speed-animate) ease;
-}
-
-.bgModal-enter-from,
-.bgModal-leave-to {
-  opacity: 0;
-  transform: scale(0.95);
 }
 </style>
