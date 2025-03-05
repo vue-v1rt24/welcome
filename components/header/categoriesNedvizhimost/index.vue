@@ -42,10 +42,12 @@ watch(bgModal, (val) => {
 
   <!--  -->
   <MenuTransition>
-    <LazyHeaderCategoriesNedvizhimostModal
-      v-if="isOpenMenuCategories"
-      :category-menu="categoryMenu"
-    />
+    <KeepAlive>
+      <LazyHeaderCategoriesNedvizhimostModal
+        v-if="isOpenMenuCategories"
+        :category-menu="categoryMenu"
+      />
+    </KeepAlive>
   </MenuTransition>
 </template>
 

@@ -3,6 +3,7 @@ CREATE TABLE "Realty" (
     "id" TEXT NOT NULL,
     "area" DOUBLE PRECISION,
     "buildingType" TEXT,
+    "buildingName" TEXT,
     "category" TEXT,
     "creationDate" TEXT,
     "lastUpdateDate" TEXT,

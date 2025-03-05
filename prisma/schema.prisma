@@ -15,6 +15,7 @@ model Realty {
   id                String  @id @default(cuid())
   area              Float?
   buildingType      String?
+  buildingName      String?
   category          String?
   creationDate      String?
   lastUpdateDate    String?

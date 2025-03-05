@@ -58,7 +58,9 @@ watch(bgModal, (val) => {
 
     <!-- Меню -->
     <MenuTransition>
-      <HeaderMenuMobModal v-if="isOpenMenu" :menu :category-menu="categoryMenu" />
+      <KeepAlive>
+        <HeaderMenuMobModal v-if="isOpenMenu" :menu :category-menu="categoryMenu" />
+      </KeepAlive>
     </MenuTransition>
   </div>
 </template>

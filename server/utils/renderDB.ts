@@ -53,6 +53,7 @@ export const renderDB = async () => {
         data: {
           area: offer.area?.value ? +offer.area.value : null,
           buildingType: offer.buildingType?.length ? offer.buildingType : null,
+          buildingName: offer.buildingName?.length ? offer.buildingName : null,
           category: offer.category?.length ? offer.category : null,
           creationDate: offer.creationDate?.length ? offer.creationDate : null,
           lastUpdateDate: offer.lastUpdateDate?.length ? offer.lastUpdateDate : null,

@@ -55,6 +55,9 @@ watch(bgModal, (val) => {
   >
     <ImagesSearch class="header_btn_search__svg" />
   </UiButton>
+
+  <!--  -->
+  <HeaderSearchFilters />
 </template>
 
 <style lang="css" scoped>
