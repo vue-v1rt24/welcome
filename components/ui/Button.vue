@@ -45,9 +45,11 @@ const emit = defineEmits<{
   transition: background-color var(--speed-animate);
 
   /*  */
-  &:hover {
-    color: v-bind(colorHover);
-    background-color: v-bind(bgHover);
+  @media (hover: hover) {
+    &:hover {
+      color: v-bind(colorHover);
+      background-color: v-bind(bgHover);
+    }
   }
 
   &:is(:active, .active) {

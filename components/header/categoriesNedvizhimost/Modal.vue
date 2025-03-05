@@ -51,8 +51,8 @@ defineProps<{
   } */
 
   /*  */
-  @media (max-height: 900px) {
-    height: 500px;
+  @media (max-height: 1024px) {
+    height: 70dvh;
   }
 
   @media (max-width: 1700px) {

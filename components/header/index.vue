@@ -7,11 +7,6 @@ const theme = useTheme();
 const bgModal = useBgModal();
 
 //
-const isActiveBtnSearch = ref(false);
-
-//
-const colorSearch = computed(() => (isActiveBtnSearch.value ? 'var(--white)' : 'var(--primary)'));
-const bgSearch = computed(() => (theme.value ? 'var(--cloud-light)' : 'var(--white)'));
 const isHome = computed(() => route.path === '/');
 
 // Закрытие фона при изменении маршрута
@@ -48,16 +43,7 @@ watch(
         <a href="tel:+7 962 400 20 30">+7 962 400 20 30</a>
       </li>
       <li>
-        <UiButton
-          title="Найти"
-          color="var(--black)"
-          :bg="bgSearch"
-          :active="isActiveBtnSearch"
-          @btn-click="isActiveBtnSearch = !isActiveBtnSearch"
-          class="header_btn_search"
-        >
-          <ImagesSearch class="header_btn_search__svg" />
-        </UiButton>
+        <HeaderSearch />
       </li>
     </ul>
   </header>
@@ -86,6 +72,12 @@ watch(
   /*  */
   @media (max-width: 1200px) {
     column-gap: 18px;
+    padding: 20px 40px;
+  }
+
+  @media (max-width: 576px) {
+    column-gap: 14px;
+    padding: 14px 20px;
   }
 }
 
@@ -98,6 +90,14 @@ watch(
 
   @media (max-width: 1200px) {
     margin-right: auto;
+  }
+
+  @media (max-width: 768px) {
+    width: 188px;
+  }
+
+  @media (max-width: 576px) {
+    width: 150px;
   }
 }
 
@@ -120,25 +120,6 @@ watch(
     font-weight: 600;
     font-size: 18px;
     color: var(--black);
-  }
-}
-
-/*  */
-
-.header_btn_search {
-  width: 116px;
-  font-weight: 600;
-  border-radius: 10px;
-  padding: 12px 16px;
-}
-
-/*  */
-.header_btn_search__svg {
-  color: v-bind(colorSearch);
-
-  /*  */
-  .header_btn_search:hover & {
-    color: var(--white);
   }
 }
 </style>

@@ -78,7 +78,6 @@ defineProps<{
   right: 10px;
 
   width: 340px;
-  height: 500px;
   background-color: var(--white);
   border-radius: 24px;
   display: flex;
@@ -86,6 +85,15 @@ defineProps<{
   row-gap: 24px;
   padding: 24px;
   overflow-y: auto;
+
+  /*  */
+  @media (max-height: 1000px) {
+    height: 70dvh;
+  }
+
+  @media (max-width: 576px) {
+    top: 88px;
+  }
 }
 
 /*  */

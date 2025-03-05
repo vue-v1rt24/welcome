@@ -4,6 +4,7 @@ import { categoryMenu } from '~/public/data/categoryMenu';
 
 //
 const theme = useTheme();
+const viewport = useViewport();
 
 //
 const bgModal = useBgModal();
@@ -34,8 +35,8 @@ watch(bgModal, (val) => {
 
 <template>
   <div :class="{ dark: theme }">
-    <ul class="menu_wrap">
-      <li>
+    <ul v-if="viewport.isGreaterOrEquals('screen576')" class="menu_wrap">
+      <li v-if="viewport.isGreaterThan('screen760')">
         <HeaderCategoriesNedvizhimost />
       </li>
       <li>
@@ -45,6 +46,12 @@ watch(bgModal, (val) => {
         </div>
       </li>
     </ul>
+
+    <!--  -->
+    <UiButton v-else :active="isOpenMenu" @btn-click="openMenu" class="menu_btn_mob">
+      <ImagesClose v-if="isOpenMenu" class="close_svg" />
+      <img v-else src="/images/nav-nedvizh.svg" alt="" />
+    </UiButton>
 
     <!-- Меню -->
     <Transition name="bgModal">
@@ -109,6 +116,22 @@ watch(bgModal, (val) => {
   .select__top.open & {
     color: var(--primary);
     transform: rotate(-180deg);
+  }
+}
+
+/*  */
+
+.menu_btn_mob {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 12px;
+
+  /*  */
+  .close_svg {
+    width: 16px;
+    height: 16px;
+    color: white;
   }
 }
 
