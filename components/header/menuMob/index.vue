@@ -10,12 +10,15 @@ const viewport = useViewport();
 const bgModal = useBgModal();
 const isOpenMenu = useOpenClosedMenu();
 const isOpenMenuCategories = useOpenClosedMenuCategories();
+const isOpenClosedSearch = useOpenClosedSearch();
 
 //
 const openMenu = () => {
   // Закрытие модального окна меню категорий
   if (isOpenMenuCategories.value) {
     isOpenMenuCategories.value = false;
+  } else if (isOpenClosedSearch.value) {
+    isOpenClosedSearch.value = false;
   } else {
     // Открытие / Закрытие фона
     bgModal.value = !bgModal.value;
@@ -25,7 +28,7 @@ const openMenu = () => {
   isOpenMenu.value = !isOpenMenu.value;
 };
 
-// Закрытие модального окна категорий
+// Закрытие модального окна меню
 watch(bgModal, (val) => {
   if (!val && isOpenMenu.value) {
     isOpenMenu.value = false;

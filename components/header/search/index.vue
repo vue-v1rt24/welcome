@@ -2,18 +2,45 @@
 const viewport = useViewport();
 const theme = useTheme();
 
-//
-const isActiveBtnSearch = ref(false);
+const bgModal = useBgModal();
+const isOpenClosedSearch = useOpenClosedSearch();
+const isOpenMenuCategories = useOpenClosedMenuCategories();
+const isOpenMenu = useOpenClosedMenu();
 
 //
-const colorSearch = computed(() => (isActiveBtnSearch.value ? 'var(--white)' : 'var(--primary)'));
+const colorSearch = computed(() => (isOpenClosedSearch.value ? 'var(--white)' : 'var(--primary)'));
+
 const bgSearch = computed(() => (theme.value ? 'var(--cloud-light)' : 'var(--white)'));
+
 const title = computed(() => {
   if (viewport.isLessThan('screen576')) {
     return '';
   }
 
   return 'Найти';
+});
+
+//
+const openSearch = () => {
+  // Закрытие модального окна меню
+  if (isOpenMenu.value) {
+    isOpenMenu.value = false;
+  } else if (isOpenMenuCategories.value) {
+    isOpenMenuCategories.value = false;
+  } else {
+    // Открытие / Закрытие фона
+    bgModal.value = !bgModal.value;
+  }
+
+  // Открытие / Закрытие модального окна поиска фильтров
+  isOpenClosedSearch.value = !isOpenClosedSearch.value;
+};
+
+// Закрытие модального окна поиска фильтров
+watch(bgModal, (val) => {
+  if (!val && isOpenClosedSearch.value) {
+    isOpenClosedSearch.value = false;
+  }
 });
 </script>
 
@@ -22,8 +49,8 @@ const title = computed(() => {
     :title
     color="var(--black)"
     :bg="bgSearch"
-    :active="isActiveBtnSearch"
-    @btn-click="isActiveBtnSearch = !isActiveBtnSearch"
+    :active="isOpenClosedSearch"
+    @btn-click="openSearch"
     class="header_btn_search"
   >
     <ImagesSearch class="header_btn_search__svg" />

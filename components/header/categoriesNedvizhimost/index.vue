@@ -5,12 +5,15 @@ import { categoryMenu } from '~/public/data/categoryMenu';
 const bgModal = useBgModal();
 const isOpenMenuCategories = useOpenClosedMenuCategories();
 const isOpenMenu = useOpenClosedMenu();
+const isOpenClosedSearch = useOpenClosedSearch();
 
 //
 const openMenuCategories = () => {
   // Закрытие модального окна меню
   if (isOpenMenu.value) {
     isOpenMenu.value = false;
+  } else if (isOpenClosedSearch.value) {
+    isOpenClosedSearch.value = false;
   } else {
     // Открытие / Закрытие фона
     bgModal.value = !bgModal.value;

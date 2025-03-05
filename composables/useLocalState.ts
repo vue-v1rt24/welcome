@@ -9,3 +9,6 @@ export const useOpenClosedMenuCategories = () => useState('openMenuCategories', 
 
 // Для открытия и закрытия модального окна меню в мобильной версии
 export const useOpenClosedMenu = () => useState('openClosedMenu', () => false);
+
+// Для открытия и закрытия модального окна поиска по фильтрам в шапке по кнопке "Найти"
+export const useOpenClosedSearch = () => useState('openClosedSearch', () => false);
