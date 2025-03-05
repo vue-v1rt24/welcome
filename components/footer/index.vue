@@ -15,20 +15,10 @@ watch(
     Подвал
 
     <!--  -->
-    <Transition name="bgModal">
+    <MenuTransition>
       <LazyBgModal v-if="bgModal" @close="bgModal = !bgModal" />
-    </Transition>
+    </MenuTransition>
   </footer>
 </template>
 
-<style lang="css" scoped>
-.bgModal-enter-active,
-.bgModal-leave-active {
-  transition: opacity var(--speed-animate) ease;
-}
-
-.bgModal-enter-from,
-.bgModal-leave-to {
-  opacity: 0;
-}
-</style>
+<style lang="css" scoped></style>

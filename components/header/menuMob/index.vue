@@ -54,9 +54,9 @@ watch(bgModal, (val) => {
     </UiButton>
 
     <!-- Меню -->
-    <Transition name="bgModal">
+    <MenuTransition>
       <HeaderMenuMobModal v-if="isOpenMenu" :menu :category-menu="categoryMenu" />
-    </Transition>
+    </MenuTransition>
   </div>
 </template>
 
@@ -133,18 +133,5 @@ watch(bgModal, (val) => {
     height: 16px;
     color: white;
   }
-}
-
-/*  */
-
-.bgModal-enter-active,
-.bgModal-leave-active {
-  transition: opacity var(--speed-animate) ease, transform var(--speed-animate) ease;
-}
-
-.bgModal-enter-from,
-.bgModal-leave-to {
-  opacity: 0;
-  transform: scale(0.95);
 }
 </style>

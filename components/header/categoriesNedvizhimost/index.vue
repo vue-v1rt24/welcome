@@ -38,12 +38,12 @@ watch(bgModal, (val) => {
   </UiButton>
 
   <!--  -->
-  <Transition name="bgModal">
+  <MenuTransition>
     <LazyHeaderCategoriesNedvizhimostModal
       v-if="isOpenMenuCategories"
       :category-menu="categoryMenu"
     />
-  </Transition>
+  </MenuTransition>
 </template>
 
 <style lang="css" scoped>
@@ -51,18 +51,5 @@ watch(bgModal, (val) => {
   width: 181px;
   border-radius: 10px;
   padding: 12px 16px;
-}
-
-/*  */
-
-.bgModal-enter-active,
-.bgModal-leave-active {
-  transition: opacity var(--speed-animate) ease, transform var(--speed-animate) ease;
-}
-
-.bgModal-enter-from,
-.bgModal-leave-to {
-  opacity: 0;
-  transform: scale(0.95);
 }
 </style>
