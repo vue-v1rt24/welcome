@@ -5,8 +5,6 @@ const theme = useTheme();
 //
 const isActiveBtnSearch = ref(false);
 
-console.log(viewport.isLessThan('screen576'));
-
 //
 const colorSearch = computed(() => (isActiveBtnSearch.value ? 'var(--white)' : 'var(--primary)'));
 const bgSearch = computed(() => (theme.value ? 'var(--cloud-light)' : 'var(--white)'));
