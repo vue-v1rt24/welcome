@@ -47,6 +47,7 @@ export type TypeDB = {
   lotType?: string; // тип лота
   kitchenSpace?: { unit: string; value: string }; // value число (Кухонное пространство)
   livingSpace?: { unit: string; value: string }; // value число (Жилое пространство)
+  newFlat?: string; // число (если 1, то новостройка, если нет параметра, то вторичное)
   garageType?: string; // Тип гаража
   purpose?: string; // цель
   rooms?: string; // число (комнаты)

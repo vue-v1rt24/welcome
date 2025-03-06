@@ -57,7 +57,9 @@ watch(bgModal, (val) => {
   </UiButton>
 
   <!--  -->
-  <HeaderSearchFilters />
+  <div class="header_filters_wrap">
+    <HeaderSearchFilters />
+  </div>
 </template>
 
 <style lang="css" scoped>
@@ -84,5 +86,18 @@ watch(bgModal, (val) => {
       color: var(--white);
     }
   }
+}
+
+/*  */
+
+.header_filters_wrap {
+  position: absolute;
+  top: 150px;
+  left: 0;
+  width: 100%;
+  background-color: var(--white);
+  box-shadow: 0 2px 12px -3px rgba(0, 0, 0, 0.1);
+  border-radius: 32px;
+  padding: 32px;
 }
 </style>

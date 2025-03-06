@@ -1,14 +1,15 @@
 <script setup lang="ts">
 defineProps<{
   title: string;
-  links: {
-    title: string;
-    link: string;
-  }[];
 }>();
 
 //
 const isOpenSelect = ref(false);
+
+/* 
+$slots.default
+const slots = useSlots();
+ */
 </script>
 
 <template>
@@ -20,42 +21,41 @@ const isOpenSelect = ref(false);
 
     <!--  -->
     <div class="select__sub_wrap">
-      <ul class="select__sub">
-        <li v-for="item in links" :key="item.title" class="select__sub_li">
-          <NuxtLink class="select__link" :to="item.link">{{ item.title }}</NuxtLink>
-        </li>
-      </ul>
+      <slot />
     </div>
   </div>
 </template>
 
 <style lang="css" scoped>
-.select__top {
+.select {
   position: relative;
+}
+
+/*  */
+
+.select__top {
   width: 100%;
   background-color: white;
-  border: 2px solid #e6f0f2;
-  border-radius: 14px;
+  border: 2px solid var(--line-gray);
+  border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 14px;
+  padding: 20px 24px;
+  cursor: pointer;
   transition: var(--speed-animate);
 
   /*  */
   .select.open & {
-    background-color: var(--cloud-light);
-    border-color: var(--cloud-light);
-    border-radius: 14px 14px 0 0;
-    padding-bottom: 0;
+    background-color: var(--line-gray);
   }
 }
 
 /*  */
 .select__title {
   font-family: var(--font-family);
-  font-weight: 700;
-  font-size: 14px;
+  font-weight: 500;
+  font-size: 17px;
   color: var(--black);
 }
 
@@ -75,47 +75,26 @@ const isOpenSelect = ref(false);
 /*  */
 
 .select__sub_wrap {
+  position: absolute;
+  top: 73px;
+  left: 0;
+
+  background-color: var(--white);
+
   display: grid;
   grid-template-rows: 0fr;
   opacity: 0;
   overflow: hidden;
   transition: grid-template-rows var(--speed-animate), opacity var(--speed-animate);
 
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+
   /*  */
   .select.open & {
     grid-template-rows: 1fr;
     opacity: 1;
-  }
-}
-
-/*  */
-.select__sub {
-  min-height: 0;
-  background-color: var(--cloud-light);
-  border-radius: 0 0 14px 14px;
-  padding: 0 14px;
-}
-
-/*  */
-.select__sub_li {
-  &:not(:last-child) {
-    border-bottom: 1px solid #d6e1e2;
-  }
-}
-
-/*  */
-.select__link {
-  font-family: var(--font-family);
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 100%;
-  color: var(--black);
-  display: block;
-  padding: 14px 0;
-
-  /*  */
-  &.active {
-    color: var(--primary);
   }
 }
 </style>

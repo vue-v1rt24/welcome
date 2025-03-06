@@ -87,6 +87,7 @@ export const renderDB = async () => {
           lotType: offer.lotType?.length ? offer.lotType : null,
           kitchenSpace: offer.kitchenSpace?.value ? +offer.kitchenSpace.value : null,
           livingSpace: offer.livingSpace?.value ? +offer.livingSpace.value : null,
+          newFlat: offer.newFlat ? +offer.newFlat : null,
           garageType: offer.garageType?.length ? offer.garageType : null,
           purpose: offer.purpose?.length ? offer.purpose : null,
           rooms: offer.rooms?.length ? +offer.rooms : null,

@@ -1,70 +1,99 @@
 <script setup lang="ts">
-import { LazyHeaderSearchFiltersKvartirs } from '#components';
+defineProps<{
+  front?: boolean;
+}>();
 
-// const currentComponent = shallowRef(LazyHeaderSearchFiltersKvartirs);
-const comp = ref<'Первый' | 'Второй' | 'Третий' | 'Четвёртый' | 'Пятый' | 'Шестой'>('Первый');
+//
+const titles = ['Квартиры', 'Новостройки', 'Дома', 'Участок', 'Коммерческая', 'Гаражи'] as const;
+type TypeTitles = (typeof titles)[number];
 
-const currentComp = computed(() =>
-  comp.value === 'Первый'
-    ? resolveComponent('LazyHeaderSearchFiltersKvartirs')
-    : comp.value === 'Второй'
+const nameFilter = ref<TypeTitles>('Квартиры');
+
+//
+const currentFilter = computed(() =>
+  nameFilter.value === titles[1]
     ? resolveComponent('LazyHeaderSearchFiltersNovostroiki')
-    : comp.value === 'Третий'
+    : nameFilter.value === titles[2]
     ? resolveComponent('LazyHeaderSearchFiltersDoma')
-    : comp.value === 'Четвёртый'
+    : nameFilter.value === titles[3]
     ? resolveComponent('LazyHeaderSearchFiltersUchastok')
-    : comp.value === 'Пятый'
+    : nameFilter.value === titles[4]
     ? resolveComponent('LazyHeaderSearchFiltersCommercheskaya')
-    : comp.value === 'Шестой'
+    : nameFilter.value === titles[5]
     ? resolveComponent('LazyHeaderSearchFiltersGaragi')
-    : 'div',
+    : resolveComponent('LazyHeaderSearchFiltersKvartirs'),
 );
 </script>
 
 <template>
-  <div>
-    <div class="filters_btn">
-      <label>
-        <input type="radio" v-model="comp" value="Первый" />
-        <input type="radio" v-model="comp" value="Второй" />
-        <input type="radio" v-model="comp" value="Третий" />
-        <input type="radio" v-model="comp" value="Четвёртый" />
-        <input type="radio" v-model="comp" value="Пятый" />
-        <input type="radio" v-model="comp" value="Шестой" />
-      </label>
+  <div :class="{ front }">
+    <!-- Кнопки фильтров -->
+    <div class="filters_btn_wrap">
+      <UiButton
+        v-for="item in titles"
+        :key="item"
+        :title="item"
+        color="var(--black)"
+        color-hover="var(--black)"
+        color-active="var(--cloud-light)"
+        bg="var(--cloud-light)"
+        bg-hover="#e5f1f3"
+        bg-active="var(--primary)"
+        :active="nameFilter === item"
+        @btn-click="nameFilter = item"
+        class="filter_btn"
+      />
     </div>
 
-    <!--  -->
-    <Transition name="slide-fade" mode="out-in">
-      <KeepAlive>
-        <component :is="currentComp" />
-      </KeepAlive>
-    </Transition>
+    <!-- Фильтры -->
+    <div class="filters_wrap">
+      <Transition name="slide-fade" mode="out-in">
+        <KeepAlive>
+          <component :is="currentFilter" />
+        </KeepAlive>
+      </Transition>
+    </div>
   </div>
-
-  <!-- 
-   <LazyHeaderSearchFiltersKvartirs />
-   <LazyHeaderSearchFiltersNovostroiki />
-   <LazyHeaderSearchFiltersDoma />
-   <LazyHeaderSearchFiltersUchastok />
-   <LazyHeaderSearchFiltersCommercheskaya />
-   <LazyHeaderSearchFiltersGaragi />
-   -->
 </template>
 
 <style lang="css" scoped>
-/* .fade-enter-active,
-.fade-leave-active {
+.filters_btn_wrap {
+  display: flex;
+  column-gap: 12px;
+  margin-bottom: 24px;
+}
+
+.filter_btn {
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 8px;
+  padding: 14px 24px;
+}
+
+/*  */
+
+.filters_wrap {
+  background-color: white;
+
+  /*  */
+  .front & {
+    padding: 24px;
+  }
+}
+
+/*  */
+
+/* .slide-fade-enter-active,
+.slide-fade-leave-active {
   transition: opacity 0.5s ease;
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.slide-fade-enter-from,
+.slide-fade-leave-to {
   opacity: 0;
 } */
 
 /*  */
-
 .slide-fade-enter-active {
   transition: all 0.3s ease-out;
 }

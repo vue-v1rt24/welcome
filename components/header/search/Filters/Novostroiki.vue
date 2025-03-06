@@ -1,6 +1,4 @@
-<script setup lang="ts">
-console.log(222);
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>Новостройки</div>

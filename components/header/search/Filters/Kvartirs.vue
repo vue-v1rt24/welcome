@@ -1,9 +1,9 @@
-<script setup lang="ts">
-console.log(111);
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div>Квартиры</div>
+  <div>
+    <UiFilterDropdown title="Тип недвижимости" />
+  </div>
 </template>
 
 <style lang="css" scoped></style>

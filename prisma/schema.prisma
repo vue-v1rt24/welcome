@@ -48,6 +48,7 @@ model Realty {
   lotType           String?
   kitchenSpace      Float?
   livingSpace       Float?
+  newFlat           Int?
   garageType        String?
   purpose           String?
   rooms             Int?
@@ -97,6 +98,7 @@ model RealtyTwo {
   lotType           String?
   kitchenSpace      Float?
   livingSpace       Float?
+  newFlat           Int?
   garageType        String?
   purpose           String?
   rooms             Int?
