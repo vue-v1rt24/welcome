@@ -4,12 +4,10 @@ defineProps<{
 }>();
 
 //
-const isOpenSelect = ref(false);
-
-/* 
-$slots.default
 const slots = useSlots();
- */
+
+//
+const isOpenSelect = ref(false);
 </script>
 
 <template>
@@ -20,7 +18,7 @@ const slots = useSlots();
     </div>
 
     <!--  -->
-    <div class="select__sub_wrap">
+    <div v-if="slots.default" class="select__sub_wrap">
       <slot />
     </div>
   </div>
@@ -29,6 +27,7 @@ const slots = useSlots();
 <style lang="css" scoped>
 .select {
   position: relative;
+  user-select: none;
 }
 
 /*  */
