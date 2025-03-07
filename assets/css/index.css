@@ -42,6 +42,6 @@ a {
 }
 
 /*  */
-input:not([type='number']):not([type='text']) {
+input:not([type='number']):not([type='text']):not([type='tel']) {
   display: none;
 }

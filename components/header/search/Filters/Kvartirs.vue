@@ -46,21 +46,14 @@ watch(queryData, (val) => {
     <!--  -->
     <UiFilterDropdown title="Площадь">
       <div class="area">
-        <UiFilterInput
-          type="number"
-          leftText="от"
-          sup
-          rightText="м <sup>2</sup>"
-          v-model="queryData.areaOt"
-        />
-        <UiFilterInput
-          type="number"
-          leftText="от"
-          sup
-          rightText="м <sup>2</sup>"
-          v-model="queryData.areaDo"
-        />
+        <UiFilterInput leftText="от" sup rightText="м <sup>2</sup>" v-model="queryData.areaOt" />
+        <UiFilterInput leftText="от" sup rightText="м <sup>2</sup>" v-model="queryData.areaDo" />
       </div>
+    </UiFilterDropdown>
+
+    <!--  -->
+    <UiFilterDropdown title="Район, улица, дом">
+      <UiFilterLocation />
     </UiFilterDropdown>
   </div>
 </template>

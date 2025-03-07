@@ -1,19 +1,41 @@
 <script setup lang="ts">
+import type { MaskInputOptions } from 'maska';
+
+//
 const priceOt = defineModel('priceOt');
 const priceDo = defineModel('priceDo');
+
+// Для форматирования чисел
+const options = reactive<MaskInputOptions>({
+  mask: '#-#',
+  eager: true,
+  number: { locale: 'ru' },
+});
+
+//
+const changeVal = (evt: Event, currentDefineModel: 'ot' | 'do') => {
+  const target = evt.target as HTMLInputElement;
+  const val = target.value;
+
+  if (currentDefineModel === 'ot') {
+    priceOt.value = +val.replace(/\s/g, '');
+  } else {
+    priceDo.value = +val.replace(/\s/g, '');
+  }
+};
 </script>
 
 <template>
   <div class="price">
     <label class="price__label">
       <span class="ot">От</span>
-      <input type="number" v-model="priceOt" />
+      <input type="text" @input="changeVal($event, 'ot')" v-maska="options" />
       <span class="valuta">₽</span>
     </label>
 
     <label class="price__label">
       <span class="ot">До</span>
-      <input type="number" v-model="priceDo" />
+      <input type="text" @input="changeVal($event, 'do')" v-maska="options" />
       <span class="valuta">₽</span>
     </label>
   </div>

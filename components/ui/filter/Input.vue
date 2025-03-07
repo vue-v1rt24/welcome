@@ -1,6 +1,9 @@
 <script setup lang="ts">
-const { type = 'text' } = defineProps<{
-  type?: 'text' | 'number';
+import type { MaskInputOptions } from 'maska';
+
+//
+defineProps<{
+  singleText?: boolean;
   leftText?: string;
   rightText?: string;
   sup?: boolean;
@@ -8,12 +11,29 @@ const { type = 'text' } = defineProps<{
 
 //
 const model = defineModel();
+
+// Для форматирования чисел
+const options = reactive<MaskInputOptions>({
+  mask: '#-#',
+  eager: true,
+  number: { locale: 'ru' },
+});
+
+//
+const changeVal = (evt: Event) => {
+  const target = evt.target as HTMLInputElement;
+  const val = target.value;
+  model.value = +val.replace(/\s/g, '');
+};
 </script>
 
 <template>
   <label class="label">
     <span v-if="leftText" class="title1">{{ leftText }}</span>
-    <input :type v-model="model" />
+
+    <input v-if="singleText" type="text" v-model="model" />
+    <input v-else type="text" @input="changeVal" v-maska="options" />
+
     <span v-if="rightText && !sup" class="title2">{{ rightText }}</span>
     <span v-if="rightText && sup" class="title2" v-html="rightText"></span>
   </label>
