@@ -1,0 +1,78 @@
+<script setup lang="ts">
+const priceOt = defineModel('priceOt');
+const priceDo = defineModel('priceDo');
+</script>
+
+<template>
+  <div class="price">
+    <label class="price__label">
+      <span class="ot">От</span>
+      <input type="number" v-model="priceOt" />
+      <span class="valuta">₽</span>
+    </label>
+
+    <label class="price__label">
+      <span class="ot">До</span>
+      <input type="number" v-model="priceDo" />
+      <span class="valuta">₽</span>
+    </label>
+  </div>
+</template>
+
+<style lang="css" scoped>
+.price {
+  display: flex;
+  column-gap: 20px;
+  border: 2px solid var(--line-gray);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+/*  */
+.price__label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+
+  /*  */
+  &:first-child::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    right: -12px;
+    width: 2px;
+    height: 18px;
+    background-color: var(--line-gray);
+  }
+
+  /*  */
+  input {
+    border: none;
+  }
+}
+
+/*  */
+.ot {
+  font-weight: 500;
+  font-size: 17px;
+  color: #abb2b3;
+}
+
+.valuta {
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--gray-text);
+}
+
+/*  */
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+</style>

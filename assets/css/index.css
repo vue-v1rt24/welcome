@@ -40,3 +40,8 @@ body {
 a {
   text-decoration: none;
 }
+
+/*  */
+input:not([type='number']):not([type='text']) {
+  display: none;
+}

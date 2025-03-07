@@ -90,10 +90,14 @@ const isOpenSelect = ref(false);
   border-radius: 12px;
   padding: 16px;
 
+  pointer-events: none;
+  z-index: 1;
+
   /*  */
   .select.open & {
     grid-template-rows: 1fr;
     opacity: 1;
+    pointer-events: all;
   }
 }
 </style>

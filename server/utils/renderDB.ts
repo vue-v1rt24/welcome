@@ -91,6 +91,7 @@ export const renderDB = async () => {
           garageType: offer.garageType?.length ? offer.garageType : null,
           purpose: offer.purpose?.length ? offer.purpose : null,
           rooms: offer.rooms?.length ? +offer.rooms : null,
+          roomsType: offer.roomsType ? offer.roomsType : null,
           ceilingHeight: offer.ceilingHeight?.length ? +offer.ceilingHeight : null,
           bathroomUnit: offer.bathroomUnit?.length ? offer.bathroomUnit : null,
           videoReview: offer.videoReview?.youtubeVideoReviewUrl

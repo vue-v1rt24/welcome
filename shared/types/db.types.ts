@@ -4,7 +4,7 @@ type TypeBooleanYesNo = 'да' | 'нет';
 //
 export type TypeDB = {
   id?: string;
-  area?: { unit: string; value: string }; // value число
+  area?: { unit: string; value: string }; // value число (общая площадь)
   buildingType?: string; // Тип здания
   buildingName?: string; // Название ЖК
   category?: string; // категория
@@ -35,7 +35,7 @@ export type TypeDB = {
   internet?: TypeBoolean; // строка "0" или "1" (интернет)
   rubbishChute?: TypeBoolean; // строка "0" или "1" (мусоропровод)
   lift?: TypeBoolean; // строка "0" или "1" (лифт)
-  price?: { currency?: string; value?: string }; // value число
+  price?: { currency?: string; value?: string }; // value число (стоимость жилья или помещения)
   propertyType?: string; // (тип недвижимости)
   renovation?: string; // ремонт (к примеру косметический)
   type?: string;
@@ -50,7 +50,8 @@ export type TypeDB = {
   newFlat?: string; // число (если 1, то новостройка, если нет параметра, то вторичное)
   garageType?: string; // Тип гаража
   purpose?: string; // цель
-  rooms?: string; // число (комнаты)
+  rooms?: string; // число (количество комнат)
+  roomsType?: string; // строка (тип квартиры: студия, распашонка, изолированная и др.)
   ceilingHeight?: string; // число (высота потолка)
   bathroomUnit?: string; // число или строка (ванная комната)
   videoReview?: { onlineShow?: TypeBoolean; youtubeVideoReviewUrl?: string }; // onlineShow строка "0" или "1", youtubeVideoReviewUrl ссылка на видео /  (Видео обзор)
