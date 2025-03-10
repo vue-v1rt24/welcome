@@ -1,0 +1,21 @@
+@import './fonts.css';
+
+:root {
+  --secondary: #008d35;
+  --black: #1a1a18;
+  --primary: #36b649;
+  --cloud-light: #eef8fa;
+  --gray: #cfcfd0;
+  --white: #fff;
+  --line-gray: #f1f3f3;
+  --gray-text: #899192;
+  --line-gray: #f1f3f3;
+
+  /*  */
+  --font-family: 'Manrope', sans-serif;
+  --second-family: 'Inter', sans-serif;
+  --third-family: 'Montserrat', sans-serif;
+
+  /*  */
+  --speed-animate: 0.3s;
+}

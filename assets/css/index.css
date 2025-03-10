@@ -1,0 +1,47 @@
+@import './reset.css';
+@import './wp-content.css';
+@import './variables.css';
+
+/*  */
+html {
+  scrollbar-gutter: stable;
+}
+
+/*  */
+body {
+  min-width: 360px;
+  height: 300vh;
+  font-family: var(--font-family);
+  font-size: 18px;
+  color: var(--black);
+  background-color: var(--white);
+  overflow-x: hidden;
+
+  /*  */
+  &.open_menu {
+    overflow: hidden;
+  }
+}
+
+/*  */
+.container {
+  max-width: 1600px;
+  box-sizing: content-box;
+  padding: 0 40px;
+  margin: 0 auto;
+
+  /*  */
+  @media (max-width: 576px) {
+    padding: 0 20px;
+  }
+}
+
+/*  */
+a {
+  text-decoration: none;
+}
+
+/*  */
+input:not([type='number']):not([type='text']):not([type='tel']) {
+  display: none;
+}
