@@ -1,38 +1,41 @@
 <script setup lang="ts">
-defineProps<{
+const { open = false } = defineProps<{
   title: string;
+  open?: boolean;
+}>();
+
+//
+const emit = defineEmits<{
+  clickDropdown: [];
 }>();
 
 //
 const slots = useSlots();
-
-//
-const isOpenSelect = ref(false);
 </script>
 
 <template>
-  <div :class="['select', { open: isOpenSelect }]">
-    <div class="select__top" @click="isOpenSelect = !isOpenSelect">
-      <span class="select__title">{{ title }}</span>
-      <ImagesArrowDown class="select__arrow" />
+  <div :class="['dropdown', { open }]">
+    <div class="dropdown__top" @click="emit('clickDropdown')">
+      <span class="dropdown__title">{{ title }}</span>
+      <ImagesArrowDown class="dropdown__arrow" />
     </div>
 
-    <!--  -->
-    <div v-if="slots.default" class="select__sub_wrap">
+    <div v-if="slots.default" class="dropdown__sub_wrap">
       <slot />
     </div>
   </div>
 </template>
 
 <style lang="css" scoped>
-.select {
+.dropdown {
   position: relative;
   user-select: none;
+  flex-shrink: 0;
 }
 
 /*  */
 
-.select__top {
+.dropdown__top {
   width: 100%;
   background-color: white;
   border: 2px solid var(--line-gray);
@@ -40,18 +43,19 @@ const isOpenSelect = ref(false);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
+  column-gap: 23px;
+  padding: 21px 24px;
   cursor: pointer;
   transition: var(--speed-animate);
 
   /*  */
-  .select.open & {
+  .dropdown.open & {
     background-color: var(--line-gray);
   }
 }
 
 /*  */
-.select__title {
+.dropdown__title {
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 17px;
@@ -59,13 +63,13 @@ const isOpenSelect = ref(false);
 }
 
 /*  */
-.select__arrow {
+.dropdown__arrow {
   color: #abb2b3;
   transform: rotate(0deg);
   transition: transform var(--speed-animate);
 
   /*  */
-  .select.open & {
+  .dropdown.open & {
     color: var(--primary);
     transform: rotate(-180deg);
   }
@@ -73,7 +77,7 @@ const isOpenSelect = ref(false);
 
 /*  */
 
-.select__sub_wrap {
+.dropdown__sub_wrap {
   position: absolute;
   top: 73px;
   left: 0;
@@ -94,7 +98,7 @@ const isOpenSelect = ref(false);
   z-index: 1;
 
   /*  */
-  .select.open & {
+  .dropdown.open & {
     grid-template-rows: 1fr;
     opacity: 1;
     pointer-events: all;

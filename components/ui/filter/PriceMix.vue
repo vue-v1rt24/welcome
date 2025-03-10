@@ -47,7 +47,7 @@ const changeVal = (evt: Event, currentDefineModel: 'ot' | 'do') => {
   column-gap: 20px;
   border: 2px solid var(--line-gray);
   border-radius: 12px;
-  padding: 20px 24px;
+  padding: 18px 24px;
 }
 
 /*  */
@@ -70,6 +70,7 @@ const changeVal = (evt: Event, currentDefineModel: 'ot' | 'do') => {
 
   /*  */
   input {
+    width: 100%;
     border: none;
   }
 }

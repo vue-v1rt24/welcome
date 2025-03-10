@@ -53,6 +53,7 @@ const changeVal = (evt: Event) => {
 
   /*  */
   input {
+    width: 100%;
     border: none;
   }
 }

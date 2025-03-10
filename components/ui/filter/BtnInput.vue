@@ -20,10 +20,11 @@ const model = defineModel();
 .label {
   font-weight: 500;
   font-size: 14px;
+  text-align: center;
   color: var(--black);
   background-color: #f1f4f4;
   border-radius: 12px;
-  padding: 12px 28px;
+  padding: 14px 28px;
   cursor: pointer;
   transition: color var(--speed-animate), background-color var(--speed-animate);
 

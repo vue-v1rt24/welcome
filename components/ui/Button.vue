@@ -37,6 +37,7 @@ const emit = defineEmits<{
   background-color: v-bind(bg);
   border: none;
 
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;

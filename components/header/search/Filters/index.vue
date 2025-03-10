@@ -7,9 +7,10 @@ defineProps<{
 const titles = ['Квартиры', 'Новостройки', 'Дома', 'Участок', 'Коммерческая', 'Гаражи'] as const;
 type TypeTitles = (typeof titles)[number];
 
+// Компонент по умолчанию
 const nameFilter = ref<TypeTitles>('Квартиры');
 
-//
+// Подгрузка компонентов
 const currentFilter = computed(() =>
   nameFilter.value === titles[1]
     ? resolveComponent('LazyHeaderSearchFiltersNovostroiki')
