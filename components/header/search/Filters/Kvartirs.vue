@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { data } = await useFetch('/api/kvartirs');
 
-// Для полей формы
+// Для полей ввода
 const queryData = reactive({
   newFlat: [],
 
@@ -12,6 +12,12 @@ const queryData = reactive({
 
   areaOt: '',
   areaDo: '',
+
+  location: {
+    city: '',
+    street: '',
+    house: '',
+  },
 });
 
 // Переключение выпадающий списков
@@ -78,6 +84,7 @@ const sendFilterHandler = () => {
 
 <template>
   <div class="filter_kvartir">
+    <!-- Тип недвижимости -->
     <UiFilterDropdown
       title="Тип недвижимости"
       :open="dropdowns.pervii"
@@ -89,10 +96,10 @@ const sendFilterHandler = () => {
       </div>
     </UiFilterDropdown>
 
-    <!--  -->
+    <!-- Стоимость -->
     <UiFilterPriceMix v-model:priceOt="queryData.priceOt" v-model:priceDo="queryData.priceDo" />
 
-    <!--  -->
+    <!-- Комнаты -->
     <UiFilterDropdown
       title="Комнаты"
       :open="dropdowns.vtoroi"
@@ -107,7 +114,7 @@ const sendFilterHandler = () => {
       </div>
     </UiFilterDropdown>
 
-    <!--  -->
+    <!-- Площадь -->
     <UiFilterDropdown
       title="Площадь"
       :open="dropdowns.tretii"
@@ -119,16 +126,29 @@ const sendFilterHandler = () => {
       </div>
     </UiFilterDropdown>
 
-    <!--  -->
+    <!-- Район, улица, дом -->
     <UiFilterDropdown
       title="Район, улица, дом"
       :open="dropdowns.chetvertii"
       @click-dropdown="dropdownHandler('chetvertii')"
     >
-      <UiFilterLocation />
+      <ul class="location">
+        <li>
+          <span class="location__title">Город</span>
+          <UiFilterSelect class="location__select" v-model="queryData.location.city" />
+        </li>
+        <li>
+          <span class="location__title">Улица</span>
+          <UiFilterSelect class="location__select" v-model="queryData.location.street" />
+        </li>
+        <li>
+          <span class="location__title">Дом</span>
+          <UiFilterSelect class="location__select" v-model="queryData.location.house" />
+        </li>
+      </ul>
     </UiFilterDropdown>
 
-    <!--  -->
+    <!-- Кнопка 'Показать предложения' -->
     <UiButton class="view_vars" title="Показать предложения" @btn-click="sendFilterHandler" />
   </div>
 </template>
@@ -170,5 +190,26 @@ const sendFilterHandler = () => {
   width: 239px;
   height: 63px;
   border-radius: 12px;
+}
+
+/*  */
+
+.location {
+  display: grid;
+  row-gap: 12px;
+}
+
+/*  */
+.location__title {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 150%;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/*  */
+.location__select {
+  width: 296px;
 }
 </style>

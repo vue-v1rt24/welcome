@@ -4,19 +4,27 @@ defineProps<{
 }>();
 
 //
-const emit = defineEmits<{
-  select: [];
-}>();
+const model = defineModel<string>({ required: true });
 
 //
 const isOpen = ref(false);
-const selectOption = ref();
+const selectVal = ref('Выберите');
+
+//
+watch(
+  () => model.value,
+  (val) => {
+    if (val) {
+      selectVal.value = val;
+    }
+  },
+);
 </script>
 
 <template>
-  <div :class="['select', { relative: !absolute, absolute, open: isOpen }]">
+  <div :class="['select', { absolute, open: isOpen }]">
     <div class="select__title" @click="isOpen = !isOpen">
-      <span>Выберите</span>
+      <span>{{ selectVal }}</span>
       <ImagesArrowDown class="select__arrow" />
     </div>
 
@@ -29,7 +37,7 @@ const selectOption = ref();
             type="radio"
             title="Вариант 1"
             value="Вариант 1"
-            v-model="selectOption"
+            v-model="model"
           />
         </li>
         <li class="select__options_option">
@@ -38,7 +46,7 @@ const selectOption = ref();
             type="radio"
             title="Вариант 2"
             value="Вариант 2"
-            v-model="selectOption"
+            v-model="model"
           />
         </li>
         <li class="select__options_option">
@@ -47,7 +55,7 @@ const selectOption = ref();
             type="radio"
             title="Вариант 3"
             value="Вариант 3"
-            v-model="selectOption"
+            v-model="model"
           />
         </li>
       </ul>
@@ -95,6 +103,7 @@ const selectOption = ref();
 /*  */
 
 .select__options_wrap {
+  background-color: var(--white);
   display: grid;
   grid-template-rows: 0fr;
   overflow: hidden;
@@ -104,6 +113,13 @@ const selectOption = ref();
   .select.open & {
     grid-template-rows: 1fr;
   }
+
+  /* Если есть класс absolute */
+  .select.absolute & {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
 }
 
 /*  */
@@ -112,21 +128,12 @@ const selectOption = ref();
   display: flex;
   flex-direction: column;
   row-gap: 6px;
-
-  /* Если класс relative */
-  .select.relative & {
-  }
+  margin-top: 0;
+  transition: margin-top var(--speed-animate);
 
   /*  */
   .select.open & {
-  }
-
-  /* Если класс absolute */
-  .select.absolute & {
-    position: absolute;
-    top: 62px;
-    left: 0;
-    width: 100%;
+    margin-top: 12px;
   }
 }
 
