@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const route = useRoute();
+
+console.log(route.query);
+</script>
 
 <template>
   <div>Квартиры</div>

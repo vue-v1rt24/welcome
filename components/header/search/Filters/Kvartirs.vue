@@ -1,9 +1,10 @@
 <script setup lang="ts">
-const { data } = await useFetch('/api/kvartirs');
+const { data } = await useFetch('/api/searchFilters/kvartirs');
+console.log(data.value);
 
 // Для полей ввода
 const queryData = reactive({
-  newFlat: [],
+  newFlat: [] as string[],
 
   priceOt: '',
   priceDo: '',
@@ -13,11 +14,9 @@ const queryData = reactive({
   areaOt: '',
   areaDo: '',
 
-  location: {
-    city: '',
-    street: '',
-    house: '',
-  },
+  locationCity: '',
+  locationStreet: '',
+  locationArea: '',
 });
 
 // Переключение выпадающий списков
@@ -78,7 +77,20 @@ const dropdownHandler = (title: 'pervii' | 'vtoroi' | 'tretii' | 'chetvertii') =
 
 // Отправка данных
 const sendFilterHandler = () => {
-  console.log(queryData);
+  const constructorGetParams = {} as typeof queryData;
+
+  for (const key in queryData) {
+    if (queryData[key] && typeof queryData[key] !== 'object') {
+      constructorGetParams[key] = queryData[key];
+    } else if (typeof queryData[key] === 'object' && queryData[key].length) {
+      constructorGetParams[key] = JSON.stringify(queryData[key]);
+    }
+  }
+
+  navigateTo({
+    path: '/kvartirs',
+    query: constructorGetParams,
+  });
 };
 </script>
 
@@ -122,7 +134,7 @@ const sendFilterHandler = () => {
     >
       <div class="area">
         <UiFilterInput leftText="от" sup rightText="м <sup>2</sup>" v-model="queryData.areaOt" />
-        <UiFilterInput leftText="от" sup rightText="м <sup>2</sup>" v-model="queryData.areaDo" />
+        <UiFilterInput leftText="до" sup rightText="м <sup>2</sup>" v-model="queryData.areaDo" />
       </div>
     </UiFilterDropdown>
 
@@ -135,15 +147,15 @@ const sendFilterHandler = () => {
       <ul class="location">
         <li>
           <span class="location__title">Город</span>
-          <UiFilterSelect class="location__select" v-model="queryData.location.city" />
+          <UiFilterSelect class="location__select" v-model="queryData.locationCity" />
         </li>
         <li>
           <span class="location__title">Улица</span>
-          <UiFilterSelect class="location__select" v-model="queryData.location.street" />
+          <UiFilterSelect class="location__select" v-model="queryData.locationStreet" />
         </li>
         <li>
-          <span class="location__title">Дом</span>
-          <UiFilterSelect class="location__select" v-model="queryData.location.house" />
+          <span class="location__title">Район</span>
+          <UiFilterSelect class="location__select" v-model="queryData.locationArea" />
         </li>
       </ul>
     </UiFilterDropdown>
