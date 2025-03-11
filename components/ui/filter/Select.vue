@@ -104,15 +104,15 @@ watch(
 /*  */
 
 .select__options_wrap {
+  height: 0;
+  opacity: 0;
   background-color: var(--white);
-  display: grid;
-  grid-template-rows: 0fr;
-  overflow: hidden;
-  transition: grid-template-rows var(--speed-animate);
+  transition: height 0.3s, opacity 0.3s, overflow-y 0.3s;
 
   /*  */
   .select.open & {
-    grid-template-rows: 1fr;
+    height: 140px;
+    opacity: 1;
   }
 
   /* Если есть класс absolute */
@@ -125,7 +125,8 @@ watch(
 
 /*  */
 .select__options {
-  min-height: 0;
+  height: 140px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   row-gap: 6px;
