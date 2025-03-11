@@ -16,6 +16,7 @@ watch(
   (val) => {
     if (val) {
       selectVal.value = val;
+      isOpen.value = false;
     }
   },
 );
