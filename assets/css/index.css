@@ -45,3 +45,26 @@ a {
 input:not([type='number']):not([type='text']):not([type='tel']) {
   display: none;
 }
+
+/*  */
+.title {
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 120%;
+  color: var(--black);
+  padding-top: 18px;
+
+  /*  */
+  @media (max-width: 1400px) {
+    font-size: 42px;
+  }
+
+  @media (max-width: 1160px) {
+    font-size: 38px;
+  }
+
+  @media (max-width: 685px) {
+    font-size: 26px;
+    padding-top: 12px;
+  }
+}

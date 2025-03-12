@@ -82,7 +82,7 @@ const currentFilter = computed(() =>
   }
 }
 
-/*  */
+/* Анимация переключения фильтров */
 
 /* .slide-fade-enter-active,
 .slide-fade-leave-active {

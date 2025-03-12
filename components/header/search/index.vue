@@ -57,9 +57,11 @@ watch(bgModal, (val) => {
   </UiButton>
 
   <!--  -->
-  <div class="header_filters_wrap">
-    <HeaderSearchFilters />
-  </div>
+  <MenuTransition>
+    <div v-if="isOpenClosedSearch" class="header_filters_wrap">
+      <HeaderSearchFilters />
+    </div>
+  </MenuTransition>
 </template>
 
 <style lang="css" scoped>
@@ -95,6 +97,7 @@ watch(bgModal, (val) => {
   top: 150px;
   left: 0;
   width: 100%;
+  height: 203px;
   background-color: var(--white);
   box-shadow: 0 2px 12px -3px rgba(0, 0, 0, 0.1);
   border-radius: 32px;
