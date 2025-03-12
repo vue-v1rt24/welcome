@@ -1,6 +1,8 @@
-<script setup lang="ts">
-defineProps<{
+<script setup lang="ts" generic="T extends string">
+const { list, reset } = defineProps<{
+  list: T[];
   absolute?: boolean;
+  reset?: boolean;
 }>();
 
 //
@@ -10,13 +12,24 @@ const model = defineModel<string>({ required: true });
 const isOpen = ref(false);
 const selectVal = ref('Выберите');
 
+// Вычисление высоты открывающегося списка
+const getHeight = computed(() =>
+  list.length === 1 ? '42px' : list.length === 2 ? '90px' : '140px',
+);
+
 //
 watch(
-  () => model.value,
-  (val) => {
-    if (val) {
-      selectVal.value = val;
+  () => [model.value, reset],
+  ([val1, val2]) => {
+    // Установка значения заголовку выбранного варианта
+    if (val1) {
+      selectVal.value = val1 as string;
       isOpen.value = false;
+    }
+
+    // Сброс заголовка списка
+    if (val2) {
+      selectVal.value = 'Выберите';
     }
   },
 );
@@ -30,35 +43,19 @@ watch(
     </div>
 
     <!--  -->
-    <div class="select__options_wrap">
+    <div class="select__options_wrap" :style="{ '--selectHeight': getHeight }">
       <ul class="select__options">
-        <li class="select__options_option_item">
-          <UiFilterBtnInput
-            class="select__options_option"
-            type="radio"
-            title="Вариант 1"
-            value="Вариант 1"
-            v-model="model"
-          />
-        </li>
-        <li class="select__options_option">
-          <UiFilterBtnInput
-            class="select__options_option"
-            type="radio"
-            title="Вариант 2"
-            value="Вариант 2"
-            v-model="model"
-          />
-        </li>
-        <li class="select__options_option">
-          <UiFilterBtnInput
-            class="select__options_option"
-            type="radio"
-            title="Вариант 3"
-            value="Вариант 3"
-            v-model="model"
-          />
-        </li>
+        <template v-for="item in list" :key="item">
+          <li v-if="item.length" class="select__options_option_item">
+            <UiFilterBtnInput
+              type="radio"
+              :title="item"
+              :value="item"
+              v-model="model"
+              class="select__options_option"
+            />
+          </li>
+        </template>
       </ul>
     </div>
   </div>
@@ -111,7 +108,8 @@ watch(
 
   /*  */
   .select.open & {
-    height: 140px;
+    /* height: 140px; */
+    height: var(--selectHeight);
     opacity: 1;
   }
 
@@ -125,7 +123,8 @@ watch(
 
 /*  */
 .select__options {
-  height: 140px;
+  /* height: 140px; */
+  height: var(--selectHeight);
   overflow-y: auto;
   display: flex;
   flex-direction: column;

@@ -1,11 +1,38 @@
 import prisma from '~/lib/prisma';
 
+type TypeQuery = {
+  localityName: string;
+  subLocalityName: string;
+  address: string;
+};
+
 export default defineEventHandler(async (event) => {
+  const query = getQuery(event) as TypeQuery;
   const table = getActiveTable();
 
   const res = await prisma[table].findMany({
     where: {
-      category: 'квартира',
+      AND: [
+        { category: 'квартира' },
+        {
+          location: {
+            path: ['localityName'],
+            string_contains: query.localityName,
+          },
+        },
+        {
+          location: {
+            path: ['subLocalityName'],
+            string_contains: query.subLocalityName,
+          },
+        },
+        {
+          location: {
+            path: ['address'],
+            string_starts_with: query.address,
+          },
+        },
+      ],
     },
     select: {
       location: true,

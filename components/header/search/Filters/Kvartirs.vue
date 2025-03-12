@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const { data } = await useFetch('/api/searchFilters/kvartirs');
-console.log(data.value);
+// Получение данных для фильтра "Город, район, улица"
+let { data: filterLocation, refresh } = await useFetch('/api/searchFilters/kvartirs');
 
 // Для полей ввода
 const queryData = reactive({
@@ -20,63 +20,33 @@ const queryData = reactive({
 });
 
 // Переключение выпадающий списков
-const dropdowns = reactive({
-  pervii: false,
-  vtoroi: false,
-  tretii: false,
-  chetvertii: false,
-});
+const selectSwitch = ref('');
 
-const dropdownHandler = (title: 'pervii' | 'vtoroi' | 'tretii' | 'chetvertii') => {
-  switch (title) {
-    case 'pervii':
-      if (dropdowns.pervii) {
-        return (dropdowns.pervii = false);
-      }
-
-      dropdowns.pervii = true;
-      dropdowns.vtoroi = false;
-      dropdowns.tretii = false;
-      dropdowns.chetvertii = false;
-      break;
-
-    case 'vtoroi':
-      if (dropdowns.vtoroi) {
-        return (dropdowns.vtoroi = false);
-      }
-
-      dropdowns.vtoroi = true;
-      dropdowns.pervii = false;
-      dropdowns.tretii = false;
-      dropdowns.chetvertii = false;
-      break;
-
-    case 'tretii':
-      if (dropdowns.tretii) {
-        return (dropdowns.tretii = false);
-      }
-
-      dropdowns.tretii = true;
-      dropdowns.pervii = false;
-      dropdowns.vtoroi = false;
-      dropdowns.chetvertii = false;
-      break;
-
-    case 'chetvertii':
-      if (dropdowns.chetvertii) {
-        return (dropdowns.chetvertii = false);
-      }
-
-      dropdowns.chetvertii = true;
-      dropdowns.tretii = false;
-      dropdowns.pervii = false;
-      dropdowns.vtoroi = false;
-      break;
+const dropdownHandler = (val: string) => {
+  if (selectSwitch.value === val) {
+    return (selectSwitch.value = '');
   }
+
+  selectSwitch.value = val;
+};
+
+// Сброс селектов
+const isSelectReset = ref(false);
+
+const selectReset = () => {
+  queryData.locationCity = '';
+  queryData.locationStreet = '';
+  queryData.locationArea = '';
+
+  isSelectReset.value = true;
+
+  refresh();
+
+  setTimeout(() => (isSelectReset.value = false), 1000);
 };
 
 // Отправка данных
-const sendFilterHandler = () => {
+const sendFilterHandler = async () => {
   const constructorGetParams = {} as typeof queryData;
 
   for (const key in queryData) {
@@ -87,11 +57,31 @@ const sendFilterHandler = () => {
     }
   }
 
-  navigateTo({
+  await navigateTo({
     path: '/kvartirs',
     query: constructorGetParams,
   });
 };
+
+// Изменение параметров фильтра "Город, район, улица"
+watch(
+  () => [queryData.locationCity, queryData.locationArea, queryData.locationStreet],
+  async (val) => {
+    console.log(val);
+
+    const res = await $fetch('/api/searchFilters/kvartirs/changeLocations', {
+      query: {
+        localityName: val[0],
+        subLocalityName: val[1],
+        address: val[2],
+      },
+    });
+
+    // filterLocation.value!.subCity = res.subCity;
+    // filterLocation.value!.address = res.address;
+    filterLocation.value = res;
+  },
+);
 </script>
 
 <template>
@@ -99,7 +89,7 @@ const sendFilterHandler = () => {
     <!-- Тип недвижимости -->
     <UiFilterDropdown
       title="Тип недвижимости"
-      :open="dropdowns.pervii"
+      :open="selectSwitch === 'pervii'"
       @click-dropdown="dropdownHandler('pervii')"
     >
       <div class="type">
@@ -114,7 +104,7 @@ const sendFilterHandler = () => {
     <!-- Комнаты -->
     <UiFilterDropdown
       title="Комнаты"
-      :open="dropdowns.vtoroi"
+      :open="selectSwitch === 'vtoroi'"
       @click-dropdown="dropdownHandler('vtoroi')"
     >
       <div class="rooms">
@@ -129,7 +119,7 @@ const sendFilterHandler = () => {
     <!-- Площадь -->
     <UiFilterDropdown
       title="Площадь"
-      :open="dropdowns.tretii"
+      :open="selectSwitch === 'tretii'"
       @click-dropdown="dropdownHandler('tretii')"
     >
       <div class="area">
@@ -138,24 +128,45 @@ const sendFilterHandler = () => {
       </div>
     </UiFilterDropdown>
 
-    <!-- Район, улица, дом -->
+    <!-- Город, район, улица -->
     <UiFilterDropdown
-      title="Район, улица, дом"
-      :open="dropdowns.chetvertii"
+      title="Город, район, улица"
+      :open="selectSwitch === 'chetvertii'"
       @click-dropdown="dropdownHandler('chetvertii')"
     >
       <ul class="location">
         <li>
-          <span class="location__title">Город</span>
-          <UiFilterSelect class="location__select" v-model="queryData.locationCity" />
+          <button type="button" @click="selectReset">Сброс</button>
         </li>
         <li>
-          <span class="location__title">Улица</span>
-          <UiFilterSelect class="location__select" v-model="queryData.locationStreet" />
+          <span class="location__title">Город</span>
+          <UiFilterSelect
+            v-if="filterLocation?.city"
+            :list="filterLocation.city"
+            v-model="queryData.locationCity"
+            :reset="isSelectReset"
+            class="location__select"
+          />
         </li>
         <li>
           <span class="location__title">Район</span>
-          <UiFilterSelect class="location__select" v-model="queryData.locationArea" />
+          <UiFilterSelect
+            v-if="filterLocation?.subCity"
+            :list="filterLocation.subCity"
+            v-model="queryData.locationArea"
+            :reset="isSelectReset"
+            class="location__select"
+          />
+        </li>
+        <li>
+          <span class="location__title">Улица</span>
+          <UiFilterSelect
+            v-if="filterLocation?.address"
+            :list="filterLocation.address"
+            v-model="queryData.locationStreet"
+            :reset="isSelectReset"
+            class="location__select"
+          />
         </li>
       </ul>
     </UiFilterDropdown>
