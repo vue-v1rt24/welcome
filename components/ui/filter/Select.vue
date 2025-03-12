@@ -18,6 +18,9 @@ const getHeight = computed(() =>
 );
 
 //
+const isDisabled = computed(() => !list[0].length);
+
+//
 watch(
   () => [model.value, reset],
   ([val1, val2]) => {
@@ -29,6 +32,7 @@ watch(
 
     // Сброс заголовка списка
     if (val2) {
+      isOpen.value = false;
       selectVal.value = 'Выберите';
     }
   },
@@ -36,7 +40,7 @@ watch(
 </script>
 
 <template>
-  <div :class="['select', { absolute, open: isOpen }]">
+  <div :class="['select', { disabled: isDisabled, absolute, open: isOpen && !isDisabled }]">
     <div class="select__title" @click="isOpen = !isOpen">
       <span>{{ selectVal }}</span>
       <ImagesArrowDown class="select__arrow" />
@@ -64,6 +68,11 @@ watch(
 <style lang="css" scoped>
 .select {
   position: relative;
+
+  /*  */
+  &.disabled {
+    pointer-events: none;
+  }
 }
 
 /*  */
@@ -108,7 +117,6 @@ watch(
 
   /*  */
   .select.open & {
-    /* height: 140px; */
     height: var(--selectHeight);
     opacity: 1;
   }
@@ -123,17 +131,18 @@ watch(
 
 /*  */
 .select__options {
-  /* height: 140px; */
   height: var(--selectHeight);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   row-gap: 6px;
   margin-top: 0;
+  pointer-events: none;
   transition: margin-top var(--speed-animate);
 
   /*  */
   .select.open & {
+    pointer-events: all;
     margin-top: 12px;
   }
 }

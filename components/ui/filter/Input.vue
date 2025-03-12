@@ -32,7 +32,7 @@ const changeVal = (evt: Event) => {
     <span v-if="leftText" class="title1">{{ leftText }}</span>
 
     <input v-if="singleText" type="text" v-model="model" />
-    <input v-else type="text" @input="changeVal" v-maska="options" />
+    <input v-else type="text" @input="changeVal" :value="model" v-maska="options" />
 
     <span v-if="rightText && !sup" class="title2">{{ rightText }}</span>
     <span v-if="rightText && sup" class="title2" v-html="rightText"></span>

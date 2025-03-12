@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Получение данных для фильтра "Город, район, улица"
-let { data: filterLocation, refresh } = await useFetch('/api/searchFilters/kvartirs');
+const { data: filterLocation, refresh } = await useFetch('/api/searchFilters/kvartirs');
 
 // Для полей ввода
 const queryData = reactive({
@@ -30,7 +30,12 @@ const dropdownHandler = (val: string) => {
   selectSwitch.value = val;
 };
 
-// Сброс селектов
+// Показ кнопки "Сброс" в фильтре "Город, район, улица"
+const isVisibleBtnReset = computed(
+  () => queryData.locationCity || queryData.locationArea || queryData.locationStreet,
+);
+
+// Сброс фильтра "Город, район, улица"
 const isSelectReset = ref(false);
 
 const selectReset = () => {
@@ -61,14 +66,24 @@ const sendFilterHandler = async () => {
     path: '/kvartirs',
     query: constructorGetParams,
   });
+
+  // Сброс всех фильтров
+  queryData.newFlat = [];
+  queryData.priceOt = '';
+  queryData.priceDo = '';
+  queryData.rooms = '';
+  queryData.areaOt = '';
+  queryData.areaDo = '';
+
+  selectSwitch.value = '';
+
+  selectReset();
 };
 
 // Изменение параметров фильтра "Город, район, улица"
 watch(
   () => [queryData.locationCity, queryData.locationArea, queryData.locationStreet],
   async (val) => {
-    console.log(val);
-
     const res = await $fetch('/api/searchFilters/kvartirs/changeLocations', {
       query: {
         localityName: val[0],
@@ -77,8 +92,6 @@ watch(
       },
     });
 
-    // filterLocation.value!.subCity = res.subCity;
-    // filterLocation.value!.address = res.address;
     filterLocation.value = res;
   },
 );
@@ -136,7 +149,14 @@ watch(
     >
       <ul class="location">
         <li>
-          <button type="button" @click="selectReset">Сброс</button>
+          <button
+            v-if="isVisibleBtnReset"
+            class="location__reset"
+            type="button"
+            @click="selectReset"
+          >
+            Сброс
+          </button>
         </li>
         <li>
           <span class="location__title">Город</span>
@@ -218,8 +238,19 @@ watch(
 /*  */
 
 .location {
+  position: relative;
   display: grid;
   row-gap: 12px;
+}
+
+/*  */
+.location__reset {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 14px;
+  background-color: transparent;
+  border: none;
 }
 
 /*  */

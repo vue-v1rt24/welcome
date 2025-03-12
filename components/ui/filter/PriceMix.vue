@@ -29,13 +29,13 @@ const changeVal = (evt: Event, currentDefineModel: 'ot' | 'do') => {
   <div class="price">
     <label class="price__label">
       <span class="ot">От</span>
-      <input type="text" @input="changeVal($event, 'ot')" v-maska="options" />
+      <input type="text" @input="changeVal($event, 'ot')" :value="priceOt" v-maska="options" />
       <span class="valuta">₽</span>
     </label>
 
     <label class="price__label">
       <span class="ot">До</span>
-      <input type="text" @input="changeVal($event, 'do')" v-maska="options" />
+      <input type="text" @input="changeVal($event, 'do')" :value="priceDo" v-maska="options" />
       <span class="valuta">₽</span>
     </label>
   </div>
