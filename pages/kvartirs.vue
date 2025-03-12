@@ -1,7 +1,13 @@
 <script setup lang="ts">
 const route = useRoute();
+// console.log(route.query);
 
-console.log(route.query);
+//
+const { data: apartments } = await useFetch('/api/pages/kvartirs', {
+  query: route.query,
+});
+
+console.log(apartments.value);
 </script>
 
 <template>

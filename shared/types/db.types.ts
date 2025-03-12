@@ -51,7 +51,7 @@ export type TypeDB = {
   garageType?: string; // Тип гаража
   purpose?: string; // цель
   rooms?: string; // число (количество комнат)
-  roomsType?: string; // строка (тип квартиры: студия, распашонка, изолированная и др.)
+  roomsType?: string; // строка (тип квартиры: студия, распашонка, изолированная, смежно-изолированная, 2-х уровневая и др.)
   ceilingHeight?: string; // число (высота потолка)
   bathroomUnit?: string; // число или строка (ванная комната)
   videoReview?: { onlineShow?: TypeBoolean; youtubeVideoReviewUrl?: string }; // onlineShow строка "0" или "1", youtubeVideoReviewUrl ссылка на видео /  (Видео обзор)
