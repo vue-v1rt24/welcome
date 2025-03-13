@@ -15,7 +15,7 @@ export type TypeDB = {
   floorsTotal?: string; // число (общее количество этажей)
   windowView?: string; // вид из окна
   parkingType?: string; // тип парковки
-  balcony?: string; // строка
+  balcony?: string; // строка (балкон, лоджия)
   image?: string[]; // Изображения
   location?: {
     address?: string;

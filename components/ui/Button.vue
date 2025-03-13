@@ -43,7 +43,7 @@ const emit = defineEmits<{
   align-items: center;
   column-gap: 10px;
 
-  transition: background-color var(--speed-animate);
+  transition: color var(--speed-animate), background-color var(--speed-animate);
 
   /*  */
   @media (hover: hover) {

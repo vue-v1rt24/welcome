@@ -32,8 +32,22 @@ watch(
         class="page_breadcrumbs"
       />
 
-      <!--  -->
-      <h1 class="title">Квартиры</h1>
+      <!-- Заголовок -->
+      <h1 class="title">{{ apartments?.title }}</h1>
+
+      <!-- Кнопки фильтров -->
+      <div class="filter_btns">
+        <UiButton
+          title="Однокомнатные"
+          bg="var(--line-gray)"
+          bg-hover="#f3f8f4"
+          bg-active="var(--primary)"
+          color=" var(--black)"
+          color-hover="var(--primary)"
+          color-active="var(--white)"
+          class="filter_btn"
+        />
+      </div>
     </div>
   </section>
 </template>
@@ -41,5 +55,14 @@ watch(
 <style lang="css" scoped>
 .page_breadcrumbs {
   padding-top: 52px;
+}
+
+/*  */
+
+.filter_btns {
+  display: flex;
+  gap: 16px;
+
+  /*  */
 }
 </style>

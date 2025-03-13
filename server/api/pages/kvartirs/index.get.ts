@@ -5,6 +5,7 @@ import { TypeFrontFilter } from '~/server/types/pages/kvartirs.types';
 export default defineEventHandler(async (event) => {
   const query = getQuery(event) as TypeFrontFilter;
   const table = getActiveTable();
+  let title = 'Квартиры';
 
   // Построение запроса для отправки в БД
   const renderQueryDB: any = {};
@@ -27,22 +28,27 @@ export default defineEventHandler(async (event) => {
   // 0 - студия; 1 - однокомнатные; 2 - двухкомнатные; 3 - трёхкомнатные; 4 - четырёхкомнатные и более; 5 - трёхкомнатные и более; 6 - свободная планировка
   if (query.rooms) {
     const roomsNumber = +query.rooms;
-
     if (roomsNumber === 0) {
+      title = 'Студии';
       renderQueryDB.roomsType = 'студия';
     } else if (roomsNumber === 4) {
+      title = 'Четырёхкомнатные и более';
       renderQueryDB.rooms = {
         gte: 4,
         lte: 10,
       };
     } else if (roomsNumber === 5) {
+      title = 'Трёхкомнатные и более';
       renderQueryDB.rooms = {
         gte: 3,
         lte: 10,
       };
     } else if (roomsNumber === 6) {
+      title = 'Свободная планировка';
       renderQueryDB.roomsType = 'свободная';
     } else {
+      title =
+        roomsNumber === 1 ? 'Однокомнатные' : roomsNumber === 2 ? 'Двухкомнатные' : 'Трёхкомнатные';
       renderQueryDB.rooms = roomsNumber;
     }
   }
@@ -91,8 +97,23 @@ export default defineEventHandler(async (event) => {
   // Запрос
   const res = await prisma.realty.findMany({
     where: renderQueryDB,
+    select: {
+      id: true,
+      image: true,
+      price: true,
+      rooms: true,
+      area: true,
+      floor: true,
+      floorsTotal: true,
+      location: true,
+    },
+    skip: 0,
+    take: 16,
   });
 
   //
-  return res;
+  return {
+    title,
+    res,
+  };
 });
