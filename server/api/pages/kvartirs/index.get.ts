@@ -1,69 +1,96 @@
 import prisma from '~/lib/prisma';
 
-/* 
-{
-    "newFlat": "[\"0\",\"1\"]", // число (если 1, то новостройка, если нет параметра, то вторичное)
-    "priceOt": "1",
-    "priceDo": "2",
-    "rooms": "0",
-    "areaOt": "3",
-    "areaDo": "4",
-    "locationCity": "Ставрополь",
-    "locationStreet": "Мира улица",
-    "locationArea": "Ленинский"
-}
- */
+import { TypeFrontFilter } from '~/server/types/pages/kvartirs.types';
 
 export default defineEventHandler(async (event) => {
-  const query = getQuery(event);
+  const query = getQuery(event) as TypeFrontFilter;
   const table = getActiveTable();
 
-  // Построение запроса
-  const newQuery = {};
+  // Построение запроса для отправки в БД
+  const renderQueryDB: any = {};
 
-  //
+  // Новостройки или вторичное
+  if (query.newFlat) {
+    const arrNewFlat = JSON.parse(query.newFlat).map((item: string) => +item);
+    renderQueryDB.newFlat = { in: arrNewFlat };
+  }
+
+  // Стоимость
+  if (query.priceOt || query.priceDo) {
+    renderQueryDB.price = {
+      gte: query.priceOt ? +query.priceOt : undefined,
+      lte: query.priceDo ? +query.priceDo : undefined,
+    };
+  }
+
+  // Тип квартиры (студия, однокомнатная, двухкомнатная и т.д.)
+  // 0 - студия; 1 - однокомнатные; 2 - двухкомнатные; 3 - трёхкомнатные; 4 - четырёхкомнатные и более; 5 - трёхкомнатные и более; 6 - свободная планировка
+  if (query.rooms) {
+    const roomsNumber = +query.rooms;
+
+    if (roomsNumber === 0) {
+      renderQueryDB.roomsType = 'студия';
+    } else if (roomsNumber === 4) {
+      renderQueryDB.rooms = {
+        gte: 4,
+        lte: 10,
+      };
+    } else if (roomsNumber === 5) {
+      renderQueryDB.rooms = {
+        gte: 3,
+        lte: 10,
+      };
+    } else if (roomsNumber === 6) {
+      renderQueryDB.roomsType = 'свободная';
+    } else {
+      renderQueryDB.rooms = roomsNumber;
+    }
+  }
+
+  // Площадь
+  if (query.areaOt || query.areaDo) {
+    renderQueryDB.area = {
+      gte: query.areaOt ? +query.areaOt : undefined,
+      lte: query.areaDo ? +query.areaDo : undefined,
+    };
+  }
+
+  // Город, район, улица
+  if (query.locationCity || query.locationArea || query.locationStreet) {
+    renderQueryDB.AND = [];
+
+    if (query.locationCity) {
+      renderQueryDB.AND.push({
+        location: {
+          path: ['localityName'],
+          equals: query.locationCity,
+        },
+      });
+    }
+
+    if (query.locationArea) {
+      renderQueryDB.AND.push({
+        location: {
+          path: ['subLocalityName'],
+          equals: query.locationArea,
+        },
+      });
+    }
+
+    if (query.locationStreet) {
+      renderQueryDB.AND.push({
+        location: {
+          path: ['address'],
+          string_starts_with: query.locationStreet,
+        },
+      });
+    }
+  }
+  // /Построение запроса
+
+  // Запрос
   const res = await prisma.realty.findMany({
-    where: {
-      category: 'квартира',
-      newFlat: { in: [0, 1] },
-      price: {
-        gte: 1_000_000,
-        lte: 6_500_000,
-      },
-      rooms: 1,
-      area: { gte: 20, lte: 50 },
-      AND: [
-        // { category: 'квартира' },
-        // { newFlat: { in: [0, 1] } },
-        /* {
-          price: {
-            gte: 1_000_000,
-            lte: 6_500_000,
-          },
-        }, */
-        // { rooms: 1 },
-        // { roomsType: 'студия' },
-        // { area: { gte: 20, lte: 50 } },
-        {
-          location: {
-            path: ['localityName'],
-            equals: 'Ставрополь',
-          },
-        },
-        {
-          location: {
-            path: ['subLocalityName'],
-            equals: 'Ленинский',
-          },
-        },
-        {
-          location: {
-            path: ['address'],
-            string_starts_with: 'Ленина улица',
-          },
-        },
-      ],
-    },
+    where: renderQueryDB,
   });
 
   //

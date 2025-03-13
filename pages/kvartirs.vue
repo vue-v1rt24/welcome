@@ -8,6 +8,19 @@ const { data: apartments } = await useFetch('/api/pages/kvartirs', {
 });
 
 console.log(apartments.value);
+
+// Отслеживание Гет параметров
+watch(
+  () => route.query,
+  async (val) => {
+    const res = await $fetch('/api/pages/kvartirs', {
+      query: route.query,
+    });
+
+    apartments.value = res;
+    console.log(apartments.value);
+  },
+);
 </script>
 
 <template>

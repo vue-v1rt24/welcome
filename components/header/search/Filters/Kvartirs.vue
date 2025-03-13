@@ -2,6 +2,9 @@
 // Получение данных для фильтра "Город, район, улица"
 const { data: filterLocation, refresh } = await useFetch('/api/searchFilters/kvartirs');
 
+//
+const bgModal = useBgModal();
+
 // Для полей ввода
 const queryData = reactive({
   newFlat: [] as string[],
@@ -19,7 +22,7 @@ const queryData = reactive({
   locationArea: '',
 });
 
-// Переключение выпадающий списков
+// Переключение выпадающих списков
 const selectSwitch = ref('');
 
 const dropdownHandler = (val: string) => {
@@ -52,6 +55,7 @@ const selectReset = () => {
 
 // Отправка данных
 const sendFilterHandler = async () => {
+  // Добавляем Гет параметры в адресную строку
   const constructorGetParams = {} as typeof queryData;
 
   for (const key in queryData) {
@@ -62,6 +66,7 @@ const sendFilterHandler = async () => {
     }
   }
 
+  //
   await navigateTo({
     path: '/kvartirs',
     query: constructorGetParams,
@@ -78,6 +83,9 @@ const sendFilterHandler = async () => {
   selectSwitch.value = '';
 
   selectReset();
+
+  // Закрытие фильтра
+  bgModal.value = false;
 };
 
 // Изменение параметров фильтра "Город, район, улица"
