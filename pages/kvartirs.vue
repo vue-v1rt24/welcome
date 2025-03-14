@@ -9,7 +9,10 @@ const { data: apartments } = await useFetch('/api/pages/kvartirs', {
 
 console.log(apartments.value);
 
-// Отслеживание Гет параметров
+// Для активного класса кнопки фильтра
+const activeBtnFilter = ref(apartments.value?.title);
+
+// Отслеживание Гет параметров и отправка запроса
 watch(
   () => route.query,
   async (val) => {
@@ -19,8 +22,30 @@ watch(
 
     apartments.value = res;
     console.log(apartments.value);
+
+    // Установка активной кнопки фильтра
+    activeBtnFilter.value = apartments.value.title;
   },
 );
+
+// ============ Фильтрация по кнопкам
+// Кнопки фильтров
+const btns = [
+  { title: 'Однокомнатные', type: '1' },
+  { title: 'Двухкомнатные', type: '2' },
+  { title: 'Трёх и более', type: '5' },
+  { title: 'Квартиры студии', type: '0' },
+  { title: 'Свободная планировка', type: '6' },
+];
+
+// Отправка запроса
+const btnFilterHandler = async (btnData: { title: string; type: string }) => {
+  await navigateTo({
+    query: {
+      rooms: btnData.type,
+    },
+  });
+};
 </script>
 
 <template>
@@ -38,16 +63,22 @@ watch(
       <!-- Кнопки фильтров -->
       <div class="filter_btns">
         <UiButton
-          title="Однокомнатные"
-          bg="var(--line-gray)"
-          bg-hover="#f3f8f4"
+          v-for="btn in btns"
+          :key="btn.type"
+          :title="btn.title"
+          bg="var(--white)"
+          bg-hover="var(--line-gray)"
           bg-active="var(--primary)"
-          color=" var(--black)"
-          color-hover="var(--primary)"
+          color="var(--black)"
+          color-hover="var(--black)"
           color-active="var(--white)"
+          :active="activeBtnFilter === btn.title"
+          @btn-click="btnFilterHandler(btn)"
           class="filter_btn"
         />
       </div>
+
+      <!-- Фильтр в модальном окне и сортировка -->
     </div>
   </section>
 </template>
@@ -62,7 +93,18 @@ watch(
 .filter_btns {
   display: flex;
   gap: 16px;
+}
+
+/*  */
+.filter_btn {
+  border: 2px solid var(--line-gray);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 42px 0 52px 0;
 
   /*  */
+  &.active {
+    border-color: white;
+  }
 }
 </style>

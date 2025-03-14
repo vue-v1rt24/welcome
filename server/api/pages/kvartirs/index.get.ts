@@ -25,11 +25,11 @@ export default defineEventHandler(async (event) => {
   }
 
   // Тип квартиры (студия, однокомнатная, двухкомнатная и т.д.)
-  // 0 - студия; 1 - однокомнатные; 2 - двухкомнатные; 3 - трёхкомнатные; 4 - четырёхкомнатные и более; 5 - трёхкомнатные и более; 6 - свободная планировка
+  // 0 - Студии; 1 - Однокомнатные; 2 - Двухкомнатные; 3 - Трёхкомнатные; 4 - Четырёхкомнатные и более; 5 - Трёх и более; 6 - Свободная планировка;
   if (query.rooms) {
     const roomsNumber = +query.rooms;
     if (roomsNumber === 0) {
-      title = 'Студии';
+      title = 'Квартиры студии';
       renderQueryDB.roomsType = 'студия';
     } else if (roomsNumber === 4) {
       title = 'Четырёхкомнатные и более';
@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
         lte: 10,
       };
     } else if (roomsNumber === 5) {
-      title = 'Трёхкомнатные и более';
+      title = 'Трёх и более';
       renderQueryDB.rooms = {
         gte: 3,
         lte: 10,

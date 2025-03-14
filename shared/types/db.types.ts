@@ -3,30 +3,34 @@ type TypeBooleanYesNo = 'да' | 'нет';
 
 //
 export type TypeDB = {
-  id?: string;
-  area?: { unit: string; value: string }; // value число (общая площадь)
-  buildingType?: string; // Тип здания
-  buildingName?: string; // Название ЖК
-  category?: string; // категория
+  id?: string; // *
+  area?: { unit: string; value: string }; // Общая площадь / value число *
+  apartments?: string; // Апартаменты / число 1 или 0 *
+  buildingSeries?: string; // Тип дома / строка *
+  buildingType?: string; // Материал стен / строка (кирпичный, панельный, блочный и т.д.) *
+  buildingName?: string; // Жилой комплекс / строка *
+  builtYear?: string; // Год постройки / число (2025) *
+  category?: string; // категория / Тип строения *
   creationDate?: string; // дата (Дата создания)
   lastUpdateDate?: string; // дата (обновление записи)
   description?: string; // Описание
-  floor?: string; // число (этаж)
-  floorsTotal?: string; // число (общее количество этажей)
+  floor?: string; // Этаж / число *
+  floorsTotal?: string; // Этажность / число (общее количество этажей) *
   windowView?: string; // вид из окна
-  parkingType?: string; // тип парковки
-  balcony?: string; // строка (балкон, лоджия)
-  image?: string[]; // Изображения
+  parkingType?: string; // Парковка *
+  balcony?: string; // Балкон, лоджия / строка *
+  image?: string[]; // Изображения *
+  // *
   location?: {
-    address?: string;
-    country?: string;
+    address?: string; // Улица, Дом
+    country?: string; // Страна
     latitude?: string;
-    localityName?: string;
+    localityName?: string; // Город
     longitude?: string;
     region?: string;
-    subLocalityName?: string;
+    subLocalityName?: string; // Район
   };
-  lotArea?: { unit: string; value: string }; // value число (площадь участка)
+  lotArea?: { unit: string; value: string }; // value число (Размер участка)
   manuallyAdded?: TypeBoolean; // строка "0" или "1" (добавлено вручную)
   mortgage?: TypeBoolean; // строка "0" или "1" (ипотека)
   payedAdv?: TypeBoolean; // строка "0" или "1" (Оплаченный платеж)
@@ -35,25 +39,25 @@ export type TypeDB = {
   internet?: TypeBoolean; // строка "0" или "1" (интернет)
   rubbishChute?: TypeBoolean; // строка "0" или "1" (мусоропровод)
   lift?: TypeBoolean; // строка "0" или "1" (лифт)
-  price?: { currency?: string; value?: string }; // value число (стоимость жилья или помещения)
+  price?: { currency?: string; value?: string }; // Цена / value число (стоимость жилья или помещения) *
   propertyType?: string; // (тип недвижимости)
-  renovation?: string; // ремонт (к примеру косметический)
-  type?: string;
+  renovation?: string; // Состояние / строка (к примеру: косметический, дизайнерский) *
+  type?: string; // строка
   dealStatus?: string; // статус сделки
   waterSupply?: TypeBooleanYesNo; // строка "да" или "нет" (водоснабжение)
   electricitySupply?: TypeBooleanYesNo; // строка "да" или "нет" (Электроснабжение)
   gasSupply?: TypeBooleanYesNo; // строка "да" или "нет" (Снабжение газом)
-  heatingSupply?: TypeBooleanYesNo; // строка "да" или "нет" (Теплоснабжение)
+  heatingSupply?: TypeBooleanYesNo; // Отопление (Теплоснабжение) / строка "да" или "нет" *
   lotType?: string; // тип лота
-  kitchenSpace?: { unit: string; value: string }; // value число (Кухонное пространство)
-  livingSpace?: { unit: string; value: string }; // value число (Жилое пространство)
-  newFlat?: string; // число (если 1, то новостройка, если нет параметра, то вторичное)
+  kitchenSpace?: { unit: string; value: string }; // Площадь кухни / value число *
+  livingSpace?: { unit: string; value: string }; // Жилая площадь / value число *
+  newFlat?: string; // число (если 1, то новостройка, если нет параметра, то вторичное) *
   garageType?: string; // Тип гаража
   purpose?: string; // цель
-  rooms?: string; // число (количество комнат)
-  roomsType?: string; // строка (тип квартиры: студия, распашонка, изолированная, смежно-изолированная, 2-х уровневая и др.)
-  ceilingHeight?: string; // число (высота потолка)
-  bathroomUnit?: string; // число или строка (ванная комната)
+  rooms?: string; // число (количество комнат) *
+  roomsType?: string; // Планировка / строка (тип квартиры: студия, распашонка, изолированная, смежно-изолированная, 2-х уровневая и др.) *
+  ceilingHeight?: string; // Высота потолков / число *
+  bathroomUnit?: string; // Санузел / строка (раздельный, совмещённый, туалет) *
   videoReview?: { onlineShow?: TypeBoolean; youtubeVideoReviewUrl?: string }; // onlineShow строка "0" или "1", youtubeVideoReviewUrl ссылка на видео /  (Видео обзор)
 };
 

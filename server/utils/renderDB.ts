@@ -52,8 +52,11 @@ export const renderDB = async () => {
       await prisma[nameDB].create({
         data: {
           area: offer.area?.value ? +offer.area.value : null,
+          apartments: offer.apartments?.length ? +offer.apartments : 0,
+          buildingSeries: offer.buildingSeries?.length ? offer.buildingSeries : null,
           buildingType: offer.buildingType?.length ? offer.buildingType : null,
           buildingName: offer.buildingName?.length ? offer.buildingName : null,
+          builtYear: offer.builtYear?.length ? +offer.builtYear : null,
           category: offer.category?.length ? offer.category : null,
           creationDate: offer.creationDate?.length ? offer.creationDate : null,
           lastUpdateDate: offer.lastUpdateDate?.length ? offer.lastUpdateDate : null,

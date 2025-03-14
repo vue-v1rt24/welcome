@@ -14,8 +14,11 @@ datasource db {
 model Realty {
   id                String  @id @default(cuid())
   area              Float?
+  apartments        Int?
+  buildingSeries    String?
   buildingType      String?
   buildingName      String?
+  builtYear         Int?
   category          String?
   creationDate      String?
   lastUpdateDate    String?
@@ -63,53 +66,7 @@ model Realty {
   @@index([category])
 }
 
-model RealtyTwo {
-  id                String  @id @default(cuid())
-  area              Float?
-  buildingType      String?
-  category          String?
-  creationDate      String?
-  lastUpdateDate    String?
-  description       String?
-  floor             Int?
-  floorsTotal       Int?
-  windowView        String?
-  parkingType       String?
-  balcony           String?
-  image             Json?
-  location          Json?
-  lotArea           Float?
-  manuallyAdded     Int?
-  mortgage          Int?
-  payedAdv          Int?
-  utilitiesIncluded Int?
-  phone             Int?
-  internet          Int?
-  rubbishChute      Int?
-  lift              Int?
-  price             Float?
-  propertyType      String?
-  renovation        String?
-  type              String?
-  dealStatus        String?
-  waterSupply       Int?
-  electricitySupply Int?
-  gasSupply         Int?
-  heatingSupply     Int?
-  lotType           String?
-  kitchenSpace      Float?
-  livingSpace       Float?
-  newFlat           Int?
-  garageType        String?
-  purpose           String?
-  rooms             Int?
-  roomsType         String?
-  ceilingHeight     Float?
-  bathroomUnit      String?
-  videoReview       String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([category])
-}
+/**
+ * model RealtyTwo {
+ * }
+ */
