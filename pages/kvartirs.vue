@@ -12,7 +12,7 @@ console.log(apartments.value);
 // Для активного класса кнопки фильтра
 const activeBtnFilter = ref(apartments.value?.title);
 
-// Отслеживание Гет параметров и отправка запроса
+// Отслеживание изменения Гет параметров для отправки запроса на получение данных
 watch(
   () => route.query,
   async (val) => {
@@ -79,6 +79,7 @@ const btnFilterHandler = async (btnData: { title: string; type: string }) => {
       </div>
 
       <!-- Фильтр в модальном окне и сортировка -->
+      <div class="filter_sort"></div>
     </div>
   </section>
 </template>

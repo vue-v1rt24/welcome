@@ -92,7 +92,7 @@ const sendFilterHandler = async () => {
 watch(
   () => [queryData.locationCity, queryData.locationArea, queryData.locationStreet],
   async (val) => {
-    const res = await $fetch('/api/searchFilters/kvartirs/changeLocations', {
+    const res = await $fetch('/api/searchFilters/kvartirs/changeLocation', {
       query: {
         localityName: val[0],
         subLocalityName: val[1],
