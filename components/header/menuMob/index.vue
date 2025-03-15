@@ -11,14 +11,17 @@ const bgModal = useBgModal();
 const isOpenMenu = useOpenClosedMenu();
 const isOpenMenuCategories = useOpenClosedMenuCategories();
 const isOpenClosedSearch = useOpenClosedSearch();
+const isOpenClosedPageFilter = useOpenClosedPageFilter();
 
 //
 const openMenu = () => {
-  // Закрытие модального окна меню категорий
+  // Закрытие других модальных окон
   if (isOpenMenuCategories.value) {
     isOpenMenuCategories.value = false;
   } else if (isOpenClosedSearch.value) {
     isOpenClosedSearch.value = false;
+  } else if (isOpenClosedPageFilter.value) {
+    isOpenClosedPageFilter.value = false;
   } else {
     // Открытие / Закрытие фона
     bgModal.value = !bgModal.value;
@@ -28,7 +31,7 @@ const openMenu = () => {
   isOpenMenu.value = !isOpenMenu.value;
 };
 
-// Закрытие модального окна меню
+// Клик по фону фильтра
 watch(bgModal, (val) => {
   if (!val && isOpenMenu.value) {
     isOpenMenu.value = false;

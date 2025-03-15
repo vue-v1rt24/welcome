@@ -6,6 +6,7 @@ const bgModal = useBgModal();
 const isOpenClosedSearch = useOpenClosedSearch();
 const isOpenMenuCategories = useOpenClosedMenuCategories();
 const isOpenMenu = useOpenClosedMenu();
+const isOpenClosedPageFilter = useOpenClosedPageFilter();
 
 //
 const colorSearch = computed(() => (isOpenClosedSearch.value ? 'var(--white)' : 'var(--primary)'));
@@ -22,11 +23,13 @@ const title = computed(() => {
 
 //
 const openSearch = () => {
-  // Закрытие модального окна меню
+  // Закрытие других модальных окон
   if (isOpenMenu.value) {
     isOpenMenu.value = false;
   } else if (isOpenMenuCategories.value) {
     isOpenMenuCategories.value = false;
+  } else if (isOpenClosedPageFilter.value) {
+    isOpenClosedPageFilter.value = false;
   } else {
     // Открытие / Закрытие фона
     bgModal.value = !bgModal.value;
@@ -36,7 +39,7 @@ const openSearch = () => {
   isOpenClosedSearch.value = !isOpenClosedSearch.value;
 };
 
-// Закрытие модального окна поиска фильтров
+// Клик по фону фильтра
 watch(bgModal, (val) => {
   if (!val && isOpenClosedSearch.value) {
     isOpenClosedSearch.value = false;

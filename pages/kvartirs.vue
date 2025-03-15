@@ -79,7 +79,9 @@ const btnFilterHandler = async (btnData: { title: string; type: string }) => {
       </div>
 
       <!-- Фильтр в модальном окне и сортировка -->
-      <div class="filter_sort"></div>
+      <div class="filter_sort">
+        <PagesKvartirsFilter />
+      </div>
     </div>
   </section>
 </template>

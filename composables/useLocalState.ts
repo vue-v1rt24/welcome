@@ -12,3 +12,6 @@ export const useOpenClosedMenu = () => useState('openClosedMenu', () => false);
 
 // Для открытия и закрытия модального окна поиска по фильтрам в шапке по кнопке "Найти"
 export const useOpenClosedSearch = () => useState('openClosedSearch', () => false);
+
+// Для открытия и закрытия модального окна фильтра на страницы категории фильтра
+export const useOpenClosedPageFilter = () => useState('openClosedPageFilter', () => false);
