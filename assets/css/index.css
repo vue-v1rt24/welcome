@@ -19,7 +19,8 @@ body {
 
   /*  */
   &.open_menu {
-    overflow: hidden;
+    /* TODO: Раскомментировать */
+    /* overflow: hidden; */
   }
 }
 

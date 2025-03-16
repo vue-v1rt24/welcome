@@ -62,7 +62,7 @@ watch(bgModal, (val) => {
     <!-- Меню -->
     <MenuTransition>
       <KeepAlive>
-        <HeaderMenuMobModal v-if="isOpenMenu" :menu :category-menu="categoryMenu" />
+        <LazyHeaderMenuMobModal v-if="isOpenMenu" :menu :category-menu="categoryMenu" />
       </KeepAlive>
     </MenuTransition>
   </div>

@@ -44,10 +44,10 @@ model Realty {
   renovation        String?
   type              String?
   dealStatus        String?
-  waterSupply       Int?
-  electricitySupply Int?
-  gasSupply         Int?
-  heatingSupply     Int?
+  waterSupply       String?
+  electricitySupply String?
+  gasSupply         String?
+  heatingSupply     String?
   lotType           String?
   kitchenSpace      Float?
   livingSpace       Float?
@@ -100,10 +100,10 @@ model RealtyTwo {
   renovation        String?
   type              String?
   dealStatus        String?
-  waterSupply       Int?
-  electricitySupply Int?
-  gasSupply         Int?
-  heatingSupply     Int?
+  waterSupply       String?
+  electricitySupply String?
+  gasSupply         String?
+  heatingSupply     String?
   lotType           String?
   kitchenSpace      Float?
   livingSpace       Float?

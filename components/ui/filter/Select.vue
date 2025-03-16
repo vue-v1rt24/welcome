@@ -14,7 +14,7 @@ const selectVal = ref('Выберите');
 
 // Вычисление высоты открывающегося списка
 const getHeight = computed(() =>
-  list.length === 1 ? '42px' : list.length === 2 ? '90px' : '140px',
+  list.length === 1 ? '44px' : list.length === 2 ? '92px' : '142px',
 );
 
 //
@@ -68,6 +68,7 @@ watch(
 <style lang="css" scoped>
 .select {
   position: relative;
+  width: 100%;
 
   /*  */
   &.disabled {
@@ -78,6 +79,7 @@ watch(
 /*  */
 
 .select__title {
+  height: 63px;
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 15px;
@@ -85,11 +87,12 @@ watch(
 
   border: 2px solid var(--line-gray);
   border-radius: 12px;
-  padding: 16px 20px;
+  padding: 0 24px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  column-gap: 16px;
 
   cursor: pointer;
 }
@@ -149,6 +152,9 @@ watch(
 
 /*  */
 .select__options_option {
-  display: block;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

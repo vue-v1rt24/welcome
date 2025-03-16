@@ -27,14 +27,16 @@ const openFilter = () => {
     bgModal.value = !bgModal.value;
   }
 
-  // Открытие / Закрытие модального окна фильтра
+  // Переключение активного класса для кнопки
   isOpenClosedPageFilter.value = !isOpenClosedPageFilter.value;
 
   // Подъём наверх
-  window.scrollTo({
-    top: filterPageCategoryWrap.value?.offsetTop,
-    behavior: 'smooth',
-  });
+  if (isOpenClosedPageFilter.value) {
+    window.scrollTo({
+      top: filterPageCategoryWrap.value?.offsetTop,
+      behavior: 'smooth',
+    });
+  }
 };
 
 // Клик по фону фильтра
@@ -58,6 +60,11 @@ watch(bgModal, (val) => {
       <ImagesClose v-if="isOpenClosedPageFilter" class="filter_page_category__image_close" />
       <ImagesFilter v-else class="filter_page_category__image_open" />
     </UiButton>
+
+    <!-- Фильтр -->
+    <KeepAlive>
+      <LazyPagesKvartirsFilterItem v-if="isOpenClosedPageFilter" />
+    </KeepAlive>
   </div>
 </template>
 
@@ -79,7 +86,7 @@ watch(bgModal, (val) => {
 
   /*  */
   &.open_filter {
-    z-index: 102;
+    z-index: 101;
   }
 }
 

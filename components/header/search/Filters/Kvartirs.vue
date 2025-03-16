@@ -114,8 +114,18 @@ watch(
       @click-dropdown="dropdownHandler('pervii')"
     >
       <div class="type">
-        <UiFilterBtnInput title="Вторичная" value="0" v-model="queryData.newFlat" />
-        <UiFilterBtnInput title="В новостройке" value="1" v-model="queryData.newFlat" />
+        <UiFilterBtnInput
+          class="type__label"
+          title="Вторичная"
+          value="0"
+          v-model="queryData.newFlat"
+        />
+        <UiFilterBtnInput
+          class="type__label"
+          title="В новостройке"
+          value="1"
+          v-model="queryData.newFlat"
+        />
       </div>
     </UiFilterDropdown>
 
@@ -129,11 +139,41 @@ watch(
       @click-dropdown="dropdownHandler('vtoroi')"
     >
       <div class="rooms">
-        <UiFilterBtnInput type="radio" title="Студия" value="0" v-model="queryData.rooms" />
-        <UiFilterBtnInput type="radio" title="1" value="1" v-model="queryData.rooms" />
-        <UiFilterBtnInput type="radio" title="2" value="2" v-model="queryData.rooms" />
-        <UiFilterBtnInput type="radio" title="3" value="3" v-model="queryData.rooms" />
-        <UiFilterBtnInput type="radio" title="4+" value="4" v-model="queryData.rooms" />
+        <UiFilterBtnInput
+          class="rooms__inp"
+          type="radio"
+          title="Студия"
+          value="0"
+          v-model="queryData.rooms"
+        />
+        <UiFilterBtnInput
+          class="rooms__inp"
+          type="radio"
+          title="1"
+          value="1"
+          v-model="queryData.rooms"
+        />
+        <UiFilterBtnInput
+          class="rooms__inp"
+          type="radio"
+          title="2"
+          value="2"
+          v-model="queryData.rooms"
+        />
+        <UiFilterBtnInput
+          class="rooms__inp"
+          type="radio"
+          title="3"
+          value="3"
+          v-model="queryData.rooms"
+        />
+        <UiFilterBtnInput
+          class="rooms__inp"
+          type="radio"
+          title="4+"
+          value="4"
+          v-model="queryData.rooms"
+        />
       </div>
     </UiFilterDropdown>
 
@@ -218,6 +258,11 @@ watch(
   display: flex;
   flex-direction: column;
   row-gap: 6px;
+
+  /*  */
+  .type__label {
+    height: 43px;
+  }
 }
 
 /*  */
@@ -225,6 +270,11 @@ watch(
 .rooms {
   display: flex;
   column-gap: 6px;
+}
+
+/*  */
+.rooms__inp {
+  height: 43px;
 }
 
 /*  */
