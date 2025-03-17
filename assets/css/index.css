@@ -72,21 +72,21 @@ input:not([type='number']):not([type='text']):not([type='tel']) {
 /*  */
 .style_scrollbar {
   &::-webkit-scrollbar {
-    width: 0;
+    width: 9px;
   }
 
-  /* &::-webkit-scrollbar-track-piece {
-      background-color: antiquewhite;
-      border-radius: 32px;
-    }
-  
-    &::-webkit-scrollbar-track {
-      background-color: red;
-      border-radius: 32px;
-    }
-  
-    &::-webkit-scrollbar-thumb {
-      background-color: blue;
-      border-radius: 32px;
-    } */
+  &::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+    border-radius: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 12px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--gray);
+    border-radius: 12px;
+  }
 }

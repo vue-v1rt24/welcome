@@ -120,6 +120,7 @@ watch(
           value="0"
           v-model="queryData.newFlat"
         />
+
         <UiFilterBtnInput
           class="type__label"
           title="В новостройке"
@@ -209,7 +210,7 @@ watch(
         <li>
           <span class="location__title">Город</span>
           <UiFilterSelect
-            v-if="filterLocation?.city"
+            v-if="filterLocation?.city.length"
             :list="filterLocation.city"
             v-model="queryData.locationCity"
             :reset="isSelectReset"
@@ -219,7 +220,7 @@ watch(
         <li>
           <span class="location__title">Район</span>
           <UiFilterSelect
-            v-if="filterLocation?.subCity"
+            v-if="filterLocation?.subCity.length"
             :list="filterLocation.subCity"
             v-model="queryData.locationArea"
             :reset="isSelectReset"
@@ -229,7 +230,7 @@ watch(
         <li>
           <span class="location__title">Улица</span>
           <UiFilterSelect
-            v-if="filterLocation?.address"
+            v-if="filterLocation?.address.length"
             :list="filterLocation.address"
             v-model="queryData.locationStreet"
             :reset="isSelectReset"

@@ -7,7 +7,7 @@ const { data: apartments } = await useFetch('/api/pages/kvartirs', {
   query: route.query,
 });
 
-console.log(apartments.value);
+// console.log(apartments.value);
 
 // Для активного класса кнопки фильтра
 const activeBtnFilter = ref(apartments.value?.title);
@@ -21,7 +21,7 @@ watch(
     });
 
     apartments.value = res;
-    console.log(apartments.value);
+    // console.log(apartments.value);
 
     // Установка активной кнопки фильтра
     activeBtnFilter.value = apartments.value.title;
