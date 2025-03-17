@@ -19,8 +19,7 @@ body {
 
   /*  */
   &.open_menu {
-    /* TODO: Раскомментировать */
-    /* overflow: hidden; */
+    overflow: hidden;
   }
 }
 
@@ -68,4 +67,26 @@ input:not([type='number']):not([type='text']):not([type='tel']) {
     font-size: 26px;
     padding-top: 12px;
   }
+}
+
+/*  */
+.style_scrollbar {
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  /* &::-webkit-scrollbar-track-piece {
+      background-color: antiquewhite;
+      border-radius: 32px;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: red;
+      border-radius: 32px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: blue;
+      border-radius: 32px;
+    } */
 }

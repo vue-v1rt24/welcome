@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <ul class="pc">
+  <ul class="pc style_scrollbar">
     <Category v-for="category in categoryMenu" :key="category.title" :category />
   </ul>
 </template>
@@ -29,26 +29,6 @@ defineProps<{
 
   overflow-y: auto;
   z-index: 101;
-
-  /*  */
-  &::-webkit-scrollbar {
-    width: 0;
-  }
-
-  /* &::-webkit-scrollbar-track-piece {
-    background-color: antiquewhite;
-    border-radius: 32px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: red;
-    border-radius: 32px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: blue;
-    border-radius: 32px;
-  } */
 
   /*  */
   @media (max-height: 1024px) {

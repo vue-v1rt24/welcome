@@ -48,10 +48,41 @@ const dataFilter = reactive({
   builtYearOt: '',
   builtYearDo: '',
 });
+
+// Сброс фильтра
+const resetSelect = ref(false);
+
+const resetFilter = () => {
+  for (const key in dataFilter) {
+    key === 'newFlat' ? (dataFilter[key] = []) : (dataFilter[key] = '');
+  }
+
+  //
+  resetSelect.value = true;
+  setTimeout(() => (resetSelect.value = false), 1000);
+};
+
+// Добавляем Гет параметры в адресную строку
+const viewResultFilter = async () => {
+  const constructorGetParams = {};
+
+  for (const key in dataFilter) {
+    if (dataFilter[key] && typeof dataFilter[key] !== 'object') {
+      constructorGetParams[key] = dataFilter[key];
+    } else if (typeof dataFilter[key] === 'object' && dataFilter[key].length) {
+      constructorGetParams[key] = JSON.stringify(dataFilter[key]);
+    }
+  }
+
+  //
+  await navigateTo({
+    query: constructorGetParams,
+  });
+};
 </script>
 
 <template>
-  <div class="filter">
+  <div class="filter style_scrollbar">
     <!-- Тип недвижимости -->
     <div class="input_group">
       <span class="input_group__title">Тип недвижимости</span>
@@ -101,7 +132,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Город 1', 'Город 2']"
             v-model="dataFilter.locationCity"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -114,7 +145,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Район 1', 'Район 2']"
             v-model="dataFilter.locationArea"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -130,7 +161,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Улица 1', 'Улица 2']"
             v-model="dataFilter.locationStreet"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -143,7 +174,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Жилой комплекс 1', 'Жилой комплекс 2']"
             v-model="dataFilter.buildingName"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -202,7 +233,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Высота потолков 1', 'Высота потолков 2']"
             v-model="dataFilter.ceilingHeight"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -215,7 +246,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Санузел 1', 'Санузел 2']"
             v-model="dataFilter.bathroomUnit"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -231,7 +262,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Этаж 1', 'Этаж 2']"
             v-model="dataFilter.floor"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -244,7 +275,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Состояние 1', 'Состояние 2']"
             v-model="dataFilter.renovation"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -260,7 +291,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Планировка 1', 'Планировка 2']"
             v-model="dataFilter.roomsType"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -273,7 +304,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Балкон', 'Лоджия']"
             v-model="dataFilter.balcony"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -320,7 +351,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Тип дома 1', 'Тип дома 2']"
             v-model="dataFilter.buildingSeries"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -333,7 +364,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Материал стен 1', 'Материал стен 2']"
             v-model="dataFilter.buildingType"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -349,7 +380,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Да', 'Нет']"
             v-model="dataFilter.heatingSupply"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -362,7 +393,7 @@ const dataFilter = reactive({
           <UiFilterSelect
             :list="['Парковка 1', 'Парковка 2']"
             v-model="dataFilter.parkingType"
-            :reset="false"
+            :reset="resetSelect"
             class="location__select"
           />
         </div>
@@ -391,6 +422,27 @@ const dataFilter = reactive({
         </div>
       </div>
     </div>
+
+    <!--  -->
+    <div class="filter_btns">
+      <UiButton
+        title="Сбросить фильтры"
+        color="var(--black)"
+        colorHover="var(--primary)"
+        colorActive="var(--white)"
+        bg="#f1f4f4"
+        bgHover="#f3f8f4"
+        bgActive="var(--primary)"
+        @btnClick="resetFilter"
+        class="filter_btns__item"
+      />
+
+      <UiButton
+        title="Показать результаты"
+        @btnClick="viewResultFilter"
+        class="filter_btns__item"
+      />
+    </div>
   </div>
 </template>
 
@@ -402,7 +454,9 @@ const dataFilter = reactive({
   z-index: 101;
 
   max-width: 744px;
+  height: 80vh;
   background-color: var(--white);
+  overflow-y: auto;
 
   display: flex;
   flex-direction: column;
@@ -439,5 +493,20 @@ const dataFilter = reactive({
 /*  */
 .input_group__item_nedvizh {
   font-size: 16px;
+}
+
+/*  */
+
+.filter_btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  margin-top: 36px;
+}
+
+/*  */
+.filter_btns__item {
+  height: 62px;
+  border-radius: 12px;
 }
 </style>
