@@ -54,6 +54,17 @@ const dataFilter = reactive({
   builtYearDo: '',
 });
 
+// Активный выпадающий список
+const currentSelect = ref('');
+
+const currentSelectHandler = (title: string) => {
+  if (currentSelect.value === title) {
+    currentSelect.value = '';
+  } else {
+    currentSelect.value = title;
+  }
+};
+
 // Сброс фильтра
 const resetSelect = ref(false);
 
@@ -63,11 +74,14 @@ const resetFilter = () => {
   }
 
   //
+  currentSelect.value = '';
+
+  //
   resetSelect.value = true;
   setTimeout(() => (resetSelect.value = false), 1000);
 };
 
-// Добавляем Гет параметры в адресную строку
+// Добавляем Гет параметры в адресную строку по кнопке "Показать результаты"
 const viewResultFilter = async () => {
   const constructorGetParams = {};
 
@@ -125,7 +139,8 @@ watch(
       },
     });
 
-    // getFilterData.value = res;
+    console.log(res);
+    getFilterData.value = res;
   },
 );
 </script>
@@ -181,11 +196,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.city.length"
+              v-if="getFilterData?.city"
               :list="getFilterData.city"
               absolute
               v-model="dataFilter.locationCity"
               :reset="resetSelect"
+              :open="currentSelect === 'Город'"
+              @click-select="currentSelectHandler('Город')"
               class="location__select"
             />
           </div>
@@ -196,11 +213,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.subCity.length"
+              v-if="getFilterData?.subCity"
               :list="getFilterData.subCity"
               absolute
               v-model="dataFilter.locationArea"
               :reset="resetSelect"
+              :open="currentSelect === 'Район'"
+              @click-select="currentSelectHandler('Район')"
               class="location__select"
             />
           </div>
@@ -214,11 +233,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.address.length"
+              v-if="getFilterData?.address"
               :list="getFilterData.address"
               absolute
               v-model="dataFilter.locationStreet"
               :reset="resetSelect"
+              :open="currentSelect === 'Улица'"
+              @click-select="currentSelectHandler('Улица')"
               class="location__select"
             />
           </div>
@@ -229,11 +250,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.buildingName.length"
+              v-if="getFilterData?.buildingName"
               :list="getFilterData.buildingName"
               absolute
               v-model="dataFilter.buildingName"
               :reset="resetSelect"
+              :open="currentSelect === 'Жилой комплекс'"
+              @click-select="currentSelectHandler('Жилой комплекс')"
               class="location__select"
             />
           </div>
@@ -290,11 +313,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.ceilingHeight.length"
+              v-if="getFilterData?.ceilingHeight"
               :list="getFilterData.ceilingHeight"
               absolute
               v-model="dataFilter.ceilingHeight"
               :reset="resetSelect"
+              :open="currentSelect === 'Высота потолков'"
+              @click-select="currentSelectHandler('Высота потолков')"
               class="location__select"
             />
           </div>
@@ -305,11 +330,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.bathroomUnit.length"
+              v-if="getFilterData?.bathroomUnit"
               :list="getFilterData.bathroomUnit"
               absolute
               v-model="dataFilter.bathroomUnit"
               :reset="resetSelect"
+              :open="currentSelect === 'Санузел'"
+              @click-select="currentSelectHandler('Санузел')"
               class="location__select"
             />
           </div>
@@ -323,11 +350,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.floor.length"
+              v-if="getFilterData?.floor"
               :list="getFilterData.floor"
               absolute
               v-model="dataFilter.floor"
               :reset="resetSelect"
+              :open="currentSelect === 'Этаж'"
+              @click-select="currentSelectHandler('Этаж')"
               class="location__select"
             />
           </div>
@@ -338,11 +367,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.renovation.length"
+              v-if="getFilterData?.renovation"
               :list="getFilterData.renovation"
               absolute
               v-model="dataFilter.renovation"
               :reset="resetSelect"
+              :open="currentSelect === 'Состояние'"
+              @click-select="currentSelectHandler('Состояние')"
               class="location__select"
             />
           </div>
@@ -356,11 +387,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.roomsType.length"
+              v-if="getFilterData?.roomsType"
               :list="getFilterData.roomsType"
               absolute
               v-model="dataFilter.roomsType"
               :reset="resetSelect"
+              :open="currentSelect === 'Планировка'"
+              @click-select="currentSelectHandler('Планировка')"
               class="location__select"
             />
           </div>
@@ -371,11 +404,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.balcony.length"
+              v-if="getFilterData?.balcony"
               :list="getFilterData.balcony"
               absolute
               v-model="dataFilter.balcony"
               :reset="resetSelect"
+              :open="currentSelect === 'Балкон'"
+              @click-select="currentSelectHandler('Балкон')"
               class="location__select"
             />
           </div>
@@ -420,11 +455,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.buildingSeries.length"
+              v-if="getFilterData?.buildingSeries"
               :list="getFilterData.buildingSeries"
               absolute
               v-model="dataFilter.buildingSeries"
               :reset="resetSelect"
+              :open="currentSelect === 'Тип дома'"
+              @click-select="currentSelectHandler('Тип дома')"
               class="location__select"
             />
           </div>
@@ -435,11 +472,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.buildingType.length"
+              v-if="getFilterData?.buildingType"
               :list="getFilterData.buildingType"
               absolute
               v-model="dataFilter.buildingType"
               :reset="resetSelect"
+              :open="currentSelect === 'Материал стен'"
+              @click-select="currentSelectHandler('Материал стен')"
               class="location__select"
             />
           </div>
@@ -453,11 +492,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.heatingSupply.length"
+              v-if="getFilterData?.heatingSupply"
               :list="getFilterData.heatingSupply"
               absolute
               v-model="dataFilter.heatingSupply"
               :reset="resetSelect"
+              :open="currentSelect === 'Отопление'"
+              @click-select="currentSelectHandler('Отопление')"
               class="location__select"
             />
           </div>
@@ -468,11 +509,13 @@ watch(
 
           <div class="input_group__item">
             <UiFilterSelect
-              v-if="getFilterData?.parkingType.length"
+              v-if="getFilterData?.parkingType"
               :list="getFilterData.parkingType"
               absolute
               v-model="dataFilter.parkingType"
               :reset="resetSelect"
+              :open="currentSelect === 'Парковка'"
+              @click-select="currentSelectHandler('Парковка')"
               class="location__select"
             />
           </div>

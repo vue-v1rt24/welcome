@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { open = false } = defineProps<{
+const { open } = defineProps<{
   title: string;
-  open?: boolean;
+  open: boolean;
 }>();
 
 //

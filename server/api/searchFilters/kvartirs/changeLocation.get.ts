@@ -12,8 +12,8 @@ export default defineEventHandler(async (event) => {
 
   const res = await prisma[table].findMany({
     where: {
+      category: 'квартира',
       AND: [
-        { category: 'квартира' },
         {
           location: {
             path: ['localityName'],

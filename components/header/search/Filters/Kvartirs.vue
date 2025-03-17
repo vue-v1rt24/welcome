@@ -5,7 +5,7 @@ const { data: filterLocation, refresh } = await useFetch('/api/searchFilters/kva
 //
 const bgModal = useBgModal();
 
-// Для полей ввода
+// Переменные для полей ввода
 const queryData = reactive({
   newFlat: [] as string[],
 
@@ -31,6 +31,17 @@ const dropdownHandler = (val: string) => {
   }
 
   selectSwitch.value = val;
+};
+
+// Активный выпадающий список
+const currentSelect = ref('');
+
+const currentSelectHandler = (title: string) => {
+  if (currentSelect.value === title) {
+    currentSelect.value = '';
+  } else {
+    currentSelect.value = title;
+  }
 };
 
 // Показ кнопки "Сброс" в фильтре "Город, район, улица"
@@ -210,30 +221,36 @@ watch(
         <li>
           <span class="location__title">Город</span>
           <UiFilterSelect
-            v-if="filterLocation?.city.length"
+            v-if="filterLocation?.city"
             :list="filterLocation.city"
             v-model="queryData.locationCity"
             :reset="isSelectReset"
+            :open="currentSelect === 'Город'"
+            @click-select="currentSelectHandler('Город')"
             class="location__select"
           />
         </li>
         <li>
           <span class="location__title">Район</span>
           <UiFilterSelect
-            v-if="filterLocation?.subCity.length"
+            v-if="filterLocation?.subCity"
             :list="filterLocation.subCity"
             v-model="queryData.locationArea"
             :reset="isSelectReset"
+            :open="currentSelect === 'Район'"
+            @click-select="currentSelectHandler('Район')"
             class="location__select"
           />
         </li>
         <li>
           <span class="location__title">Улица</span>
           <UiFilterSelect
-            v-if="filterLocation?.address.length"
+            v-if="filterLocation?.address"
             :list="filterLocation.address"
             v-model="queryData.locationStreet"
             :reset="isSelectReset"
+            :open="currentSelect === 'Улица'"
+            @click-select="currentSelectHandler('Улица')"
             class="location__select"
           />
         </li>

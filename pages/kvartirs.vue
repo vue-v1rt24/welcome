@@ -21,7 +21,7 @@ watch(
     });
 
     apartments.value = res;
-    // console.log(apartments.value);
+    console.log(apartments.value);
 
     // Установка активной кнопки фильтра
     activeBtnFilter.value = apartments.value.title;

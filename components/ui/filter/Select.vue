@@ -1,15 +1,20 @@
 <script setup lang="ts" generic="T extends string">
-const { list, reset } = defineProps<{
+const { list, open, reset } = defineProps<{
   list: T[];
+  open: boolean;
   absolute?: boolean;
   reset?: boolean;
+}>();
+
+//
+const emit = defineEmits<{
+  clickSelect: [];
 }>();
 
 //
 const model = defineModel<string>({ required: true });
 
 //
-const isOpen = ref(false);
 const selectVal = ref('Выберите');
 
 // Вычисление высоты открывающегося списка
@@ -18,7 +23,7 @@ const getHeight = computed(() =>
 );
 
 //
-const isDisabled = computed(() => !list[0].length);
+const isDisabled = computed(() => !list[0]?.length);
 
 //
 watch(
@@ -27,12 +32,11 @@ watch(
     // Установка значения заголовку выбранного варианта
     if (val1) {
       selectVal.value = val1 as string;
-      isOpen.value = false;
+      emit('clickSelect');
     }
 
     // Сброс заголовка списка
     if (val2) {
-      isOpen.value = false;
       selectVal.value = 'Выберите';
     }
   },
@@ -40,8 +44,8 @@ watch(
 </script>
 
 <template>
-  <div :class="['select', { disabled: isDisabled, absolute, open: isOpen && !isDisabled }]">
-    <div class="select__title" @click="isOpen = !isOpen">
+  <div :class="['select', { disabled: isDisabled, absolute, open: open && !isDisabled }]">
+    <div class="select__title" @click="emit('clickSelect')">
       <span>{{ selectVal }}</span>
       <ImagesArrowDown class="select__arrow" />
     </div>
@@ -50,7 +54,7 @@ watch(
     <div class="select__options_wrap" :style="{ '--selectHeight': getHeight }">
       <ul class="select__options">
         <template v-for="item in list" :key="item">
-          <li v-if="item.length" class="select__options_option_item">
+          <li v-if="item?.length" class="select__options_option_item">
             <UiFilterBtnInput
               type="radio"
               :title="item"
