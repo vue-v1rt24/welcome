@@ -46,6 +46,11 @@ const btnFilterHandler = async (btnData: { title: string; type: string }) => {
     },
   });
 };
+
+// Сортировка
+const sortHandler = () => {
+  console.log('Сортировка');
+};
 </script>
 
 <template>
@@ -81,6 +86,57 @@ const btnFilterHandler = async (btnData: { title: string; type: string }) => {
       <!-- Фильтр в модальном окне и сортировка -->
       <div class="filter_sort">
         <PagesKvartirsFilter />
+
+        <!--  -->
+        <UiButton
+          title="По умолчанию"
+          color="var(--black)"
+          bg="#f1f4f4"
+          @btn-click="sortHandler"
+          class="sort"
+        >
+          <template #img_right>
+            <ImagesSort class="sort__img" />
+          </template>
+        </UiButton>
+      </div>
+
+      <!-- Вывод карточек -->
+      <div class="cards_wrap">
+        <PagesKvartirsCard v-for="(card, idx) in apartments?.res" :key="card.id" :idx :card />
+      </div>
+
+      <!--  -->
+      <UiButton title="Показать больше" color="var(--black)" bg="var(--cloud-light)" class="more" />
+
+      <!--  -->
+      <div class="desc_nedvizh">
+        <div class="desc_nedvizh__title">
+          Купить двухкомнатную квартиру в Ставрополе вместе с Welcome
+        </div>
+
+        <div class="desc_nedvizh__par">
+          <p>
+            Двухкомнатная квартира – это отличное решение для семейной жизни, а также для тех, кто
+            ценит пространство и комфорт. Если вы планируете купить двухкомнатную квартиру, вы
+            делаете шаг к улучшению качества своей жизни, предоставляя себе и своим близким
+            возможность насладиться уютом и свободой.
+          </p>
+
+          <p>
+            Двухкомнатные квартиры предлагают множество преимуществ: они отлично подходят как для
+            семей с детьми, так и для молодых пар. Просторная гостиная и отдельная спальня создают
+            идеальные условия для отдыха и общения. Кроме того, такие квартиры часто располагаются в
+            удобных и безопасных для проживания районах, что обеспечивает доступ к необходимой
+            инфраструктуре – магазинам, школам и медицинским учреждениям.
+          </p>
+
+          <p>
+            На нашем сайте вы найдете широкий выбор предложений, среди которых сможете легко найти и
+            купить двухкомнатную квартиру. Мы подберем для вас лучшие варианты и найдем ту квартиру,
+            в которой вы будете счастливы.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -109,5 +165,74 @@ const btnFilterHandler = async (btnData: { title: string; type: string }) => {
   &.active {
     border-color: white;
   }
+}
+
+/*  */
+
+.filter_sort {
+  display: flex;
+  column-gap: 24px;
+  margin-bottom: 42px;
+}
+
+/*  */
+
+.sort {
+  width: 230px;
+  height: 61px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 12px;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.sort__img {
+  width: 20px;
+  height: 20px;
+  color: #898989;
+}
+
+/*  */
+
+.cards_wrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+/*  */
+
+.more {
+  width: 100%;
+  height: 63px;
+  font-weight: 700;
+  font-size: 17px;
+  border-radius: 18px;
+  margin-top: 42px;
+}
+
+/*  */
+
+.desc_nedvizh {
+  margin-top: 120px;
+}
+
+/*  */
+.desc_nedvizh__title {
+  font-weight: 500;
+  font-size: 26px;
+  margin-bottom: 32px;
+}
+
+/*  */
+.desc_nedvizh__par {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: var(--gray-text);
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 }
 </style>

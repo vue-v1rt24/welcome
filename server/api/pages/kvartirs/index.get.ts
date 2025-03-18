@@ -92,10 +92,70 @@ export default defineEventHandler(async (event) => {
       });
     }
   }
+
+  // Жилой комплекс (ЖК)
+  if (query.buildingName) {
+    renderQueryDB.buildingName = query.buildingName;
+  }
+
+  // Высота потолков
+  if (query.ceilingHeight) {
+    renderQueryDB.ceilingHeight = +query.ceilingHeight;
+  }
+
+  // Санузел
+  if (query.bathroomUnit) {
+    renderQueryDB.bathroomUnit = query.bathroomUnit;
+  }
+
+  // Этаж
+  if (query.floor) {
+    renderQueryDB.floor = +query.floor;
+  }
+
+  // Состояние
+  if (query.renovation) {
+    renderQueryDB.renovation = query.renovation;
+  }
+
+  // Планировка
+  if (query.roomsType) {
+    renderQueryDB.roomsType = query.roomsType;
+  }
+
+  // Балкон, лоджия
+  if (query.balcony) {
+    renderQueryDB.balcony = query.balcony;
+  }
+
+  // Тип дома
+  if (query.buildingSeries) {
+    renderQueryDB.buildingSeries = query.buildingSeries;
+  }
+
+  // Материал стен
+  if (query.buildingType) {
+    renderQueryDB.buildingType = query.buildingType;
+  }
+
+  // Отопление
+  if (query.heatingSupply) {
+    renderQueryDB.heatingSupply = query.heatingSupply;
+  }
+
+  // Парковка
+  if (query.parkingType) {
+    renderQueryDB.parkingType = query.parkingType;
+  }
+
+  // Апартаменты
+  if (query.apartments) {
+    renderQueryDB.apartments = +query.apartments;
+  }
   // /Построение запроса
 
   // Запрос
-  const res = await prisma.realty.findMany({
+  const res = await prisma[table].findMany({
     where: renderQueryDB,
     select: {
       id: true,

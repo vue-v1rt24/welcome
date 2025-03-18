@@ -26,6 +26,7 @@ const emit = defineEmits<{
   <button :class="['bt_nedvizh', { active }]" type="button" @click="emit('btnClick')">
     <slot />
     <span v-if="title">{{ title }}</span>
+    <slot name="img_right" />
   </button>
 </template>
 

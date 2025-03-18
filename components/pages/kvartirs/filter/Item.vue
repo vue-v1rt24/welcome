@@ -1,7 +1,12 @@
 <script setup lang="ts">
 // Получение данных для фильтра при первом вызове
 const { data: getFilterData } = await useFetch('/api/pages/kvartirs/getFilter');
-console.log(getFilterData.value);
+// console.log(getFilterData.value);
+
+//
+const emit = defineEmits<{
+  clickSearch: [];
+}>();
 
 // Переменные для полей фильтра
 const dataFilter = reactive({
@@ -97,6 +102,9 @@ const viewResultFilter = async () => {
   await navigateTo({
     query: constructorGetParams,
   });
+
+  //
+  emit('clickSearch');
 };
 
 // Изменение параметров фильтра
@@ -139,7 +147,7 @@ watch(
       },
     });
 
-    console.log(res);
+    // console.log(res);
     getFilterData.value = res;
   },
 );

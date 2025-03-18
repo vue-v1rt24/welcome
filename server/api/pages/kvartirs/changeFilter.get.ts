@@ -1,49 +1,12 @@
 import prisma from '~/lib/prisma';
-
-//////////
-type TypeQuery = {
-  localityName: string;
-  subLocalityName: string;
-  address: string;
-  buildingName: string;
-  ceilingHeight: string;
-  bathroomUnit: string;
-  floor: string;
-  renovation: string;
-  roomsType: string;
-  balcony: string;
-  buildingSeries: string;
-  buildingType: string;
-  heatingSupply: string;
-  parkingType: string;
-};
-
-/* 
-  localityName: 'Ставрополь',
-  subLocalityName: 'Промышленный',
-  address: 'Партизанская улица',
-  buildingName: 'ЖД «Параллель»',
-  ceilingHeight: '2.7',
-  bathroomUnit: 'раздельный',
-  floor: '14',
-  renovation: 'дизайнерский',
-  roomsType: 'изолированная',
-  balcony: 'лоджия',
-  buildingSeries: 'Повышенной комфортности',
-  buildingType: 'кирпичный',
-  heatingSupply: 'Нет',
-  parkingType: 'подземная'
- */
-//////////
+import { TypeAdvancedFilter } from '~/server/types/pages/kvartirs.types';
 
 export default defineEventHandler(async (event) => {
-  const query = getQuery(event) as TypeQuery;
+  const query = getQuery(event) as TypeAdvancedFilter;
   const table = getActiveTable();
 
   // Построение запроса для отправки в БД
-  const renderQueryDB: any = {};
-
-  const resDataTable = await prisma.realty.findMany({
+  const resDataTable = await prisma[table].findMany({
     where: {
       category: 'квартира',
       AND: [
@@ -115,47 +78,47 @@ export default defineEventHandler(async (event) => {
     subCity.add(item.location.subLocalityName);
     address.add(item.location.address.match(/^[^,]+/)[0]);
 
-    if (item.buildingName !== null) {
+    if (item.buildingName && item.buildingName !== null) {
       buildingName.add(item.buildingName);
     }
 
-    if (item.ceilingHeight !== null) {
+    if (item.ceilingHeight && item.ceilingHeight !== null) {
       ceilingHeight.add(item.ceilingHeight + '');
     }
 
-    if (item.bathroomUnit !== null) {
+    if (item.bathroomUnit && item.bathroomUnit !== null) {
       bathroomUnit.add(item.bathroomUnit);
     }
 
-    if (item.floor !== null) {
+    if (item.floor && item.floor !== null) {
       floor.add(item.floor + '');
     }
 
-    if (item.renovation !== null) {
+    if (item.renovation && item.renovation !== null) {
       renovation.add(item.renovation);
     }
 
-    if (item.roomsType !== null) {
+    if (item.roomsType && item.roomsType !== null) {
       roomsType.add(item.roomsType);
     }
 
-    if (item.balcony !== null) {
+    if (item.balcony && item.balcony !== null) {
       balcony.add(item.balcony);
     }
 
-    if (item.buildingSeries !== null) {
+    if (item.buildingSeries && item.buildingSeries !== null) {
       buildingSeries.add(item.buildingSeries);
     }
 
-    if (item.buildingType !== null) {
+    if (item.buildingType && item.buildingType !== null) {
       buildingType.add(item.buildingType);
     }
 
-    if (item.heatingSupply !== null) {
+    if (item.heatingSupply && item.heatingSupply !== null) {
       heatingSupply.add(item.heatingSupply);
     }
 
-    if (item.heatingSupply !== null) {
+    if (item.heatingSupply && item.heatingSupply !== null) {
       parkingType.add(item.heatingSupply);
     }
   }

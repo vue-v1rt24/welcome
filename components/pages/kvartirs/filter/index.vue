@@ -63,7 +63,7 @@ watch(bgModal, (val) => {
 
     <!-- Фильтр -->
     <KeepAlive>
-      <LazyPagesKvartirsFilterItem v-if="isOpenClosedPageFilter" />
+      <LazyPagesKvartirsFilterItem v-if="isOpenClosedPageFilter" @click-search="openFilter" />
     </KeepAlive>
   </div>
 </template>
