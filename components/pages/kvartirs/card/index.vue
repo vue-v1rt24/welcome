@@ -56,6 +56,7 @@ const viewCart = () => {
 
       <!--  -->
       <div class="card__map" @click="viewCart">Смотреть на карте</div>
+      <!-- <UiMap /> -->
     </div>
   </div>
 </template>

@@ -8,7 +8,11 @@ export default defineNuxtConfig({
   modules: ['@prisma/nuxt', 'nuxt-scheduler', 'nuxt-viewport'],
 
   //
-  runtimeConfig: {},
+  runtimeConfig: {
+    public: {
+      apiYandexCardKey: process.env.NUXT_PUBLIC_API_YANDEX_CARD_KEY,
+    },
+  },
 
   //
   app: {
