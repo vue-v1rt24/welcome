@@ -104,7 +104,7 @@ const moreHandler = async () => {
         <PagesKvartirsFilter />
 
         <!-- сортировка -->
-        <PagesKvartirsSort />
+        <UiFilterSort />
       </div>
 
       <!-- Вывод карточек -->

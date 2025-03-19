@@ -1,3 +1,5 @@
+import { EnumSort } from '~/shared/types/db.types';
+
 // Типизация для получения недвижимости (вывод на странице)
 export type TypeFrontFilter = {
   newFlat: string;
@@ -24,6 +26,7 @@ export type TypeFrontFilter = {
   parkingType: string; // 'подземная'
 
   more: string;
+  sort: EnumSort;
 };
 
 // Для дополнительного фильтра (Открыть фильтр)

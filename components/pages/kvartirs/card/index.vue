@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { formatNumber } from '#shared/utils/formatNumber';
 
-defineProps<{
+const { card } = defineProps<{
   idx: number;
   card: {
     area: number;
@@ -22,6 +22,11 @@ defineProps<{
     rooms: number;
   };
 }>();
+
+// Карта
+const viewCart = () => {
+  console.log(card.location.latitude, card.location.longitude);
+};
 </script>
 
 <template>
@@ -50,7 +55,7 @@ defineProps<{
       </div>
 
       <!--  -->
-      <div class="card__map">Смотреть на карте</div>
+      <div class="card__map" @click="viewCart">Смотреть на карте</div>
     </div>
   </div>
 </template>

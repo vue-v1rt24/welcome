@@ -73,3 +73,11 @@ export enum EnumTableNames {
   realty = 'realty',
   realtyTwo = 'realtyTwo',
 }
+
+// Сортировка
+export enum EnumSort {
+  default = 'По умолчанию',
+  new = 'Новые',
+  deshevle = 'Сначала дешевле',
+  dorozhe = 'Сначала дороже',
+}

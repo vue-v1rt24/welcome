@@ -1,6 +1,7 @@
 import prisma from '~/lib/prisma';
 
-import { TypeFrontFilter } from '~/server/types/pages/kvartirs.types';
+import type { TypeFrontFilter } from '~/server/types/pages/kvartirs.types';
+import { EnumSort } from '~/shared/types/db.types';
 
 // id крайнего запроса (для постраничной навигации)
 let cursorId: string | null = null;
@@ -157,17 +158,34 @@ export default defineEventHandler(async (event) => {
   }
   // /Построение запроса
 
+  // Сортировка
+  const renderOrderBy: any = {};
+
+  if (query.sort) {
+    if (query.sort === EnumSort.default) {
+      renderOrderBy.creationDate = 'desc';
+    } else if (query.sort === EnumSort.new) {
+      renderOrderBy.creationDate = 'desc';
+    } else if (query.sort === EnumSort.deshevle) {
+      renderOrderBy.price = 'asc';
+    } else if (query.sort === EnumSort.dorozhe) {
+      renderOrderBy.price = 'desc';
+    }
+  }
+
   // Сброс курсора постраничной навигации
   if (!query.more) {
     cursorId = null;
   }
 
   // Запрос
-  const res = await prisma[table].findMany({
+  // const res = await prisma[table].findMany({
+  const res = await prisma.realty.findMany({
     take: 16,
     skip: cursorId ? 1 : 0,
     cursor: cursorId ? { id: cursorId } : undefined,
     where: renderQueryDB,
+    orderBy: query.sort ? renderOrderBy : { creationDate: 'desc' },
     select: {
       id: true,
       image: true,
