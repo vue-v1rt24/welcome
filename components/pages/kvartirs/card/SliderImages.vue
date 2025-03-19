@@ -70,7 +70,7 @@ onUnmounted(() => {
     <div class="swiper-wrapper">
       <template v-for="(img, idx) in images" :key="img">
         <div v-if="idx < 5" class="swiper-slide">
-          <img :src="img" alt="" />
+          <img :src="img" alt="" loading="lazy" />
         </div>
       </template>
     </div>

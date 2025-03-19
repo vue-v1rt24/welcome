@@ -7,10 +7,11 @@ const { data: apartments } = await useFetch('/api/pages/kvartirs', {
   query: route.query,
 });
 
-// console.log(apartments.value);
-
 // Для активного класса кнопки фильтра
 const activeBtnFilter = ref(apartments.value?.title);
+
+// Для вывода кнопки "Показать больше"
+const moreBtn = ref(apartments.value?.cursorId);
 
 // Отслеживание изменения Гет параметров для отправки запроса на получение данных
 watch(
@@ -25,6 +26,9 @@ watch(
 
     // Установка активной кнопки фильтра
     activeBtnFilter.value = apartments.value.title;
+
+    // Установка значения для кнопки "Показать больше"
+    moreBtn.value = res.cursorId;
   },
 );
 
@@ -38,7 +42,7 @@ const btns = [
   { title: 'Свободная планировка', type: '6' },
 ];
 
-// Отправка запроса
+// Изменение Гет параметров по отдельным кнопкам фильтров
 const btnFilterHandler = async (btnData: { title: string; type: string }) => {
   await navigateTo({
     query: {
@@ -47,9 +51,20 @@ const btnFilterHandler = async (btnData: { title: string; type: string }) => {
   });
 };
 
-// Сортировка
-const sortHandler = () => {
-  console.log('Сортировка');
+// Клик по кнопке "Показать больше"
+const moreHandler = async () => {
+  const res = await $fetch('/api/pages/kvartirs', {
+    query: {
+      ...route.query,
+      more: 'load',
+    },
+  });
+
+  apartments.value.res.push(...res.res);
+  // console.log(apartments.value);
+
+  // Установка значения для кнопки "Показать больше"
+  moreBtn.value = res.cursorId;
 };
 </script>
 
@@ -83,22 +98,13 @@ const sortHandler = () => {
         />
       </div>
 
-      <!-- Фильтр в модальном окне и сортировка -->
+      <!-- -->
       <div class="filter_sort">
+        <!-- Фильтр в модальном окне -->
         <PagesKvartirsFilter />
 
-        <!--  -->
-        <UiButton
-          title="По умолчанию"
-          color="var(--black)"
-          bg="#f1f4f4"
-          @btn-click="sortHandler"
-          class="sort"
-        >
-          <template #img_right>
-            <ImagesSort class="sort__img" />
-          </template>
-        </UiButton>
+        <!-- сортировка -->
+        <PagesKvartirsSort />
       </div>
 
       <!-- Вывод карточек -->
@@ -107,7 +113,14 @@ const sortHandler = () => {
       </div>
 
       <!--  -->
-      <UiButton title="Показать больше" color="var(--black)" bg="var(--cloud-light)" class="more" />
+      <UiButton
+        v-if="moreBtn"
+        title="Показать больше"
+        color="var(--black)"
+        bg="var(--cloud-light)"
+        @btn-click="moreHandler"
+        class="more"
+      />
 
       <!--  -->
       <div class="desc_nedvizh">
@@ -173,24 +186,6 @@ const sortHandler = () => {
   display: flex;
   column-gap: 24px;
   margin-bottom: 42px;
-}
-
-/*  */
-
-.sort {
-  width: 230px;
-  height: 61px;
-  font-size: 18px;
-  font-weight: 600;
-  border-radius: 12px;
-  justify-content: space-between;
-  padding: 0 24px;
-}
-
-.sort__img {
-  width: 20px;
-  height: 20px;
-  color: #898989;
 }
 
 /*  */

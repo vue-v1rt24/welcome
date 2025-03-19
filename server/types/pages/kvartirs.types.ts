@@ -22,6 +22,8 @@ export type TypeFrontFilter = {
   buildingType: string; // 'кирпичный',
   heatingSupply: string; // 'Да / Нет',
   parkingType: string; // 'подземная'
+
+  more: string;
 };
 
 // Для дополнительного фильтра (Открыть фильтр)

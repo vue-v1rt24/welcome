@@ -2,6 +2,9 @@ import prisma from '~/lib/prisma';
 
 import { TypeFrontFilter } from '~/server/types/pages/kvartirs.types';
 
+// id крайнего запроса (для постраничной навигации)
+let cursorId: string | null = null;
+
 export default defineEventHandler(async (event) => {
   const query = getQuery(event) as TypeFrontFilter;
   const table = getActiveTable();
@@ -154,8 +157,16 @@ export default defineEventHandler(async (event) => {
   }
   // /Построение запроса
 
+  // Сброс курсора постраничной навигации
+  if (!query.more) {
+    cursorId = null;
+  }
+
   // Запрос
   const res = await prisma[table].findMany({
+    take: 16,
+    skip: cursorId ? 1 : 0,
+    cursor: cursorId ? { id: cursorId } : undefined,
     where: renderQueryDB,
     select: {
       id: true,
@@ -167,13 +178,16 @@ export default defineEventHandler(async (event) => {
       floorsTotal: true,
       location: true,
     },
-    skip: 0,
-    take: 16,
   });
+
+  // Установка курсора для постраничной навигации
+  cursorId = res[15]?.id;
+  // console.log(cursorId);
 
   //
   return {
     title,
+    cursorId,
     res,
   };
 });

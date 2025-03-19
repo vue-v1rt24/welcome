@@ -4,7 +4,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   //
-  modules: ['@nuxt/image', '@prisma/nuxt', 'nuxt-scheduler', 'nuxt-viewport'],
+  // modules: ['@nuxt/image', '@prisma/nuxt', 'nuxt-scheduler', 'nuxt-viewport'],
+  modules: ['@prisma/nuxt', 'nuxt-scheduler', 'nuxt-viewport'],
 
   //
   runtimeConfig: {},
@@ -35,8 +36,8 @@ export default defineNuxtConfig({
   },
 
   // Настройка изображений (плагин @nuxt/image)
-  image: {
-    domains: ['https://storage.yandexcloud.net'],
+  /* image: {
+    domains: ['https://storage.yandexcloud.net', 'https://2bishop.ru'],
     screens: {
       screen320: 320,
       screen576: 576,
@@ -47,7 +48,7 @@ export default defineNuxtConfig({
       screen1280: 1280,
       screen1920: 1920,
     },
-  },
+  }, */
 
   // Настройка размеров разрешения экрана (плагин nuxt-viewport)
   viewport: {
