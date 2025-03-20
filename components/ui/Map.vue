@@ -1,66 +1,105 @@
 <script setup lang="ts">
-import type { YMapLocationRequest } from '@yandex/ymaps3-types';
+import type { YMapLocationRequest, LngLat, YMap } from '@yandex/ymaps3-types';
+
+const { cardData } = defineProps<{
+  cardData: { address: string; coords: number[] };
+}>();
 
 //
-const { apiYandexCardKey } = useRuntimeConfig().public;
+const elCard = useTemplateRef('app');
+let map: YMap | null = null;
 
 //
-useHead({
-  script: [
-    { src: `https://api-maps.yandex.ru/v3/?apikey=${apiYandexCardKey}&lang=ru_RU`, defer: true },
-  ],
-});
-
-//
-const app = useTemplateRef('app');
-
 onMounted(async () => {
+  await ymaps3.ready.then(() => {
+    ymaps3.import.registerCdn(
+      'https://cdn.jsdelivr.net/npm/{package}',
+      '@yandex/ymaps3-default-ui-theme@0.0',
+    );
+  });
+
+  const LOCATION: YMapLocationRequest = {
+    center: cardData.coords as LngLat,
+    zoom: 15,
+  };
+
+  // Ожидание загрузки всех элементов api
   // await ymaps3.ready;
   const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer } = ymaps3;
 
-  // Настройки карты
-  const LOCATION: YMapLocationRequest = {
-    center: [37.588144, 55.733842],
-    zoom: 9,
-  };
+  // Импортируйте пакет, чтобы добавить маркер по умолчанию
+  // @ts-ignore
+  const { YMapDefaultMarker } = await ymaps3.import('@yandex/ymaps3-default-ui-theme');
 
-  // Создание карты
-  const map = new YMap(app.value!, {
-    location: LOCATION,
-    // showScaleInCopyrights: true, // Покажите масштаб карты рядом с авторским правом
-  });
-
-  // Добавляем слой для отображения схематической карты (передаём тему карты)
-  map.addChild(
-    new YMapDefaultSchemeLayer({
-      // customization: settingsMap as [], // файл с темой. Подключаем в верху (import settingsMap from '~/components/footer/Locations/mapSettings.json';)
-    }),
+  // Инициализируйте карту
+  map = new YMap(
+    // Передайте ссылку на HTMLЭлемент контейнера
+    elCard.value!,
+    // Передайте параметры инициализации карты
+    { location: LOCATION },
+    [
+      // Добавьте слой схемы карты
+      new YMapDefaultSchemeLayer({}),
+      // Добавьте слой геообъектов для отображения маркеров
+      new YMapDefaultFeaturesLayer({}),
+    ],
   );
 
-  // Добавьте слой для маркеров
-  map.addChild(new YMapDefaultFeaturesLayer({}));
+  // Создайте маркеры по умолчанию и добавьте их на карту
+  const marker = new YMapDefaultMarker({
+    coordinates: cardData.coords as LngLat,
+    title: cardData.address,
+    // color: 'lavender',
+    size: 'normal',
+    iconName: 'fallback',
+  });
 
-  // Метки
-  /* const markerStavropol = new YMapDefaultMarker({
-  coordinates: [45.066418, 42.013739],
-  color: 'lightgreen',
-  size: 'normal',
-  iconName: 'fallback',
-} as YMapDefaultMarkerProps);
-map.addChild(markerStavropol);
+  // Добавляем маркеры на карту
+  map.addChild(marker);
+});
 
-const markerMixailovsk = new YMapDefaultMarker({
-  coordinates: [45.074235, 41.94332],
-  color: 'lightgreen',
-  size: 'normal',
-  iconName: 'fallback',
-} as YMapDefaultMarkerProps);
-map.addChild(markerMixailovsk); */
+//
+onUnmounted(() => {
+  if (map && map.destroy) {
+    map.destroy();
+  }
 });
 </script>
 
 <template>
-  <div ref="app" style="width: 600px; height: 400px"></div>
+  <div ref="app" class="card">
+    <NuxtLink class="card__link" to="/">Смотреть объект</NuxtLink>
+  </div>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.card {
+  position: relative;
+  width: 1192px;
+  height: 660px;
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+/*  */
+.card__link {
+  position: absolute;
+  bottom: 42px;
+  left: 42px;
+  width: 194px;
+  height: 58px;
+
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--white);
+
+  background-color: var(--primary);
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1;
+}
+</style>

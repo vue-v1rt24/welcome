@@ -23,9 +23,14 @@ const { card } = defineProps<{
   };
 }>();
 
-// Карта
-const viewCart = () => {
-  console.log(card.location.latitude, card.location.longitude);
+//
+const emit = defineEmits<{
+  cardData: [address: string, coords: number[]];
+}>();
+
+// Отправка координат карты
+const sendCoords = () => {
+  emit('cardData', card.location.address, [+card.location.longitude, +card.location.latitude]);
 };
 </script>
 
@@ -55,8 +60,7 @@ const viewCart = () => {
       </div>
 
       <!--  -->
-      <div class="card__map" @click="viewCart">Смотреть на карте</div>
-      <!-- <UiMap /> -->
+      <div class="card__map" @click="sendCoords">Смотреть на карте</div>
     </div>
   </div>
 </template>

@@ -179,8 +179,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Запрос
-  // const res = await prisma[table].findMany({
-  const res = await prisma.realty.findMany({
+  const res = await prisma[table].findMany({
     take: 16,
     skip: cursorId ? 1 : 0,
     cursor: cursorId ? { id: cursorId } : undefined,

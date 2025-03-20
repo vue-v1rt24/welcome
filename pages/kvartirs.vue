@@ -2,6 +2,8 @@
 const route = useRoute();
 // console.log(route.query);
 
+const { apiYandexCardKey } = useRuntimeConfig().public;
+
 //
 const { data: apartments } = await useFetch('/api/pages/kvartirs', {
   query: route.query,
@@ -32,7 +34,7 @@ watch(
   },
 );
 
-// ============ Фильтрация по кнопкам
+// ============ Фильтрация по отдельным кнопкам
 // Кнопки фильтров
 const btns = [
   { title: 'Однокомнатные', type: '1' },
@@ -50,6 +52,7 @@ const btnFilterHandler = async (btnData: { title: string; type: string }) => {
     },
   });
 };
+// ============ /Фильтрация по отдельным кнопкам
 
 // Клик по кнопке "Показать больше"
 const moreHandler = async () => {
@@ -65,6 +68,16 @@ const moreHandler = async () => {
 
   // Установка значения для кнопки "Показать больше"
   moreBtn.value = res.cursorId;
+};
+
+// Передача координат карты в карту
+const modal = useTemplateRef('modal');
+const cardData = ref<{ address: string; coords: number[] } | null>(null);
+
+const sendCardData = (address: string, coords: number[]) => {
+  console.log(address, coords);
+  cardData.value = { address, coords };
+  modal.value?.modalOpen();
 };
 </script>
 
@@ -109,7 +122,13 @@ const moreHandler = async () => {
 
       <!-- Вывод карточек -->
       <div class="cards_wrap">
-        <PagesKvartirsCard v-for="(card, idx) in apartments?.res" :key="card.id" :idx :card />
+        <PagesKvartirsCard
+          v-for="(card, idx) in apartments?.res"
+          :key="card.id"
+          :idx
+          :card
+          @card-data="sendCardData"
+        />
       </div>
 
       <!--  -->
@@ -152,6 +171,11 @@ const moreHandler = async () => {
         </div>
       </div>
     </div>
+
+    <!-- Карта -->
+    <UiModal ref="modal" @close-modal="cardData = null">
+      <LazyUiMap v-if="cardData?.coords.length" :card-data="cardData" />
+    </UiModal>
   </section>
 </template>
 
