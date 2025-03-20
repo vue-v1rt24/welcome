@@ -4,6 +4,9 @@ export const useTheme = () => useState('theme', () => false);
 // Для фона модальных окон
 export const useBgModal = () => useState('modalBg', () => false);
 
+// Для фона загрузчика
+export const useBgLoading = () => useState('bgLoading', () => false);
+
 // Для открытия и закрытия модального окна меню категорий
 export const useOpenClosedMenuCategories = () => useState('openMenuCategories', () => false);
 

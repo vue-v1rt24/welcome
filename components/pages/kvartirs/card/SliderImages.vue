@@ -17,7 +17,7 @@ const {
 }>();
 
 //
-const swiper = ref<Swiper | null>(null);
+let swiper: Swiper | null = null;
 
 const controller = new AbortController();
 const { signal } = controller;
@@ -27,7 +27,7 @@ const swiperRef = useTemplateRef('swiperRef');
 
 //
 onMounted(() => {
-  swiper.value = new Swiper(`.swiper-${idx}`, {
+  swiper = new Swiper(`.swiper-${idx}`, {
     modules: [Pagination],
     pagination: {
       el: '.swiper-pagination',
@@ -39,16 +39,16 @@ onMounted(() => {
   swiperRef.value?.addEventListener(
     'mousemove',
     (evt: MouseEvent) => {
-      if (!swiper.value) return;
+      if (!swiper) return;
 
-      const sliderLength = swiper.value.slides.length;
+      const sliderLength = swiper.slides.length;
 
       if (sliderLength > 1) {
-        const sliderWidth = swiper.value.width;
+        const sliderWidth = swiper.width;
         const sliderPath = Math.round(sliderWidth / sliderLength);
         const sliderMousePos = evt.clientX - swiperRef.value!.offsetLeft;
         const sliderSlide = Math.floor(sliderMousePos / sliderPath);
-        swiper.value.slideTo(sliderSlide);
+        swiper.slideTo(sliderSlide);
       }
     },
     { signal },
@@ -57,8 +57,8 @@ onMounted(() => {
 
 //
 onUnmounted(() => {
-  if (swiper.value && swiper.value.destroy) {
-    swiper.value.destroy();
+  if (swiper && swiper.destroy) {
+    swiper.destroy();
   }
 
   controller.abort();

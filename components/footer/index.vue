@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const bgModal = useBgModal();
+const bgLoading = useBgLoading();
 
 //
 watch(
@@ -17,6 +18,11 @@ watch(
     <!--  -->
     <Transition name="bgModal">
       <LazyBgModal v-if="bgModal" @close="bgModal = !bgModal" />
+    </Transition>
+
+    <!--  -->
+    <Transition name="bgModal">
+      <LazyUiLoading v-if="bgLoading" />
     </Transition>
   </footer>
 </template>

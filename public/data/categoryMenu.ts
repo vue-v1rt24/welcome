@@ -3,11 +3,11 @@ export const categoryMenu = [
     title: 'Квартиры',
     image: '/images/nedvizhimost/kvartirs.jpg',
     items: [
-      { title: 'Однокомнатные', link: '/kvartirs?type=odnokomnatnie' },
-      { title: 'Двухкомнатные', link: '/kvartirs?type=dvuxkomnatnie' },
-      { title: 'Трёх и более', link: '/kvartirs?type=trexkomnatnie' },
-      { title: 'Квартиры-студии', link: '/kvartirs?type=studii' },
-      { title: 'Свободная планировка', link: '/kvartirs?type=svobodnayaplanirovka' },
+      { title: 'Однокомнатные', link: '/kvartirs?rooms=1' },
+      { title: 'Двухкомнатные', link: '/kvartirs?rooms=2' },
+      { title: 'Трёх и более', link: '/kvartirs?rooms=5' },
+      { title: 'Квартиры-студии', link: '/kvartirs?rooms=0' },
+      { title: 'Свободная планировка', link: '/kvartirs?rooms=6' },
     ],
   },
   {

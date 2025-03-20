@@ -2,7 +2,8 @@
 const route = useRoute();
 // console.log(route.query);
 
-const { apiYandexCardKey } = useRuntimeConfig().public;
+// Фон загрузки
+const bgLoading = useBgLoading();
 
 //
 const { data: apartments } = await useFetch('/api/pages/kvartirs', {
@@ -19,6 +20,10 @@ const moreBtn = ref(apartments.value?.cursorId);
 watch(
   () => route.query,
   async (val) => {
+    // Фон загрузки
+    bgLoading.value = true;
+
+    //
     const res = await $fetch('/api/pages/kvartirs', {
       query: route.query,
     });
@@ -31,6 +36,9 @@ watch(
 
     // Установка значения для кнопки "Показать больше"
     moreBtn.value = res.cursorId;
+
+    // Убираем фон загрузки
+    bgLoading.value = false;
   },
 );
 
@@ -56,6 +64,10 @@ const btnFilterHandler = async (btnData: { title: string; type: string }) => {
 
 // Клик по кнопке "Показать больше"
 const moreHandler = async () => {
+  // Фон загрузки
+  bgLoading.value = true;
+
+  //
   const res = await $fetch('/api/pages/kvartirs', {
     query: {
       ...route.query,
@@ -68,15 +80,18 @@ const moreHandler = async () => {
 
   // Установка значения для кнопки "Показать больше"
   moreBtn.value = res.cursorId;
+
+  // Убираем фон загрузки
+  bgLoading.value = false;
 };
 
 // Передача координат карты в карту
 const modal = useTemplateRef('modal');
-const cardData = ref<{ address: string; coords: number[] } | null>(null);
+const cardData = ref<{ address: string; coords: number[]; link: string } | null>(null);
 
-const sendCardData = (address: string, coords: number[]) => {
+const sendCardData = (address: string, coords: number[], link: string) => {
   console.log(address, coords);
-  cardData.value = { address, coords };
+  cardData.value = { address, coords, link };
   modal.value?.modalOpen();
 };
 </script>
@@ -129,6 +144,9 @@ const sendCardData = (address: string, coords: number[]) => {
           :card
           @card-data="sendCardData"
         />
+
+        <!--  -->
+        <span v-if="!apartments.res.length">Объектов недвижимости не найдено</span>
       </div>
 
       <!--  -->
@@ -174,7 +192,7 @@ const sendCardData = (address: string, coords: number[]) => {
 
     <!-- Карта -->
     <UiModal ref="modal" @close-modal="cardData = null">
-      <LazyUiMap v-if="cardData?.coords.length" :card-data="cardData" />
+      <LazyUiMapNedvizhimost v-if="cardData?.coords.length" :card-data="cardData" />
     </UiModal>
   </section>
 </template>

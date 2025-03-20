@@ -25,20 +25,27 @@ const { card } = defineProps<{
 
 //
 const emit = defineEmits<{
-  cardData: [address: string, coords: number[]];
+  cardData: [address: string, coords: number[], link: string];
 }>();
 
 // Отправка координат карты
 const sendCoords = () => {
-  emit('cardData', card.location.address, [+card.location.longitude, +card.location.latitude]);
+  emit(
+    'cardData',
+    card.location.address,
+    [+card.location.longitude, +card.location.latitude],
+    card.id,
+  );
 };
 </script>
 
 <template>
   <div class="card">
-    <div class="card__images">
-      <PagesKvartirsCardSliderImages :idx :images="card.image" />
-    </div>
+    <NuxtLink class="card__link" :to="`/realty/${card.id}`">
+      <div class="card__images">
+        <PagesKvartirsCardSliderImages :idx :images="card.image" />
+      </div>
+    </NuxtLink>
 
     <!--  -->
     <div class="card__content">
@@ -70,6 +77,11 @@ const sendCoords = () => {
   width: 378px;
   border-radius: 32px;
   overflow: hidden;
+}
+
+/*  */
+.card__link {
+  color: inherit;
 }
 
 /*  */
@@ -143,10 +155,12 @@ const sendCoords = () => {
 /*  */
 
 .card__map {
+  position: relative;
   font-weight: 400;
   font-size: 14px;
   line-height: 125%;
   color: #0982e6;
   cursor: pointer;
+  z-index: 2;
 }
 </style>

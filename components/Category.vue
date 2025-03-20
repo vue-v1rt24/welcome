@@ -12,17 +12,22 @@ defineProps<{
 
 //
 const viewport = useViewport();
+const bgModal = useBgModal();
 </script>
 
 <template>
   <li class="pc__item">
     <div class="pc__item_left">
-      <NuxtLink :to="category.items[0].link" class="pc__item_title">
+      <NuxtLink :to="category.items[0].link" @click="bgModal = false" class="pc__item_title">
         <span>{{ category.title }}</span>
         <img src="/images/nedvizhimost/arrowNedvizh.svg" alt="" />
       </NuxtLink>
 
-      <div v-if="viewport.isGreaterOrEquals('screen1201')" class="pc__item_links">
+      <div
+        v-if="viewport.isGreaterOrEquals('screen1201')"
+        @click="bgModal = false"
+        class="pc__item_links"
+      >
         <NuxtLink v-for="item in category.items" :key="item.title" :to="item.link">
           {{ item.title }}
         </NuxtLink>

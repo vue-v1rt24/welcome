@@ -2,7 +2,7 @@
 import type { YMapLocationRequest, LngLat, YMap } from '@yandex/ymaps3-types';
 
 const { cardData } = defineProps<{
-  cardData: { address: string; coords: number[] };
+  cardData: { address: string; coords: number[]; link: string };
 }>();
 
 //
@@ -68,7 +68,7 @@ onUnmounted(() => {
 
 <template>
   <div ref="app" class="card">
-    <NuxtLink class="card__link" to="/">Смотреть объект</NuxtLink>
+    <NuxtLink class="card__link" :to="`/realty/${cardData.link}`">Смотреть объект</NuxtLink>
   </div>
 </template>
 
