@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { EnumSwitchBtn } from '~/types/nedvizhimost.types';
+
+//
 const route = useRoute();
 // console.log(route.query);
 
@@ -15,6 +18,9 @@ const activeBtnFilter = ref(apartments.value?.title);
 
 // Для вывода кнопки "Показать больше"
 const moreBtn = ref(apartments.value?.cursorId);
+
+// Для переключения вида карточек
+const switchVal = ref<EnumSwitchBtn>(EnumSwitchBtn.two);
 
 // Отслеживание изменения Гет параметров для отправки запроса на получение данных
 watch(
@@ -131,12 +137,15 @@ const sendCardData = (address: string, coords: number[], link: string) => {
         <!-- Фильтр в модальном окне -->
         <PagesKvartirsFilter />
 
-        <!-- сортировка -->
+        <!-- Сортировка -->
         <UiFilterSort />
+
+        <!-- Переключение вывода карточек -->
+        <UiFilterSwitchBtns v-model="switchVal" />
       </div>
 
       <!-- Вывод карточек -->
-      <div class="cards_wrap">
+      <div :class="['cards_wrap', switchVal]">
         <PagesKvartirsCard
           v-for="(card, idx) in apartments?.res"
           :key="card.id"
@@ -234,8 +243,13 @@ const sendCardData = (address: string, coords: number[], link: string) => {
 
 .cards_wrap {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+
+  /*  */
+  &.single {
+    grid-template-columns: 1fr;
+  }
 }
 
 /*  */

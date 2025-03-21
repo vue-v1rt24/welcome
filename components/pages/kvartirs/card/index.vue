@@ -18,10 +18,22 @@ const { card } = defineProps<{
       localityName: string;
       subLocalityName: string;
     };
+    salesAgent: {
+      phone: string;
+      category: string;
+      organization: string;
+      name: string;
+      url: string;
+      email: string;
+      photo: string;
+      whatsappPhone: string;
+    };
     price: number;
     rooms: number;
   };
 }>();
+
+console.log(card);
 
 //
 const emit = defineEmits<{
@@ -77,6 +89,11 @@ const sendCoords = () => {
   width: 378px;
   border-radius: 32px;
   overflow: hidden;
+
+  /*  */
+  .single & {
+    width: 100%;
+  }
 }
 
 /*  */

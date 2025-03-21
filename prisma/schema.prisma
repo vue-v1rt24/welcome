@@ -30,6 +30,7 @@ model Realty {
   balcony           String?
   image             Json?
   location          Json?
+  salesAgent        Json?
   lotArea           Float?
   manuallyAdded     Int?
   mortgage          Int?
@@ -86,6 +87,7 @@ model RealtyTwo {
   balcony           String?
   image             Json?
   location          Json?
+  salesAgent        Json?
   lotArea           Float?
   manuallyAdded     Int?
   mortgage          Int?

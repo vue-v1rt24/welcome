@@ -30,6 +30,17 @@ export type TypeDB = {
     region?: string;
     subLocalityName?: string; // Район
   };
+  // *
+  salesAgent: {
+    phone: string; // Номер телефона / +79624480348
+    category: string; // агентство
+    organization: string; // Организация / АН Welcome
+    name: string; // Сотрудник / Мелихова Анастасия Викторовна
+    url: string; // Сайт / welcome26.ru
+    email: string; // Почта / 89624480348wel@mail.ru
+    photo: string; // Фото сотрудника / https://2bishop.ru/files/avatars/agph_26018_44jpeg.jpg
+    whatsappPhone: string; // Номер ватсапа / +79624480348
+  };
   lotArea?: { unit: string; value: string }; // value число (Размер участка)
   manuallyAdded?: TypeBoolean; // строка "0" или "1" (добавлено вручную)
   mortgage?: TypeBoolean; // строка "0" или "1" (ипотека)

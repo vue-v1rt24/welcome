@@ -68,6 +68,7 @@ export const renderDB = async () => {
           balcony: offer.balcony?.length ? offer.balcony : null,
           image: offer.image?.length ? offer.image : Prisma.JsonNull,
           location: offer.location ? offer.location : Prisma.JsonNull,
+          salesAgent: offer.salesAgent ? offer.salesAgent : Prisma.JsonNull,
           lotArea: offer.lotArea?.value ? +offer.lotArea.value : null,
           manuallyAdded: offer.manuallyAdded?.length ? +offer.manuallyAdded : 0,
           mortgage: offer.mortgage?.length ? +offer.mortgage : 0,

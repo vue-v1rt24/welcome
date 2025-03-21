@@ -194,6 +194,7 @@ export default defineEventHandler(async (event) => {
       floor: true,
       floorsTotal: true,
       location: true,
+      salesAgent: true,
     },
   });
 
