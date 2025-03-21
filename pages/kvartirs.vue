@@ -190,7 +190,7 @@ const sendCardData = (address: string, coords: number[], link: string) => {
       </div>
     </div>
 
-    <!-- Карта -->
+    <!-- Карта в модальном окне -->
     <UiModal ref="modal" @close-modal="cardData = null">
       <LazyUiMapNedvizhimost v-if="cardData?.coords.length" :card-data="cardData" />
     </UiModal>
