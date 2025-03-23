@@ -1,4 +1,8 @@
 <script setup lang="ts">
+const router = useRouter();
+const viewport = useViewport();
+
+//
 defineProps<{
   breadcrumbs: { title: string; link?: string }[];
   white?: boolean;
@@ -7,7 +11,7 @@ defineProps<{
 
 <template>
   <div :class="['breadcrumbs_bx', { white }]">
-    <nav class="breadcrumbs">
+    <nav v-if="viewport.isGreaterThan('screen576')" class="breadcrumbs">
       <NuxtLink to="/">Главная</NuxtLink>
       <span class="breadcrumbs_delimiter">/</span>
 
@@ -17,6 +21,12 @@ defineProps<{
         <template v-else>{{ item.title }}</template>
       </template>
     </nav>
+
+    <!--  -->
+    <button v-else class="breadcrumbs__arrow" type="button" @click="router.back()">
+      <ImagesArrowRight class="breadcrumbs__arrow_img" />
+      <span>Вернуться назад</span>
+    </button>
   </div>
 </template>
 
@@ -24,14 +34,19 @@ defineProps<{
 /* Хлебные крошки */
 .breadcrumbs_bx {
   background-color: transparent;
+  padding-top: 52px;
 
   /*  */
+  @media (max-width: 1280px) {
+    padding-top: 42px;
+  }
+
   @media (max-width: 768px) {
-    padding: 42px 0 62px 0;
+    padding-top: 28px;
   }
 
   @media (max-width: 567px) {
-    padding: 32px 0 42px 0;
+    padding-top: 14px;
   }
 }
 
@@ -50,8 +65,8 @@ defineProps<{
   gap: 14px;
 
   /*  */
-  @media (max-width: 576px) {
-    font-size: 12px;
+  @media (max-width: 768px) {
+    font-size: 14px;
   }
 }
 
@@ -81,6 +96,26 @@ defineProps<{
   margin: 0;
 }
 
-.white .breadcrumbs_delimiter {
+/*  */
+
+.breadcrumbs__arrow {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--gray);
+  background-color: transparent;
+  border: 2px solid var(--line-gray);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  padding: 8px 14px;
+}
+
+.breadcrumbs__arrow_img {
+  flex-shrink: 0;
+  width: 11px;
+  height: 11px;
+  color: #cfcfd0;
 }
 </style>

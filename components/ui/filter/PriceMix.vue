@@ -44,10 +44,15 @@ const changeVal = (evt: Event, currentDefineModel: 'ot' | 'do') => {
 <style lang="css" scoped>
 .price {
   display: flex;
-  column-gap: 20px;
+  column-gap: 50px;
   border: 2px solid var(--line-gray);
   border-radius: 12px;
   padding: 18px 24px;
+
+  /*  */
+  @media (max-width: 576px) {
+    padding: 16px 20px;
+  }
 }
 
 /*  */
@@ -62,10 +67,15 @@ const changeVal = (evt: Event, currentDefineModel: 'ot' | 'do') => {
     content: '';
     position: absolute;
     top: 4px;
-    right: -12px;
+    right: -27px;
     width: 2px;
     height: 18px;
     background-color: var(--line-gray);
+  }
+
+  /*  */
+  @media (max-width: 576px) {
+    font-size: 15px;
   }
 
   /*  */
@@ -80,12 +90,22 @@ const changeVal = (evt: Event, currentDefineModel: 'ot' | 'do') => {
   font-weight: 500;
   font-size: 17px;
   color: #abb2b3;
+
+  /*  */
+  @media (max-width: 576px) {
+    font-size: 15px;
+  }
 }
 
 .valuta {
   font-weight: 600;
   font-size: 17px;
   color: var(--gray-text);
+
+  /*  */
+  @media (max-width: 576px) {
+    font-size: 15px;
+  }
 }
 
 /*  */

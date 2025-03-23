@@ -3,6 +3,7 @@
 const { data: filterLocation, refresh } = await useFetch('/api/searchFilters/kvartirs');
 
 //
+const viewport = useViewport();
 const bgModal = useBgModal();
 
 // Переменные для полей ввода
@@ -142,7 +143,20 @@ watch(
     </UiFilterDropdown>
 
     <!-- Стоимость -->
-    <UiFilterPriceMix v-model:priceOt="queryData.priceOt" v-model:priceDo="queryData.priceDo" />
+    <UiFilterPriceMix
+      v-if="viewport.isGreaterOrEquals('screen769')"
+      v-model:priceOt="queryData.priceOt"
+      v-model:priceDo="queryData.priceDo"
+    />
+
+    <UiFilterDropdown
+      v-else
+      title="Цена"
+      :open="selectSwitch === 'price'"
+      @click-dropdown="dropdownHandler('price')"
+    >
+      <UiFilterPriceMix v-model:priceOt="queryData.priceOt" v-model:priceDo="queryData.priceDo" />
+    </UiFilterDropdown>
 
     <!-- Комнаты -->
     <UiFilterDropdown
@@ -264,9 +278,37 @@ watch(
 
 <style lang="css" scoped>
 .filter_kvartir {
-  display: flex;
-  column-gap: 16px;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 265px 1fr 177px 180px 258px 260px;
+  gap: 18px;
+
+  /*  */
+  @media (max-width: 1600px) {
+    grid-template-columns: 1fr 540px 1fr;
+    gap: 16px;
+
+    /*  */
+    :global(.dropdown__sub_wrap) {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 1280px) {
+    grid-template-columns: 1fr 540px 1fr;
+  }
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
 }
 
 /*  */
@@ -276,6 +318,11 @@ watch(
   display: flex;
   flex-direction: column;
   row-gap: 6px;
+
+  /*  */
+  @media (max-width: 1600px) {
+    width: 100%;
+  }
 
   /*  */
   .type__label {
@@ -288,6 +335,12 @@ watch(
 .rooms {
   display: flex;
   column-gap: 6px;
+
+  /*  */
+  @media (max-width: 1600px) {
+    flex-direction: column;
+    row-gap: 6px;
+  }
 }
 
 /*  */
@@ -301,14 +354,44 @@ watch(
   width: 344px;
   display: flex;
   column-gap: 12px;
+
+  /*  */
+  @media (max-width: 1600px) {
+    width: 100%;
+  }
+
+  @media (max-width: 1400px) {
+    flex-direction: column;
+    row-gap: 12px;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    row-gap: 12px;
+  }
+
+  @media (max-width: 650px) {
+    .label {
+      padding: 14px 24px;
+    }
+  }
 }
 
 /*  */
 
 .view_vars {
-  width: 239px;
   height: 63px;
   border-radius: 12px;
+
+  /*  */
+  @media (max-width: 768px) {
+    height: 58px;
+  }
+
+  @media (max-width: 576px) {
+    height: 52px;
+    font-size: 15px;
+  }
 }
 
 /*  */
@@ -341,5 +424,10 @@ watch(
 /*  */
 .location__select {
   width: 296px;
+
+  /*  */
+  @media (max-width: 1600px) {
+    width: 100%;
+  }
 }
 </style>

@@ -1,12 +1,14 @@
 <script setup lang="ts">
 const bgModal = useBgModal();
 const bgLoading = useBgLoading();
+const openClosedSearch = useOpenClosedSearch();
 
 //
 watch(
-  () => bgModal.value,
-  (val) => {
+  () => [bgModal.value, openClosedSearch.value],
+  ([val, val2]) => {
     document.body.classList.toggle('open_menu', val);
+    document.body.classList.toggle('search_filter', val2);
   },
 );
 </script>

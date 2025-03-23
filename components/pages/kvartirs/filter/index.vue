@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const viewport = useViewport();
+
+//
 const bgModal = useBgModal();
 const isOpenClosedPageFilter = useOpenClosedPageFilter();
 const isOpenMenu = useOpenClosedMenu();
@@ -9,9 +12,13 @@ const isOpenClosedSearch = useOpenClosedSearch();
 const filterPageCategoryWrap = useTemplateRef('filter_page_category_wrap');
 
 //
-const filterTitle = computed(() =>
-  isOpenClosedPageFilter.value ? 'Закрыть фильтр' : 'Открыть фильтр',
-);
+const filterTitle = computed(() => {
+  if (viewport.isLessThan('screen577')) {
+    return isOpenClosedPageFilter.value ? 'Фильтр' : 'Фильтр';
+  }
+
+  return isOpenClosedPageFilter.value ? 'Закрыть фильтр' : 'Открыть фильтр';
+});
 
 //
 const openFilter = () => {
@@ -85,6 +92,19 @@ watch(bgModal, (val) => {
   border-radius: 12px;
 
   /*  */
+  @media (max-width: 768px) {
+    width: 203px;
+    height: 56px;
+    font-size: 15px;
+  }
+
+  @media (max-width: 576px) {
+    width: 150px;
+    height: 43px;
+    font-size: 14px;
+  }
+
+  /*  */
   &.open_filter {
     z-index: 101;
   }
@@ -96,6 +116,17 @@ watch(bgModal, (val) => {
   flex-shrink: 0;
   width: 22px;
   height: 20px;
+
+  /*  */
+  @media (max-width: 768px) {
+    width: 18px;
+    height: 16px;
+  }
+
+  @media (max-width: 576px) {
+    width: 13px;
+    height: 13px;
+  }
 }
 
 /*  */

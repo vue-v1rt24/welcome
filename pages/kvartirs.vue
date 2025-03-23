@@ -108,7 +108,6 @@ const sendCardData = (address: string, coords: number[], link: string) => {
       <!-- Хлебные крошки -->
       <Breadcrumbs
         :breadcrumbs="[{ title: 'Недвижимость', link: '/nedvizhimost' }, { title: 'Квартиры' }]"
-        class="page_breadcrumbs"
       />
 
       <!-- Заголовок -->
@@ -141,7 +140,7 @@ const sendCardData = (address: string, coords: number[], link: string) => {
         <UiFilterSort />
 
         <!-- Переключение вывода карточек -->
-        <UiFilterSwitchBtns v-model="switchVal" />
+        <!-- <UiFilterSwitchBtns v-model="switchVal" /> -->
       </div>
 
       <!-- Вывод карточек -->
@@ -207,15 +206,32 @@ const sendCardData = (address: string, coords: number[], link: string) => {
 </template>
 
 <style lang="css" scoped>
-.page_breadcrumbs {
-  padding-top: 52px;
-}
-
-/*  */
-
 .filter_btns {
   display: flex;
   gap: 16px;
+  margin: 42px 0 52px 0;
+
+  /*  */
+  @media (max-width: 1280px) {
+    margin: 32px 0 42px 0;
+  }
+
+  @media (max-width: 992px) {
+    padding: 0 40px;
+    margin: 32px -40px 42px -40px;
+    overflow-x: auto;
+  }
+
+  @media (max-width: 768px) {
+    gap: 14px;
+    margin: 28px -40px 38px -40px;
+  }
+
+  @media (max-width: 576px) {
+    gap: 12px;
+    padding: 0 20px;
+    margin: 16px -20px 24px -20px;
+  }
 }
 
 /*  */
@@ -223,7 +239,12 @@ const sendCardData = (address: string, coords: number[], link: string) => {
   border: 2px solid var(--line-gray);
   border-radius: 10px;
   padding: 14px 16px;
-  margin: 42px 0 52px 0;
+
+  /*  */
+  @media (max-width: 576px) {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
 
   /*  */
   &.active {
@@ -237,6 +258,21 @@ const sendCardData = (address: string, coords: number[], link: string) => {
   display: flex;
   column-gap: 24px;
   margin-bottom: 42px;
+
+  /*  */
+  @media (max-width: 1280px) {
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 768px) {
+    column-gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 576px) {
+    column-gap: 17px;
+    margin-bottom: 24px;
+  }
 }
 
 /*  */
@@ -245,6 +281,20 @@ const sendCardData = (address: string, coords: number[], link: string) => {
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(4, 1fr);
+
+  /*  */
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
 
   /*  */
   &.single {
@@ -261,12 +311,38 @@ const sendCardData = (address: string, coords: number[], link: string) => {
   font-size: 17px;
   border-radius: 18px;
   margin-top: 42px;
+
+  /*  */
+  @media (max-width: 768px) {
+    height: 58px;
+    border-radius: 12px;
+    margin-top: 38px;
+  }
+
+  @media (max-width: 576px) {
+    height: 52px;
+    font-size: 15px;
+    margin-top: 24px;
+  }
 }
 
 /*  */
 
 .desc_nedvizh {
   margin-top: 120px;
+
+  /*  */
+  @media (max-width: 1280px) {
+    margin-top: 100px;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 90px;
+  }
+
+  @media (max-width: 576px) {
+    margin-top: 60px;
+  }
 }
 
 /*  */
@@ -274,6 +350,22 @@ const sendCardData = (address: string, coords: number[], link: string) => {
   font-weight: 500;
   font-size: 26px;
   margin-bottom: 32px;
+
+  /*  */
+  @media (max-width: 1280px) {
+    font-size: 24px;
+    margin-bottom: 18px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 18px;
+    margin-bottom: 18px;
+  }
 }
 
 /*  */
@@ -285,5 +377,14 @@ const sendCardData = (address: string, coords: number[], link: string) => {
   display: flex;
   flex-direction: column;
   row-gap: 20px;
+
+  /*  */
+  @media (max-width: 1280px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 14px;
+  }
 }
 </style>

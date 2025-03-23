@@ -86,9 +86,13 @@ const sendCoords = () => {
 
 <style lang="css" scoped>
 .card {
-  width: 378px;
   border-radius: 32px;
   overflow: hidden;
+
+  /*  */
+  @media (max-width: 1280px) {
+    border-radius: 26px;
+  }
 
   /*  */
   .single & {
@@ -104,6 +108,19 @@ const sendCoords = () => {
 /*  */
 .card__images {
   height: 245px;
+
+  /*  */
+  @media (max-width: 1366px) {
+    height: 180px;
+  }
+
+  @media (max-width: 768px) {
+    height: 216px;
+  }
+
+  @media (max-width: 576px) {
+    height: 207px;
+  }
 }
 
 /*  */
@@ -112,6 +129,16 @@ const sendCoords = () => {
   border: 2px solid var(--line-gray);
   border-radius: 0 0 32px 32px;
   padding: 24px;
+
+  /*  */
+  @media (max-width: 1280px) {
+    border-radius: 0 0 26px 26px;
+    padding: 20px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 18px;
+  }
 }
 
 /*  */
@@ -122,6 +149,15 @@ const sendCoords = () => {
   display: flex;
   column-gap: 8px;
   margin-bottom: 14px;
+
+  /*  */
+  @media (max-width: 1280px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 12px;
+  }
 }
 
 /*  */
@@ -133,6 +169,15 @@ const sendCoords = () => {
   display: flex;
   column-gap: 20px;
   margin-bottom: 14px;
+
+  /*  */
+  @media (max-width: 1280px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 
   /*  */
   li {
@@ -167,6 +212,12 @@ const sendCoords = () => {
   font-size: 16px;
   line-height: 125%;
   margin-bottom: 10px;
+
+  /*  */
+  @media (max-width: 1280px) {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
 }
 
 /*  */
@@ -177,6 +228,7 @@ const sendCoords = () => {
   font-size: 14px;
   line-height: 125%;
   color: #0982e6;
+  text-decoration: underline solid #0982e6;
   cursor: pointer;
   z-index: 2;
 }

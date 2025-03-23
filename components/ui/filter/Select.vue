@@ -99,6 +99,11 @@ watch(
   column-gap: 16px;
 
   cursor: pointer;
+
+  /*  */
+  @media (max-width: 576px) {
+    height: 50px;
+  }
 }
 
 /*  */

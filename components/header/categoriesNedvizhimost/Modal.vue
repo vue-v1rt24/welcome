@@ -7,11 +7,11 @@ defineProps<{
 </script>
 
 <template>
-  <ul class="pc_wrap">
-    <div class="pc style_scrollbar">
+  <div class="pc_wrap">
+    <ul class="pc style_scrollbar">
       <Category v-for="category in categoryMenu" :key="category.title" :category />
-    </div>
-  </ul>
+    </ul>
+  </div>
 </template>
 
 <style lang="css" scoped>
@@ -29,6 +29,7 @@ defineProps<{
   @media (max-width: 1700px) {
     left: 50%;
     translate: -50% 0;
+    width: 97%;
   }
 
   @media (max-width: 1200px) {
@@ -39,7 +40,6 @@ defineProps<{
 /*  */
 .pc {
   width: 100%;
-  height: 80vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
@@ -47,15 +47,16 @@ defineProps<{
   overflow-y: auto;
 
   /*  */
-  @media (max-width: 1700px) {
-    width: 97%;
-  }
-
   @media (max-width: 1200px) {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
   }
 
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /*  */
   @media (max-height: 1024px) {
     height: 70dvh;
     grid-template-columns: 1fr 1fr;

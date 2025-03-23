@@ -21,6 +21,12 @@ body {
   &.open_menu {
     overflow: hidden;
   }
+
+  &.search_filter {
+    @media (max-height: 1030px) {
+      overflow-y: auto;
+    }
+  }
 }
 
 /*  */

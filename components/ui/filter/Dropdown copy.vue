@@ -20,10 +20,8 @@ const slots = useSlots();
       <ImagesArrowDown class="dropdown__arrow" />
     </div>
 
-    <div class="dropdown__sub_wrap_contains">
-      <div v-if="slots.default" class="dropdown__sub_wrap">
-        <slot />
-      </div>
+    <div v-if="slots.default" class="dropdown__sub_wrap">
+      <slot />
     </div>
   </div>
 </template>
@@ -88,18 +86,6 @@ const slots = useSlots();
 }
 
 /*  */
-
-.dropdown__sub_wrap_contains {
-  display: contents; /* grid; */
-  grid-template-rows: 0fr;
-  overflow: hidden;
-  transition: grid-template-rows 0.3s;
-
-  /*  */
-  .open & {
-    grid-template-rows: 1fr;
-  }
-}
 
 .dropdown__sub_wrap {
   position: absolute;

@@ -62,7 +62,7 @@ watch(bgModal, (val) => {
   <!--  -->
   <MenuTransition>
     <div v-if="isOpenClosedSearch" class="header_filters_wrap">
-      <HeaderSearchFilters />
+      <LazyHeaderSearchFilters />
     </div>
   </MenuTransition>
 </template>
@@ -100,10 +100,62 @@ watch(bgModal, (val) => {
   top: 150px;
   left: 0;
   width: 100%;
-  height: 203px;
   background-color: var(--white);
   box-shadow: 0 2px 12px -3px rgba(0, 0, 0, 0.1);
   border-radius: 32px;
   padding: 32px;
+
+  /*  */
+  @media (max-width: 1800px) {
+    left: 20px;
+    width: calc(100% - 40px);
+  }
+
+  @media (max-width: 1280px) {
+    top: 132px;
+    padding: 20px;
+  }
+
+  @media (max-width: 1200px) {
+    top: 122px;
+  }
+
+  @media (max-width: 768px) {
+    top: 116px;
+    border-radius: 28px;
+  }
+
+  @media (max-width: 650px) {
+    height: 521px;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 576px) {
+    top: 87px;
+    left: 10px;
+    width: calc(100% - 20px);
+    height: 450px;
+    border-radius: 24px;
+  }
+}
+</style>
+
+<style>
+@media (max-width: 650px) {
+  .header_filters_wrap .dropdown__sub_wrap_contains {
+    display: grid !important;
+
+    & .dropdown__sub_wrap {
+      min-height: 0;
+      position: static !important;
+      padding: 0 !important;
+      box-shadow: none;
+
+      .open & {
+        padding: 16px;
+        margin-top: 10px;
+      }
+    }
+  }
 }
 </style>

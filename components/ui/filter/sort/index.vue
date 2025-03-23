@@ -109,13 +109,40 @@ const sortHandler = async (title: EnumSort) => {
   justify-content: space-between;
   column-gap: 32px;
   padding: 0 24px;
+
+  /*  */
+  @media (max-width: 768px) {
+    min-width: 190px;
+    height: 56px;
+    font-size: 15px;
+  }
+
+  @media (max-width: 576px) {
+    min-width: 150px;
+    height: 43px;
+    font-size: 14px;
+    column-gap: 10px;
+    padding: 12px 14px;
+  }
 }
 
 /*  */
 .sort__btn_img {
+  flex-shrink: 0;
   width: 20px;
   height: 20px;
   color: #898989;
+
+  /*  */
+  @media (max-width: 768px) {
+    width: 18px;
+    height: 16px;
+  }
+
+  @media (max-width: 576px) {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 /*  */
@@ -134,8 +161,22 @@ const sortHandler = async (title: EnumSort) => {
   row-gap: 6px;
   opacity: 0;
   pointer-events: none;
+  box-shadow: 0 0 10px 0 #cccccc;
   z-index: 2;
   transition: transform var(--speed-animate), opacity var(--speed-animate);
+
+  /*  */
+  @media (max-width: 768px) {
+    top: 70px;
+    border-radius: 20px;
+    padding: 16px;
+  }
+
+  @media (max-width: 576px) {
+    top: 60px;
+    left: -48px;
+    width: 200px;
+  }
 
   /*  */
   &.open {
@@ -150,5 +191,10 @@ const sortHandler = async (title: EnumSort) => {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /*  */
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 </style>

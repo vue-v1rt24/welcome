@@ -60,8 +60,22 @@ const currentFilter = computed(() =>
 <style lang="css" scoped>
 .filters_btn_wrap {
   display: flex;
-  column-gap: 12px;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 24px;
+
+  /*  */
+  @media (max-width: 768px) {
+    margin-bottom: 18px;
+  }
+
+  @media (max-width: 650px) {
+    flex-wrap: nowrap;
+    padding-bottom: 10px;
+    overflow-x: auto;
+    margin-bottom: 8px;
+    column-gap: 8px;
+  }
 }
 
 .filter_btn {
@@ -69,6 +83,17 @@ const currentFilter = computed(() =>
   font-size: 18px;
   border-radius: 8px;
   padding: 14px 24px;
+
+  /*  */
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding: 11px 18px;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
 }
 
 /*  */
