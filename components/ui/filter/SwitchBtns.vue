@@ -11,14 +11,14 @@ const modelValue = defineModel<EnumSwitchBtn>({ required: true });
       @click="modelValue = EnumSwitchBtn.single"
       :class="['switch__btn', { active: modelValue === EnumSwitchBtn.single }]"
     >
-      <ImagesSwitchBtnSingle class="switch__btn_el" />
+      <ImagesSwitchBtnSingle class="switch__btn_img" />
     </div>
 
     <div
       @click="modelValue = EnumSwitchBtn.two"
       :class="['switch__btn', { active: modelValue === EnumSwitchBtn.two }]"
     >
-      <ImagesSwitchBtnTwo class="switch__btn_el" />
+      <ImagesSwitchBtnTwo class="switch__btn_img" />
     </div>
   </div>
 </template>
@@ -28,6 +28,11 @@ const modelValue = defineModel<EnumSwitchBtn>({ required: true });
   display: flex;
   column-gap: 24px;
   margin-left: auto;
+
+  /*  */
+  @media (max-width: 768px) {
+    column-gap: 20px;
+  }
 }
 
 /*  */
@@ -43,16 +48,28 @@ const modelValue = defineModel<EnumSwitchBtn>({ required: true });
   cursor: pointer;
 
   /*  */
+  @media (max-width: 768px) {
+    width: 56px;
+    height: 56px;
+  }
+
+  /*  */
   &.active {
     background-color: var(--line-gray);
   }
 }
 
 /*  */
-.switch__btn_el {
+.switch__btn_img {
   width: 28px;
   height: 28px;
   color: var(--gray);
+
+  /*  */
+  @media (max-width: 768px) {
+    width: 24px;
+    height: 24px;
+  }
 
   /*  */
   .switch__btn.active & {

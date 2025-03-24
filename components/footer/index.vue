@@ -39,7 +39,9 @@ watch(
               <NuxtLink to="/nedvizhimost">Недвижимость</NuxtLink>
 
               <ul>
-                <li class="footer__menu-gray"><a href="#">Квартиры</a></li>
+                <li class="footer__menu-gray">
+                  <NuxtLink to="/kvartirs">Квартиры</NuxtLink>
+                </li>
 
                 <li class="footer__menu-gray"><a href="#">Новостройки</a></li>
 

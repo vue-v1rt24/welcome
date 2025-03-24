@@ -11,7 +11,7 @@ const {
   height = '100%',
 } = defineProps<{
   idx: number;
-  images: string[];
+  images: string[] | string | null;
   width?: string;
   height?: string;
 }>();
@@ -67,12 +67,27 @@ onUnmounted(() => {
 
 <template>
   <div :class="['swiper', 'swiper_card', `swiper-${idx}`]" ref="swiperRef">
-    <div class="swiper-wrapper">
+    <div v-if="images?.length && typeof images === 'object'" class="swiper-wrapper">
       <template v-for="(img, idx) in images" :key="img">
         <div v-if="idx < 5" class="swiper-slide">
           <img :src="img" alt="" loading="lazy" />
         </div>
       </template>
+    </div>
+
+    <div
+      v-if="images?.length && typeof images === 'string' && images.length"
+      class="swiper-wrapper"
+    >
+      <div class="swiper-slide">
+        <img :src="images" alt="" loading="lazy" />
+      </div>
+    </div>
+
+    <div v-else class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="/images/nedvizhimost/zaglushka_nedvizh.jpg" alt="" loading="lazy" />
+      </div>
     </div>
 
     <!-- Точки -->

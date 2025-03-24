@@ -5,6 +5,9 @@ import { EnumSwitchBtn } from '~/types/nedvizhimost.types';
 const route = useRoute();
 // console.log(route.query);
 
+//
+const viewport = useViewport();
+
 // Фон загрузки
 const bgLoading = useBgLoading();
 
@@ -21,6 +24,27 @@ const moreBtn = ref(apartments.value?.cursorId);
 
 // Для переключения вида карточек
 const switchVal = ref<EnumSwitchBtn>(EnumSwitchBtn.two);
+
+const switchViewTwo = () => {
+  const media750 = window.matchMedia('(max-width: 750px)');
+
+  const mediaHandler = (evt: MediaQueryListEvent | MediaQueryList) => {
+    if (evt.matches) {
+      if (switchVal.value == EnumSwitchBtn.single) {
+        switchVal.value = EnumSwitchBtn.two;
+      }
+    }
+  };
+
+  mediaHandler(media750);
+
+  media750.addEventListener('change', mediaHandler);
+};
+
+//
+onMounted(() => {
+  switchViewTwo();
+});
 
 // Отслеживание изменения Гет параметров для отправки запроса на получение данных
 watch(
@@ -140,7 +164,7 @@ const sendCardData = (address: string, coords: number[], link: string) => {
         <UiFilterSort />
 
         <!-- Переключение вывода карточек -->
-        <UiFilterSwitchBtns v-model="switchVal" />
+        <UiFilterSwitchBtns v-if="viewport.isGreaterOrEquals('screen751')" v-model="switchVal" />
       </div>
 
       <!-- Вывод карточек -->

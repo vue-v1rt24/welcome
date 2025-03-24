@@ -79,6 +79,35 @@ onUnmounted(() => {
   height: 660px;
   border-radius: 32px;
   overflow: hidden;
+
+  /*  */
+  @media (max-width: 1270px) {
+    width: 1000px;
+  }
+
+  @media (max-width: 1024px) {
+    width: 750px;
+  }
+
+  @media (max-width: 768px) {
+    width: 688px;
+    height: 688px;
+  }
+
+  @media (max-width: 720px) {
+    width: 500px;
+    height: 500px;
+  }
+
+  @media (max-width: 576px) {
+    width: 400px;
+    height: 713px;
+  }
+
+  @media (max-width: 430px) {
+    width: 350px;
+    height: 713px;
+  }
 }
 
 /*  */

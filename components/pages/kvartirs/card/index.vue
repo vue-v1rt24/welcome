@@ -35,7 +35,7 @@ const { card } = defineProps<{
   };
 }>();
 
-console.log(card);
+// console.log(card);
 
 //
 const emit = defineEmits<{
@@ -62,7 +62,7 @@ const cardPriceTelRef = useTemplateRef('cardPriceTel');
 const transferElements = () => {
   const media = window.matchMedia('(max-width: 1200px)');
 
-  media.addEventListener('change', (evt: MediaQueryListEvent) => {
+  const mediaHandler = (evt: MediaQueryListEvent | MediaQueryList) => {
     if (evt.matches) {
       cardWrapRef.value?.append(cardTextRef.value!);
       cardContentRef.value?.append(cardPriceTelRef.value!);
@@ -70,7 +70,11 @@ const transferElements = () => {
       cardContentRef.value?.append(cardTextRef.value!);
       cardRef.value?.append(cardPriceTelRef.value!);
     }
-  });
+  };
+
+  mediaHandler(media);
+
+  media.addEventListener('change', mediaHandler);
 };
 
 //
@@ -160,6 +164,16 @@ onMounted(() => {
   border: 2px solid var(--line-gray);
   padding: 42px;
 
+  /*  */
+  @media (max-width: 1280px) {
+    border-radius: 26px;
+    padding: 32px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 18px;
+  }
+
   /* Горизонтальный вид */
   .single & {
     display: block;
@@ -215,6 +229,12 @@ onMounted(() => {
     overflow: hidden;
 
     /*  */
+    @media (max-width: 1268px) {
+      width: 400px;
+      height: 260px;
+    }
+
+    /*  */
     @media (max-width: 992px) {
       width: 316px;
       height: 225px;
@@ -248,6 +268,16 @@ onMounted(() => {
     padding: 0;
     margin-left: 42px;
     margin-right: 30px;
+
+    /*  */
+    @media (max-width: 1280px) {
+      margin-left: 30px;
+    }
+
+    @media (max-width: 768px) {
+      margin-left: 20px;
+      margin-right: 0;
+    }
   }
 }
 
@@ -442,13 +472,24 @@ onMounted(() => {
     display: flex;
     column-gap: 24px;
     margin-top: auto;
+
+    /*  */
+    @media (max-width: 768px) {
+      column-gap: 14px;
+    }
   }
 
   /*  */
   .card__price_tel__bx2_link {
     width: 152px;
-    height: 59px;
+    height: 60px;
     border-radius: 12px;
+
+    /*  */
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 43px;
+    }
   }
 
   /*  */
@@ -456,6 +497,12 @@ onMounted(() => {
     width: 60px;
     height: 60px;
     border-radius: 10px;
+
+    /*  */
+    @media (max-width: 768px) {
+      width: 43px;
+      height: 43px;
+    }
   }
 
   /*  */
