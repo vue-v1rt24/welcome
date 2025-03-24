@@ -10,7 +10,6 @@ html {
 /*  */
 body {
   min-width: 360px;
-  height: 300vh;
   font-family: var(--font-family);
   font-size: 18px;
   color: var(--black);
@@ -95,4 +94,12 @@ input:not([type='number']):not([type='text']):not([type='tel']) {
     background-color: var(--gray);
     border-radius: 12px;
   }
+}
+
+/*  */
+.dots_text {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

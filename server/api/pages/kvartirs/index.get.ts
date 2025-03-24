@@ -187,6 +187,8 @@ export default defineEventHandler(async (event) => {
     orderBy: query.sort ? renderOrderBy : { creationDate: 'desc' },
     select: {
       id: true,
+      description: true,
+      buildingName: true,
       image: true,
       price: true,
       rooms: true,

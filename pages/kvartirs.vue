@@ -140,7 +140,7 @@ const sendCardData = (address: string, coords: number[], link: string) => {
         <UiFilterSort />
 
         <!-- Переключение вывода карточек -->
-        <!-- <UiFilterSwitchBtns v-model="switchVal" /> -->
+        <UiFilterSwitchBtns v-model="switchVal" />
       </div>
 
       <!-- Вывод карточек -->
@@ -296,7 +296,7 @@ const sendCardData = (address: string, coords: number[], link: string) => {
     grid-template-columns: 1fr;
   }
 
-  /*  */
+  /* Горизонтальный вид */
   &.single {
     grid-template-columns: 1fr;
   }

@@ -51,123 +51,75 @@ const sendCoords = () => {
     card.id,
   );
 };
-
-// Перемещение элементов для горизонтального вида
-const cardWrapRef = useTemplateRef('cardWrap');
-const cardRef = useTemplateRef('card');
-const cardContentRef = useTemplateRef('cardContent');
-const cardTextRef = useTemplateRef('cardText');
-const cardPriceTelRef = useTemplateRef('cardPriceTel');
-
-const transferElements = () => {
-  const media = window.matchMedia('(max-width: 1200px)');
-
-  media.addEventListener('change', (evt: MediaQueryListEvent) => {
-    if (evt.matches) {
-      cardWrapRef.value?.append(cardTextRef.value!);
-      cardContentRef.value?.append(cardPriceTelRef.value!);
-    } else {
-      cardContentRef.value?.append(cardTextRef.value!);
-      cardRef.value?.append(cardPriceTelRef.value!);
-    }
-  });
-};
-
-//
-onMounted(() => {
-  transferElements();
-});
 </script>
 
 <template>
-  <div class="card_wrap" ref="cardWrap">
-    <div class="card" ref="card">
-      <NuxtLink class="card__link" :to="`/realty/${card.id}`">
-        <div class="card__images">
-          <PagesKvartirsCardSliderImages :idx :images="card.image" />
-        </div>
-      </NuxtLink>
+  <div class="card">
+    <NuxtLink class="card__link" :to="`/realty/${card.id}`">
+      <div class="card__images">
+        <PagesKvartirsCardSliderImages :idx :images="card.image" />
+      </div>
+    </NuxtLink>
+
+    <!--  -->
+    <div class="card__content">
+      <div class="card__price">
+        <span>{{ formatNumber(card.price) }}</span>
+        <span>₽</span>
+      </div>
 
       <!--  -->
-      <div class="card__content" ref="cardContent">
+      <ul class="card__kvar">
+        <li>{{ card.rooms }}-комн.</li>
+        <li>{{ card.area }} м<sup>2</sup></li>
+        <li>{{ card.floor }}/{{ card.floorsTotal }} эт.</li>
+      </ul>
+
+      <!--  -->
+      <div class="card__address">
+        {{ card.location.address }}
+      </div>
+
+      <!--  -->
+      <div class="card__map" @click="sendCoords">Смотреть на карте</div>
+
+      <!--  -->
+      <p class="card__text dots_text" data-allow-mismatch>{{ card.description }}</p>
+    </div>
+
+    <!--  -->
+    <div class="card__price_tel">
+      <div class="card__price_tel__bx1">
         <div class="card__price">
           <span>{{ formatNumber(card.price) }}</span>
           <span>₽</span>
         </div>
 
         <!--  -->
-        <ul class="card__kvar">
-          <li>{{ card.rooms }}-комн.</li>
-          <li>{{ card.area }} м<sup>2</sup></li>
-          <li>{{ card.floor }}/{{ card.floorsTotal }} эт.</li>
-        </ul>
-
-        <!--  -->
-        <div class="card__address">
-          {{ card.location.address }}
+        <div v-if="!card?.buildingName" class="card__price_tel__gk">
+          <!-- {{ card.buildingName }} -->
+          ЖК “Параллель”
         </div>
-
-        <!--  -->
-        <div class="card__map" @click="sendCoords">Смотреть на карте</div>
-
-        <!--  -->
-        <p class="card__text dots_text" ref="cardText" data-allow-mismatch>
-          {{ card.description }}
-        </p>
       </div>
 
       <!--  -->
-      <div class="card__price_tel" ref="cardPriceTel">
-        <div class="card__price_tel__bx1">
-          <div class="card__price card__price_horizon">
-            <span>{{ formatNumber(card.price) }}</span>
-            <span>₽</span>
-          </div>
+      <div class="card__price_tel__bx2">
+        <UiLink class="card__price_tel__bx2_link" :link="`/realty/${card.id}`" title="Подробнее" />
 
-          <!--  -->
-          <div v-if="!card?.buildingName" class="card__price_tel__gk">
-            <!-- {{ card.buildingName }} -->
-            ЖК “Параллель”
-          </div>
-        </div>
-
-        <!--  -->
-        <div class="card__price_tel__bx2">
-          <UiLink
-            class="card__price_tel__bx2_link"
-            :link="`/realty/${card.id}`"
-            title="Подробнее"
-          />
-
-          <UiLink
-            class="card__price_tel__bx2_tel"
-            external
-            :link="`tel:${card.salesAgent.phone}`"
-            bg="var(--cloud-light)"
-          >
-            <ImagesTel class="card__price_tel__bx2_link_img" />
-          </UiLink>
-        </div>
+        <UiLink
+          class="card__price_tel__bx2_tel"
+          external
+          :link="`tel:${card.salesAgent.phone}`"
+          bg="var(--cloud-light)"
+        >
+          <ImagesTel class="card__price_tel__bx2_link_img" />
+        </UiLink>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="css" scoped>
-.card_wrap {
-  display: contents;
-  border-radius: 32px;
-  border: 2px solid var(--line-gray);
-  padding: 42px;
-
-  /* Горизонтальный вид */
-  .single & {
-    display: block;
-  }
-}
-
-/*  */
-
 .card {
   border-radius: 32px;
   overflow: hidden;
@@ -180,8 +132,9 @@ onMounted(() => {
   /* Горизонтальный вид */
   .single & {
     width: 100%;
+    border: 2px solid var(--line-gray);
     display: flex;
-    border-radius: 0;
+    padding: 42px;
   }
 }
 
@@ -213,12 +166,6 @@ onMounted(() => {
     height: 266px;
     border-radius: 24px;
     overflow: hidden;
-
-    /*  */
-    @media (max-width: 992px) {
-      width: 316px;
-      height: 225px;
-    }
   }
 }
 
@@ -270,7 +217,7 @@ onMounted(() => {
   }
 
   /* Горизонтальный вид */
-  .single .card__content &:not(.card__price_horizon) {
+  .single .card__content & {
     display: none;
   }
 }
@@ -326,12 +273,6 @@ onMounted(() => {
     font-size: 24px;
     line-height: 125%;
     color: var(--black);
-
-    /*  */
-    @media (max-width: 992px) {
-      font-size: 18px;
-      margin-bottom: 12px;
-    }
   }
 }
 
@@ -374,12 +315,6 @@ onMounted(() => {
   color: var(--gray-text);
   margin-top: auto;
 
-  /*  */
-  @media (max-width: 1200px) {
-    font-size: 15px;
-    margin-top: 18px;
-  }
-
   /* Горизонтальный вид */
   .single & {
     display: -webkit-box;
@@ -394,34 +329,14 @@ onMounted(() => {
   margin-left: auto;
 
   /*  */
-  @media (max-width: 1200px) {
-    margin-left: 0;
-    margin-top: auto;
-  }
-
-  /*  */
   .single & {
     display: flex;
   }
 
   /*  */
 
-  .card__price_tel__bx1 {
-    @media (max-width: 1200px) {
-      display: flex;
-      align-items: center;
-      column-gap: 18px;
-      margin-bottom: 20px;
-    }
-  }
-
   .card__price {
     margin-bottom: 12px;
-
-    /*  */
-    @media (max-width: 1200px) {
-      margin-bottom: 0;
-    }
   }
 
   /*  */
@@ -429,11 +344,6 @@ onMounted(() => {
     font-weight: 400;
     font-size: 16px;
     line-height: 125%;
-
-    /*  */
-    @media (max-width: 992px) {
-      font-size: 14px;
-    }
   }
 
   /*  */
