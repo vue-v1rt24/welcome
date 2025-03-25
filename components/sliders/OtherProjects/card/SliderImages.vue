@@ -46,10 +46,12 @@ onMounted(() => {
 
       if (sliderLength > 1) {
         const sliderWidth = swiper.width;
-        const sliderPath = Math.round(sliderWidth / sliderLength);
+        /* const sliderPath = Math.round(sliderWidth / sliderLength);
         const sliderMousePos = evt.clientX - swiperRef.value!.offsetLeft;
         const sliderSlide = Math.floor(sliderMousePos / sliderPath);
-        swiper.slideTo(sliderSlide);
+        swiper.slideTo(sliderSlide); */
+
+        // console.log(swiperRef.value?.offsetLeft);
       }
     },
     { signal },

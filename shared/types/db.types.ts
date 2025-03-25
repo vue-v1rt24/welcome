@@ -52,7 +52,7 @@ export type TypeDB = {
   lift?: TypeBoolean; // строка "0" или "1" (лифт)
   price?: { currency?: string; value?: string }; // Цена / value число (стоимость жилья или помещения) *
   propertyType?: string; // тип недвижимости (жилая)
-  renovation?: string; // Состояние / строка (к примеру: косметический, дизайнерский) *
+  renovation?: string; // Состояние (Ремонт) / строка (к примеру: косметический, дизайнерский) *
   type?: string; // строка (продажа, аренда)
   dealStatus?: string; // статус сделки (прямая продажа, переуступка)
   waterSupply?: TypeBooleanYesNo; // строка "да" или "нет" (водоснабжение)
